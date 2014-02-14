@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>SECA Utility 2</title>
+        </f:facet>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/seca-main.css" />
+    </h:head>
+    <h:body>
+        <h:panelGroup id="main-container" layout="block">
+            <h:panelGroup layout="block" id="top">
+                <p:menubar >
+                    <p:submenu label="File" icon="ui-icon-document">
+                        <p:submenu label="New" icon="ui-icon-contact">
+                            <p:menuitem value="Project" url="#" />
+                            <p:menuitem value="Other" url="#" />
+                        </p:submenu>
+                        <p:menuitem value="Open" url="#" />
+                        <p:menuitem value="Quit" url="#" />
+                    </p:submenu>
+                    <p:submenu label="Edit" icon="ui-icon-pencil">
+                        <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w"></p:menuitem>
+                        <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e"></p:menuitem>
+                    </p:submenu>
+                    <p:submenu label="Help" icon="ui-icon-help">
+                        <p:menuitem value="Contents" url="#" />
+                        <p:submenu label="Search" icon="ui-icon-search">
+                            <p:submenu label="Text">
+                                <p:menuitem value="Workspace" url="#" />
+                            </p:submenu>
+                            <p:menuitem value="File" url="#" />
+                        </p:submenu>
+                    </p:submenu>
+                </p:menubar>
+            </h:panelGroup>
+            <h:panelGroup id="content" layout="block">
+                <p:accordionPanel styleClass="accordion-panel">
+                    <p:tab title="1) Upload a File" titleStyleClass="accordion-tab" >
+                        <h:form>  
+                            <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}" mode="advanced"  
+                                          update="messages" auto="true" sizeLimit="10000000000" allowTypes="/(\.|\/)(TXT|txt|jpe?g|csv)$/"/>  
+                            <p:growl id="messages" showDetail="true"/>  
+                        </h:form>  
+                    </p:tab>
+                    <p:tab title="2) Search Sequences" titleStyleClass="accordion-tab" >
+                        <!--<p:orderList styleClass="ordered-list" value="#{fileList.files}" var="file"  
+                                     itemValue="#{file}" controlsLocation="none" id="customList">  
+                            <f:facet name="caption">Uploaded files</f:facet>  
+
+                            <p:column styleClass="file-list-left" >  
+                                <strong>#{file.FILENAME}</strong>
+                            </p:column>  
+
+                            <p:column styleClass="file-list-right" >  
+                                Uploaded by <strong>#{file.CREATED__BY}</strong><br/>
+                                on #{file.DATE_CREATED}  
+                            </p:column>  
+                        </p:orderList>-->
+                        <p:dataTable var="file" value="#{fileList.largeFiles}"  
+                                     scrollHeight="100" 
+                                     scrollable="true" 
+                                     liveScroll="true"
+                                     scrollRows="5" id="livescrolltable">
+                            <p:column headerText="File Name">
+                                #{file.FILENAME}
+                            </p:column>
+                            <p:column headerText="Date created">
+                                #{file.DATE_CREATED}
+                            </p:column>
+                            <p:column headerText="Created by">
+                                #{file.CREATED__BY}
+                            </p:column>
+                        </p:dataTable>
+                    </p:tab>
+                    <p:tab title="3) Reset File (Danger!)" titleStyleClass="accordion-tab" >
+                        
+                    </p:tab>
+                </p:accordionPanel>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:body>
+</html>
+

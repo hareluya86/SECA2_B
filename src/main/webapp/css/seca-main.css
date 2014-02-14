@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 11, 2014, 10:15:03 PM
+    Author     : KH
+*/
+
+body {
+    margin: 0px;
+    padding: 0;
+    color: #616161;
+    font-size: 12px;
+    font-family: Arial, Helvetica, Verdana, Sans-serif;
+}
+
+#main-container {
+    width:950px;
+    margin: 0 auto;
+}
+
+#content {
+    border: 1px black solid;
+    height: 80vh;
+}
+
+.ui-widget {//exists in every primefaces component!
+    
+}
+
+.accordion-panel {
+    
+}
+
+.accordion-tab {
+    font-size: 1.5em;
+    
+}
+/*.accordion-tab*/ .ui-accordion-content {
+    
+}
+
+
+
+.ordered-list {
+    float: left;
+}
+
+.ui-orderlist-item {
+}
+
+.file-list-left {
+    //width: 200px;
+}
+
+.file-list-right {
+    //width: 250px;
+    font-size: 11px;
+}
