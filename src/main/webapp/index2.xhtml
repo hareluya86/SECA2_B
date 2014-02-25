@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>SECA 2 Web Services</title>
+            </f:facet>
+        </h:head>
+        
+        <ui:composition template="#{template.template}">
+            <h:body>
+                <h:panelGroup layout="block" id="menu-block">
+                    <ui:include src="menu.xhtml" />
+                </h:panelGroup>
+                <h:panelGroup layout="block" id="main-container">
+                    <ui:include src=""
+                </h:panelGroup>
+            </h:body>
+        </ui:composition>
+    </f:view>
+</html>
