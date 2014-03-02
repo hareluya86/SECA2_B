@@ -1,9 +1,11 @@
-package Component.Entity.Search.Impl;
+package Component.Entity.Search.Demo;
 
 import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
 import EDS.BusinessUnit.EnterpriseUnit;
 import EDS.BusinessUnit.Test.TestUnit;
+import EDS.BusinessUnit.Test.TestUnit_;
+import SECA2.File.FileEntity;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,15 +17,15 @@ import EDS.BusinessUnit.Test.TestUnit;
  *
  * @author KH
  */
-public class EntitySearchFactoryImpl extends EntitySearchFactory {
+public class EntitySearchFactoryDemo extends EntitySearchFactory {
 
     @Override
     public EntitySearch getEntitySearch(String entityUnitType) {
         
         //Testing using TestUnit
-        if(entityUnitType.equalsIgnoreCase("TestUnit")){
-            EntitySearch<TestUnit> result = new EntitySearchImpl<TestUnit>();
-            
+        if(entityUnitType.equalsIgnoreCase("File")){
+            EntitySearch<FileEntity> result = new EntitySearchDemo<FileEntity>();
+            //result.setMetaClass(TestUnit_.class);
             return result;
         }
         else{

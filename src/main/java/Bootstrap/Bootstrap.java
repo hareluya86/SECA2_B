@@ -6,38 +6,16 @@
 
 package Bootstrap;
 
-import Template.Template;
-import java.util.Map;
-import javax.faces.bean.ManagedBean;
 
 /**
- *
+ * Factory class that initializes all application parameters and launch application 
+ * components based on request parameters. 
+ * 
  * @author KH
  */
-@ManagedBean(name="bootstrap")
-public class Bootstrap {
+public abstract class Bootstrap {
     
-    /**
-     * Decides which component to load
-     * <p>
-     * This method will return the directory of the current component.
-     * @return 
-     */
-    public String getComponent(){
-        //1. Get request parameter "component"
-        
-        //2. Search database for which xhtml file to load
-        
-        //3. Return xhtml directory
-        return "component/entity/layout.xhtml";
-    }
-    
-    public String getTemplete(){
-        //1. Get request parameter "user"
-        
-        //2. Search database for user settings
-        
-        //3. Return the directory of the template layout.xhtml file
-        return "templates/mytemplate/layout.xhtml";
+    public static Bootstrap bootstrap(){
+        return new BootstrapDemo();
     }
 }

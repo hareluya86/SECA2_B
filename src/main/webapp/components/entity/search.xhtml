@@ -6,21 +6,33 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <h:panelGroup layout="block" id="search-main">
-            <h:panelGroup layout="block" id="search-criteria">
-                <p:panelGrid id="search-criteria-table" columns="2">
-                    <p:outputLabel value="Filename" />
-                    <p:inputText value="#{entitysearch.eu}">
-                        <p:ajax update="search-results-list" listener="" />
-                    </p:inputText>
+            <h:form id="search-form">
+                <h:panelGroup layout="block" id="search-criteria">
+                    <p:panelGrid id="search-criteria-table" columns="2">
+                        <p:outputLabel value="Filename: " />
+                        <p:inputText id="filename">
+                            <p:ajax event="keyup" update="search-results-list" listener="#{bootstrap.entitySearch.search}" />
+                        </p:inputText>
+
+
+                    </p:panelGrid>
+                </h:panelGroup>
+                <h:panelGroup layout="block" id="search-results">
+                    <h:outputText value="this is a datagrid" />
+                    <!--<p:dataGrid id="search-results-list" var="file" value="#{bootstrap.entitySearch.results}" columns="1" rows="10" >
+                        <h:outputText value="this is a panel menu" />
+                        <p:panel header="#{file.FILENAME}" >
+                            Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}
+                        </p:panel>
+                    </p:dataGrid>-->
+                    <p:accordionPanel id="search-results-list" var="file" value="#{bootstrap.entitySearch.results}"  >
+                        <p:tab title="#{file.FILENAME}">
+                            Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}
+                        </p:tab>
+                    </p:accordionPanel>
                     
-                    
-                </p:panelGrid>
-            </h:panelGroup>
-            <h:panelGroup layout="block" id="search-results">
-                <p:dataGrid id="search-results-list" var="" value="" columns="1" rows="10" >
-                    
-                </p:dataGrid>
-            </h:panelGroup>
+                </h:panelGroup>
+            </h:form>
         </h:panelGroup>
     </ui:composition>
 </html>

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package SECA2.mockup;
+package SECA2.File;
 
 import EDS.BusinessUnit.EnterpriseUnit;
 import EDS.Data.EnterpriseKey;
@@ -40,9 +40,10 @@ public class FileEntity extends EnterpriseUnit {
         DateMidnight dm = new DateMidnight();
         LocalDate ld = new LocalDate();
         java.sql.Date sqlDate = new java.sql.Date(ld.toDate().getTime());
+        int user = (int)(Math.random()*12345);
         
         this.setDATE_CREATED(sqlDate);
-        
+        this.setCREATED_BY("User "+user);
     }
 
     @Override

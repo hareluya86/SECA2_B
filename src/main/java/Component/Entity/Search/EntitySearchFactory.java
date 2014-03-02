@@ -6,7 +6,7 @@
 
 package Component.Entity.Search;
 
-import Component.Entity.Search.Impl.EntitySearchFactoryImpl;
+import Component.Entity.Search.Demo.EntitySearchFactoryDemo;
 import EDS.BusinessUnit.EnterpriseUnit;
 
 /**
@@ -21,7 +21,7 @@ public abstract class EntitySearchFactory {
      * This method will produce an EntitySearchFactory object.
      */
     public static EntitySearchFactory getEntitySearchFactory(){
-        return new EntitySearchFactoryImpl();
+        return new EntitySearchFactoryDemo();
     }
     
     public abstract EntitySearch getEntitySearch(String entityUnitType);

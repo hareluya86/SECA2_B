@@ -7,6 +7,7 @@
 package Component.Entity.Search;
 
 import EDS.BusinessUnit.EnterpriseUnit;
+import EDS.BusinessUnit.EnterpriseUnit_;
 import java.util.Collection;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -37,5 +38,26 @@ public interface EntitySearch<T extends EnterpriseUnit> {
      * 
      * @return  Returns the most updated result list
      */
-    public Collection<EnterpriseUnit> getResults();
+    public Collection<T> getResults();
+    
+    /**
+     * Returns the underlying metaclass.
+     * <p>
+     * 
+     * @return EnterpriseUnit_ The underlying metaclass.
+     */
+    public EnterpriseUnit_ getMetaClass();
+    
+    /**
+     * Sets the underlying metaclass.
+     * <p>
+     * Stores only 1 metaclass. If this is called multiple times, getMetaClass()
+     * will return the latest metaclass set by this method. If null is passed as
+     * a parameter, the underlying metaclass will be assigned as null.
+     * 
+     * @param EnterpriseUnit_   The underlying metaclass to be set.
+     */
+    public void setMetaClass(Class EnterpriseUnit_);
+    
+    public String getResult();
 }

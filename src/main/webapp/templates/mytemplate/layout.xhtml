@@ -5,12 +5,18 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <f:view contentType="text/html">
+        <h:head>
+            <h:outputStylesheet name="templates/mytemplate/mytemplate.css" library="styles" />
+            <link href="templates/mytemplate/mytemplate.css" type="text/css" />
+        </h:head>
         <h:panelGroup layout="block" id="container">
             <h:panelGroup layout="block" id="header">
-                
+                #{bootstrap.elements['header']}
             </h:panelGroup>
             <h:panelGroup layout="block" id="content">
-                <h:outputText value="This is a text field" />
+                
+                <ui:insert name="search" />
+                
                 
             </h:panelGroup>
         </h:panelGroup>

@@ -19,7 +19,7 @@ public abstract class AbstractEntitySearch<T extends EnterpriseUnit> implements 
     /**
      * 
      */
-    protected Collection<T> resultList;
+    protected Collection<T> results;
     protected EnterpriseUnit_ entityUnitMetaClass;
-    
+    protected String result;
 }
