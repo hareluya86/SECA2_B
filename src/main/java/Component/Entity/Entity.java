@@ -12,15 +12,19 @@ import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Named;
 
 /**
  * This is just an implementation of the Component class. It is 
  * @author KH
  */
+@Named("entity")
+@URLMapping(id="entity", pattern="/entity",viewId="/faces/index.xhtml")
 public class Entity extends Component {
 
     public Entity(){
         this.COMPONENT_DIRECTORY = "/components/entity/layout.xhtml";
+        System.out.println("Entity is called!");
     }
     
     public long getCOMPONENT_ID() {

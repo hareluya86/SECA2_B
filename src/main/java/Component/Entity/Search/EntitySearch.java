@@ -10,7 +10,6 @@ import EDS.BusinessUnit.EnterpriseUnit;
 import EDS.BusinessUnit.EnterpriseUnit_;
 import java.util.Collection;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
 
 /**
  *

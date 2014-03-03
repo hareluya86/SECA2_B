@@ -10,23 +10,27 @@ import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
-import com.ocpsoft.pretty.faces.annotation.URLMappings;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author KH
  */
 
-@ManagedBean(name="bootstrap")
-@URLMappings(mappings={
-    @URLMapping(id="component", pattern="/#{bootstrap.component}",viewId="/faces/index.xhtml"),
-})
-public class BootstrapDemo extends Bootstrap {
+
+//@URLMappings(mappings={
+    @URLMapping(id="module", pattern="/#{bootstrap.module}",viewId="/faces/index.xhtml")//,
+//})
+@Named("bootstrap")
+@SessionScoped
+public class BootstrapDemo extends Bootstrap implements Serializable {
     
-    private String component;
+    private String module;
     private String template;
     private String program;
     
@@ -37,18 +41,20 @@ public class BootstrapDemo extends Bootstrap {
         elements = new HashMap<String,Object>();
         elements.put("header", "this is the header from the map object");
         
-        EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
-        entitySearch = esf.getEntitySearch("File");
+        System.out.println("Bootstrap is called from constructor! "+module);
+        
     }
     /**
-     * Decides which component to load
+     * Decides which module to load
      * <p>
-     * This method will return the directory of the current component.
+ This method will return the directory of the current module.
      * @return //Must return something in order for the rest of the application to work?
+     * if i return String then it is not called when searching
+     * if i return void then it is called when searching
      */
-    @URLAction(mappingId="component", onPostback=false)
-    public String loadComponent2(){
-        //1. Get request parameter "component"
+    @URLAction(mappingId="module", onPostback=false)
+    public void loadModule(){
+        //1. Get request parameter "module"
         
         //2. Search database for which xhtml file to load
         
@@ -56,26 +62,30 @@ public class BootstrapDemo extends Bootstrap {
         ComponentFactory cf = ComponentFactory.getComponentFactory();
         Component c;
         
-        if(component == null || component.isEmpty()){
+        if(module == null || module.isEmpty()){
             c = cf.getComponent();
         }else{
-            c = cf.getComponent(component);
+            c = cf.getComponent(module);
         }
         elements.put("component", c);
-        return c.getCOMPONENT_DIRECTORY();
+        //return c.getCOMPONENT_DIRECTORY();
         //return "/components/entity/layout.xhtml";
+        EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
+        entitySearch = esf.getEntitySearch("File");
+        System.out.println("Bootstrap is called from load! "+module);
+        
     }
     
     public String loadProgram(){
-        return "/components/"+component+"/"+program+".xhtml";
+        return "/components/"+module+"/"+program+".xhtml";
     }
     
     public String getComponent(){
-        return this.component;
+        return this.module;
     }
     
     public void setComponent(String component){
-        this.component = component;
+        this.module = component;
     }
     
     public String loadTemplate(){
