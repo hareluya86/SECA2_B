@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * A Component is a broad overview of a set of functionalities. For example,
+ * A Program is a broad overview of a set of functionalities. For example,
  * the Entity component contains a set of functionalities to manipulate entities;
  * the Authorization component contains a set of functionalities to control 
  * access by users, the User component contains a set of functionalities to 
@@ -19,57 +19,57 @@ import java.util.Map;
  * <p>
  * @author KH
  */
-public abstract class Component implements EnterpriseObject {
+public abstract class Program implements EnterpriseObject {
     
-    protected long COMPONENT_ID;
-    protected String COMPONENT_NAME;
-    protected String COMPONENT_DIRECTORY;
-    protected Map<String,Object> COMPONENT_PARAM;
-    protected Collection<Program> COMPONENT_PROGRAMS;
-
+    protected long PROGRAM_ID;
+    protected String PROGRAM_NAME;
+    protected String PROGRAM_DIRECTORY;
+    protected String PROGRAM_XHTML;
+    protected Map<String,Object> PROGRAM_PARAM;
+    
     @Override
     public String tableName(){
-        return "COMPONENT";
+        return "PROGRAM";
     }
 
-    public long getCOMPONENT_ID() {
-        return COMPONENT_ID;
+    public long getPROGRAM_ID() {
+        return PROGRAM_ID;
     }
 
-    public void setCOMPONENT_ID(long COMPONENT_ID) {
-        this.COMPONENT_ID = COMPONENT_ID;
+    public void setPROGRAM_ID(long PROGRAM_ID) {
+        this.PROGRAM_ID = PROGRAM_ID;
     }
 
-    public String getCOMPONENT_NAME() {
-        return COMPONENT_NAME;
+    public String getPROGRAM_NAME() {
+        return PROGRAM_NAME;
     }
 
-    public void setCOMPONENT_NAME(String COMPONENT_NAME) {
-        this.COMPONENT_NAME = COMPONENT_NAME;
+    public void setPROGRAM_NAME(String PROGRAM_NAME) {
+        this.PROGRAM_NAME = PROGRAM_NAME;
     }
 
-    public String getCOMPONENT_DIRECTORY() {
-        return COMPONENT_DIRECTORY;
+    public String getPROGRAM_DIRECTORY() {
+        return PROGRAM_DIRECTORY;
     }
 
-    public void setCOMPONENT_DIRECTORY(String COMPONENT_DIRECTORY) {
-        this.COMPONENT_DIRECTORY = COMPONENT_DIRECTORY;
+    public void setPROGRAM_DIRECTORY(String PROGRAM_DIRECTORY) {
+        this.PROGRAM_DIRECTORY = PROGRAM_DIRECTORY;
     }
 
-    public Map<String, Object> getCOMPONENT_PARAM() {
-        return COMPONENT_PARAM;
+    public String getPROGRAM_XHTML() {
+        return PROGRAM_XHTML;
     }
 
-    public void setCOMPONENT_PARAM(Map<String, Object> COMPONENT_PARAM) {
-        this.COMPONENT_PARAM = COMPONENT_PARAM;
+    public void setPROGRAM_XHTML(String PROGRAM_XHTML) {
+        this.PROGRAM_XHTML = PROGRAM_XHTML;
     }
 
-    public Collection<Program> getCOMPONENT_PROGRAMS() {
-        return COMPONENT_PROGRAMS;
+    public Map<String, Object> getPROGRAM_PARAM() {
+        return PROGRAM_PARAM;
     }
 
-    public void setCOMPONENT_PROGRAMS(Collection<Program> COMPONENT_PROGRAMS) {
-        this.COMPONENT_PROGRAMS = COMPONENT_PROGRAMS;
+    public void setPROGRAM_PARAM(Map<String, Object> PROGRAM_PARAM) {
+        this.PROGRAM_PARAM = PROGRAM_PARAM;
     }
     
     

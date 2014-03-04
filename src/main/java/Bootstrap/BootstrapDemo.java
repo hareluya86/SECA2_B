@@ -8,8 +8,12 @@ package Bootstrap;
 
 import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
+import Template.Template;
+import Template.TemplateFactory;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,9 +27,10 @@ import javax.inject.Named;
  */
 
 
-//@URLMappings(mappings={
-    @URLMapping(id="module", pattern="/#{bootstrap.module}",viewId="/faces/index.xhtml")//,
-//})
+@URLMappings(mappings={
+    @URLMapping(id="home", pattern="/",viewId="/faces/index.xhtml"),
+    @URLMapping(id="program", pattern="/#{bootstrap.program}",viewId="/faces/index.xhtml"),
+})
 @Named("bootstrap")
 @SessionScoped
 public class BootstrapDemo extends Bootstrap implements Serializable {
@@ -42,7 +47,6 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         elements.put("header", "this is the header from the map object");
         
         System.out.println("Bootstrap is called from constructor! "+module);
-        
     }
     /**
      * Decides which module to load
@@ -52,49 +56,43 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
      * if i return String then it is not called when searching
      * if i return void then it is called when searching
      */
-    @URLAction(mappingId="module", onPostback=false)
-    public void loadModule(){
-        //1. Get request parameter "module"
+    @URLActions(actions={
+        @URLAction(mappingId="home", onPostback=false),
+        @URLAction(mappingId="program", onPostback=false)
+    })
+    public void loadProgram(){
+        ProgramFactory cf = ProgramFactory.getComponentFactory();
+        Program p;
         
-        //2. Search database for which xhtml file to load
-        
-        //3. Return xhtml directory
-        ComponentFactory cf = ComponentFactory.getComponentFactory();
-        Component c;
-        
-        if(module == null || module.isEmpty()){
-            c = cf.getComponent();
+        if(program == null || program.isEmpty()){
+            p = cf.getProgram(); //get the default program
         }else{
-            c = cf.getComponent(module);
+            p = cf.getProgram(program);
         }
-        elements.put("component", c);
+        elements.put("program", p);
         //return c.getCOMPONENT_DIRECTORY();
         //return "/components/entity/layout.xhtml";
         EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
         entitySearch = esf.getEntitySearch("File");
-        System.out.println("Bootstrap is called from load! "+module);
+        System.out.println("Bootstrap is called from load! "+program);
         
     }
     
-    public String loadProgram(){
-        return "/components/"+module+"/"+program+".xhtml";
-    }
-    
-    public String getComponent(){
-        return this.module;
-    }
-    
-    public void setComponent(String component){
-        this.module = component;
-    }
-    
-    public String loadTemplate(){
-        //1. Get request parameter "user"
+    @URLActions(actions={
+        @URLAction(mappingId="home", onPostback=false),
+        @URLAction(mappingId="program", onPostback=false)
+    })
+    public void loadTemplate(){
+        TemplateFactory tf = TemplateFactory.getTemplateFactory();
+        Template t;
         
-        //2. Search database for user settings
-        
-        //3. Return the directory of the template layout.xhtml file
-        return "/templates/mytemplate/layout.xhtml";
+        //Decide which template to load base on User component
+        if(template == null || template.isEmpty()){
+            t = tf.getTemplate();
+        }else{
+            t = tf.getTemplate(template);
+        }
+        elements.put("template", t);
     }
     
     public String getTemplate(){
@@ -129,5 +127,11 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         this.program = program;
     }
     
+    public String getModule(){
+        return this.module;
+    }
     
+    public void setModule(String module){
+        this.module = module;
+    }
 }

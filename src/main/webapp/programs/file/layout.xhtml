@@ -4,12 +4,12 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <ui:composition template="#{bootstrap.loadTemplate()}">
+    <ui:composition template="#{bootstrap.elements['template'].TEMPLATE_XHTML}">
         <ui:define name="search">
             <ui:include src="search.xhtml" />
         </ui:define>
         <ui:define name="program">
-            <ui:include src="program.xhtml" />
+            
         </ui:define>
     </ui:composition>
 </html>

@@ -6,19 +6,19 @@
 
 package Bootstrap;
 
-import Bootstrap.Demo.ComponentFactoryDemo;
+import Bootstrap.Demo.ProgramFactoryDemo;
 
 /**
  *
  * @author KH
  */
-public abstract class ComponentFactory {
+public abstract class ProgramFactory {
     
-    public static ComponentFactory getComponentFactory(){
-        return new ComponentFactoryDemo();
+    public static ProgramFactory getComponentFactory(){
+        return new ProgramFactoryDemo();
     }
     
-    public abstract Component getComponent();
+    public abstract Program getProgram();
     
-    public abstract Component getComponent(String component);
+    public abstract Program getProgram(String program);
 }

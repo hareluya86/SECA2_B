@@ -6,31 +6,30 @@
 
 package Bootstrap.Demo;
 
-import Bootstrap.Component;
-import Bootstrap.ComponentFactory;
-import Component.Entity.Entity;
+import Bootstrap.Program;
+import Bootstrap.ProgramFactory;
 
 /**
  *
  * @author KH
  */
-public class ComponentFactoryDemo extends ComponentFactory {
+public class ProgramFactoryDemo extends ProgramFactory {
 
-    private final String DEFAULT_COMPONENT = "ENTITY";
+    private final String DEFAULT_PROGRAM = "FILE";
     
     @Override
-    public Component getComponent() {
-        return getComponent(DEFAULT_COMPONENT);
+    public Program getProgram() {
+        return getProgram(DEFAULT_PROGRAM);
     }
 
     @Override
-    public Component getComponent(String component) {
-        if("Entity".equalsIgnoreCase(component)){
-            return new Entity();
+    public Program getProgram(String program) {
+        if("File".equalsIgnoreCase(program)){
+            return new ProgramFile();
         }
         
         else{
-            throw new RuntimeException("Component "+component+" not recognized!");
+            throw new RuntimeException("Program "+program+" not recognized!");
         }
     }
     
