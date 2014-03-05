@@ -11,7 +11,7 @@
                     <p:panelGrid id="search-criteria-table" columns="2">
                         <p:outputLabel value="Filename: " />
                         <p:inputText id="filename">
-                            <p:ajax event="keyup" update="search-results-list" listener="#{bootstrap.entitySearch.search}" />
+                            <p:ajax event="keyup" update="search-results-list" listener="#{bootstrap.elements['program'].PROGRAM_PARAM['search'].search}" />
                         </p:inputText>
 
 
@@ -19,13 +19,7 @@
                 </h:panelGroup>
                 <h:panelGroup layout="block" id="search-results">
                     <h:outputText value="this is a datagrid" />
-                    <!--<p:dataGrid id="search-results-list" var="file" value="#{bootstrap.entitySearch.results}" columns="1" rows="10" >
-                        <h:outputText value="this is a panel menu" />
-                        <p:panel header="#{file.FILENAME}" >
-                            Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}
-                        </p:panel>
-                    </p:dataGrid>-->
-                    <p:accordionPanel id="search-results-list" var="file" value="#{bootstrap.entitySearch.results}"  >
+                    <p:accordionPanel id="search-results-list" var="file" value="#{bootstrap.elements['program'].PROGRAM_PARAM['search'].results}"  >
                         <p:tab title="#{file.FILENAME}">
                             Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}
                         </p:tab>
