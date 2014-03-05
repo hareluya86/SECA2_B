@@ -7,6 +7,9 @@
 package Bootstrap.Demo;
 
 import Bootstrap.Program;
+import Component.Entity.Search.EntitySearch;
+import Component.Entity.Search.EntitySearchFactory;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +20,15 @@ import java.util.Map;
 public class ProgramFile extends Program {
     
     public ProgramFile(){
+        this.setPROGRAM_PARAM(new HashMap<String,Object>());
+        
         this.setPROGRAM_XHTML("/programs/file/layout.xhtml");
+        
+        
+        //Create required components
+        EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
+        EntitySearch entitySearch = esf.getEntitySearch("File");
+        this.getPROGRAM_PARAM().put("search", entitySearch);
     }
     
     @Override

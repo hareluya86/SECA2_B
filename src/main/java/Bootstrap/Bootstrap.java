@@ -6,6 +6,8 @@
 
 package Bootstrap;
 
+import Bootstrap.Demo.BootstrapDemo;
+
 
 /**
  * Factory class that initializes all application parameters and launch application 

@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 
-package Bootstrap;
+package Bootstrap.Demo;
 
+import Bootstrap.Bootstrap;
+import Bootstrap.Program;
+import Bootstrap.ProgramFactory;
 import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
 import Template.Template;
@@ -17,7 +20,6 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
