@@ -9,7 +9,6 @@ package Component.Entity.Search;
 import EDS.BusinessUnit.EnterpriseUnit;
 import EDS.BusinessUnit.EnterpriseUnit_;
 import java.util.Collection;
-import java.util.List;
 
 /**
  *

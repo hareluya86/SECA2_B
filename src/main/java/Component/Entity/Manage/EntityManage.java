@@ -6,6 +6,7 @@
 
 package Component.Entity.Manage;
 
+import Bootstrap.Component;
 import EDS.BusinessUnit.EnterpriseUnit;
 import EDS.Data.DAO;
 

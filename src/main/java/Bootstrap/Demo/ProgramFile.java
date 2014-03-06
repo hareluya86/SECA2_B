@@ -19,18 +19,6 @@ import java.util.Map;
  */
 public class ProgramFile extends Program {
     
-    public ProgramFile(){
-        this.setPROGRAM_PARAM(new HashMap<String,Object>());
-        
-        this.setPROGRAM_XHTML("/programs/file/layout.xhtml");
-        
-        
-        //Create required components
-        EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
-        EntitySearch entitySearch = esf.getEntitySearch("File");
-        this.getPROGRAM_PARAM().put("search", entitySearch);
-    }
-    
     @Override
     public String className() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -50,5 +38,18 @@ public class ProgramFile extends Program {
     public List exportAsList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void init() {
+        this.setPROGRAM_PARAM(new HashMap<String,Object>());
+        
+        this.setPROGRAM_XHTML("/programs/file/layout.xhtml");
+        
+        //Create required components
+        EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
+        EntitySearch entitySearch = esf.getEntitySearch("File");
+        this.getPROGRAM_PARAM().put("search", entitySearch);
+    }
     
-}
+    
+ }

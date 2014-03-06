@@ -26,6 +26,9 @@ public abstract class Program implements EnterpriseObject {
     protected String PROGRAM_DIRECTORY;
     protected String PROGRAM_XHTML;
     protected Map<String,Object> PROGRAM_PARAM;
+    protected Collection<ComponentOperation> COMP_DEPENDENCIES;
+    
+    public abstract void init();
     
     @Override
     public String tableName(){
@@ -70,6 +73,14 @@ public abstract class Program implements EnterpriseObject {
 
     public void setPROGRAM_PARAM(Map<String, Object> PROGRAM_PARAM) {
         this.PROGRAM_PARAM = PROGRAM_PARAM;
+    }
+
+    public Collection<ComponentOperation> getCOMP_DEPENDENCIES() {
+        return COMP_DEPENDENCIES;
+    }
+
+    public void setCOMP_DEPENDENCIES(Collection<ComponentOperation> COMP_DEPENDENCIES) {
+        this.COMP_DEPENDENCIES = COMP_DEPENDENCIES;
     }
     
     
