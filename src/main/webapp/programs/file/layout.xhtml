@@ -7,9 +7,12 @@
     <ui:composition template="#{bootstrap.elements['template'].TEMPLATE_XHTML}">
         <ui:define name="search">
             <ui:include src="search.xhtml" />
+            <span><!--#{bootstrap.elements['program'].PROGRAM_PARAM['test-el-comment']}--></span>
         </ui:define>
         <ui:define name="subprogram">
-            
+            <h:panelGroup id="subprogram" layout="block" >
+                <ui:include src="#{bootstrap.elements['program'].PROGRAM_PARAM['subprogram']}" />
+            </h:panelGroup>
         </ui:define>
     </ui:composition>
 </html>

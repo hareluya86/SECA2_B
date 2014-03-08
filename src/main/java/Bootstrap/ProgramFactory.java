@@ -14,7 +14,7 @@ import Bootstrap.Demo.ProgramFactoryDemo;
  */
 public abstract class ProgramFactory {
     
-    public static ProgramFactory getComponentFactory(){
+    public static ProgramFactory getProgramFactory(){
         return new ProgramFactoryDemo();
     }
     

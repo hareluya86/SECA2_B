@@ -8,6 +8,11 @@ package Bootstrap.Demo;
 
 import Bootstrap.Component;
 import Bootstrap.ComponentOperation;
+import Bootstrap.Program;
+import Component.Entity.Manage.AbstractEntityManage;
+import Component.Entity.Manage.EntityManageFactory;
+import Component.Entity.Search.AbstractEntitySearch;
+import EDS.BusinessUnit.EnterpriseUnit;
 
 /**
  *
@@ -15,9 +20,18 @@ import Bootstrap.ComponentOperation;
  */
 public class SearchAndManageOperation implements ComponentOperation {
 
+    private String selectedResultName = "selectedEnterpriseUnit";
+
     @Override
-    public void load(Component thisDependsOnThat, Component thatDependsOnThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void execute(Program program) {
+        AbstractEntitySearch searchComponent = (AbstractEntitySearch)program.getPROGRAM_PARAM().get("EntitySearch");
+        AbstractEntityManage manageComponent = (AbstractEntityManage)program.getPROGRAM_PARAM().get("EntityManage");
+        
+        program.getPROGRAM_PARAM().put("subprogram","manage.xhtml");
+        
+        //EnterpriseUnit selectedEnterpriseUnit = searchComponent.get
+        manageComponent.setEntity(null);
     }
+
     
 }

@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 
-package Bootstrap;
+package View;
 
 /**
  *
  * @author KH
  */
-public interface ComponentOperation {
+public class ProgramPage {
     
-    public void execute(Program program);
 }

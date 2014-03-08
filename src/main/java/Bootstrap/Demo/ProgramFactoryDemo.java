@@ -24,13 +24,15 @@ public class ProgramFactoryDemo extends ProgramFactory {
 
     @Override
     public Program getProgram(String program) {
+        Program p;
         if("File".equalsIgnoreCase(program)){
-            return new ProgramFile();
+            p = new ProgramFile();
         }
-        
         else{
             throw new RuntimeException("Program "+program+" not recognized!");
         }
+        p.init();
+        return p;
     }
     
     

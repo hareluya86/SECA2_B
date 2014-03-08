@@ -58,4 +58,5 @@ public interface EntitySearch<T extends EnterpriseUnit> {
     public void setMetaClass(Class EnterpriseUnit_);
     
     public String getResult();
+    
 }

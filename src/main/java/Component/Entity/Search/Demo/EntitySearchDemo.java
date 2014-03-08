@@ -93,45 +93,6 @@ public class EntitySearchDemo<T extends EnterpriseUnit> extends AbstractEntitySe
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public long getCOMPONENT_ID() {
-        return COMPONENT_ID;
-    }
-
-    public void setCOMPONENT_ID(long COMPONENT_ID) {
-        this.COMPONENT_ID = COMPONENT_ID;
-    }
-
-    public String getCOMPONENT_NAME() {
-        return COMPONENT_NAME;
-    }
-
-    public void setCOMPONENT_NAME(String COMPONENT_NAME) {
-        this.COMPONENT_NAME = COMPONENT_NAME;
-    }
-
-    public String getCOMPONENT_DIRECTORY() {
-        return COMPONENT_DIRECTORY;
-    }
-
-    public void setCOMPONENT_DIRECTORY(String COMPONENT_DIRECTORY) {
-        this.COMPONENT_DIRECTORY = COMPONENT_DIRECTORY;
-    }
-
-    public String getCOMPONENT_XHTML() {
-        return COMPONENT_XHTML;
-    }
-
-    public void setCOMPONENT_XHTML(String COMPONENT_XHTML) {
-        this.COMPONENT_XHTML = COMPONENT_XHTML;
-    }
-
-    public Map<String, Object> getCOMPONENT_PARAM() {
-        return COMPONENT_PARAM;
-    }
-
-    public void setCOMPONENT_PARAM(Map<String, Object> COMPONENT_PARAM) {
-        this.COMPONENT_PARAM = COMPONENT_PARAM;
-    }
     
     
     

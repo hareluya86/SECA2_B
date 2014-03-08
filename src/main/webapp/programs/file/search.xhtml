@@ -7,24 +7,32 @@
     <ui:composition>
         <h:panelGroup layout="block" id="search-main">
             <h:form id="search-form">
+                <!--This is the search criteria form-->
                 <h:panelGroup layout="block" id="search-criteria">
                     <p:panelGrid id="search-criteria-table" columns="2">
                         <p:outputLabel value="Filename: " />
                         <p:inputText id="filename">
-                            <p:ajax event="keyup" update="search-results-list" listener="#{bootstrap.elements['program'].PROGRAM_PARAM['search'].search}" />
+                            <p:ajax event="keyup" update="search-results-list" listener="#{bootstrap.elements['program'].PROGRAM_PARAM['EntitySearch'].search}" />
                         </p:inputText>
-
 
                     </p:panelGrid>
                 </h:panelGroup>
+                
+                <!--This is the search result list panel-->
                 <h:panelGroup layout="block" id="search-results">
                     <h:outputText value="this is a datagrid" />
-                    <p:accordionPanel id="search-results-list" var="file" value="#{bootstrap.elements['program'].PROGRAM_PARAM['search'].results}"  >
-                        <p:tab title="#{file.FILENAME}">
-                            Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}
+                    <p:accordionPanel id="search-results-list" var="file" value="#{bootstrap.elements['program'].PROGRAM_PARAM['EntitySearch'].results}"  >
+                        <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
+                            
+                            <p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
+                                styleClass="ui-priority-primary"
+                                actionListener="#{bootstrap.elements['program'].COMP_OPERATIONS['SearchAndManageOperation'].execute}">
+                                <f:setPropertyActionListener target="#{bootstrap.elements['program'].PROGRAM_PARAM['selectedEnterpriseUnit']}" 
+                                                             value="#{file.OBJECTID}" />
+                            </p:commandButton>
                         </p:tab>
                     </p:accordionPanel>
-                    
+
                 </h:panelGroup>
             </h:form>
         </h:panelGroup>

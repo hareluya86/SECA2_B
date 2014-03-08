@@ -13,6 +13,7 @@ import EDS.Data.DAO;
 /**
  *
  * @author KH
+ * @param <T>
  */
 public interface EntityManage<T extends EnterpriseUnit> {
     
@@ -32,6 +33,7 @@ public interface EntityManage<T extends EnterpriseUnit> {
      * @return T
      */
     public T getEntity();
+    public void setEntity(T entity);
     
     /**
      * Updates the underlying EnterpriseUnit object into the database

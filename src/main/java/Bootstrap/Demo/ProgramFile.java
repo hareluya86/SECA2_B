@@ -6,9 +6,11 @@
 
 package Bootstrap.Demo;
 
+import Bootstrap.ComponentOperation;
 import Bootstrap.Program;
 import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,14 +43,20 @@ public class ProgramFile extends Program {
 
     @Override
     public void init() {
+        //Instatiante all objects
         this.setPROGRAM_PARAM(new HashMap<String,Object>());
+        this.setCOMP_OPERATIONS(new HashMap<String,ComponentOperation>());
         
         this.setPROGRAM_XHTML("/programs/file/layout.xhtml");
+        this.getPROGRAM_PARAM().put("subprogram", "");
+        //this.getPROGRAM_PARAM().put("test-el-comment","This is a test of whether EL expressions are commented out by <!--");
         
-        //Create required components
+        //Create required Components
         EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
-        EntitySearch entitySearch = esf.getEntitySearch("File");
-        this.getPROGRAM_PARAM().put("search", entitySearch);
+        EntitySearch entitySearch = esf.getEntitySearch("File"); //Default to "File" first
+        this.getPROGRAM_PARAM().put("EntitySearch", entitySearch);
+        
+        //Create required ComponentOperations
     }
     
     

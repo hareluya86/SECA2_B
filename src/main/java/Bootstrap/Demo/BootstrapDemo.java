@@ -63,7 +63,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         @URLAction(mappingId="program", onPostback=false)
     })
     public void loadProgram(){
-        ProgramFactory cf = ProgramFactory.getComponentFactory();
+        ProgramFactory cf = ProgramFactory.getProgramFactory();
         Program p;
         
         if(program == null || program.isEmpty()){
@@ -74,8 +74,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         elements.put("program", p);
         //return c.getCOMPONENT_DIRECTORY();
         //return "/components/entity/layout.xhtml";
-        EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
-        entitySearch = esf.getEntitySearch("File");
+        
         System.out.println("Bootstrap is called from load! "+program);
         
     }

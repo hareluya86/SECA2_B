@@ -7,6 +7,7 @@
 package Bootstrap;
 
 import EDS.Data.EnterpriseObject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -26,9 +27,36 @@ public abstract class Program implements EnterpriseObject {
     protected String PROGRAM_DIRECTORY;
     protected String PROGRAM_XHTML;
     protected Map<String,Object> PROGRAM_PARAM;
-    protected Collection<ComponentOperation> COMP_DEPENDENCIES;
+    protected Map<String,ComponentOperation> COMP_OPERATIONS;
     
+    /**
+     * Must be called after constructor.
+     * <p>
+     * This method initializes all program parameters. It can be annotated with 
+     * @PostConstruct in an EJB context.
+     */
     public abstract void init();
+    
+    /**
+     * Executes a component operation in the program.
+     * <p>
+     * Implementation is done here instead of subclasses so that subclasses only
+     * need to declare which operations they want to execute and inject/instantiate
+     * those ComponentOperation classes.
+     * 
+     * @param operation 
+     */
+    public void execute(String operation){
+        
+        ComponentOperation compOp;
+        
+        if(!COMP_OPERATIONS.containsKey(operation) || 
+                (compOp = COMP_OPERATIONS.get(operation)) == null)
+            throw new RuntimeException("Operation "+operation+" is not injected/"
+                    + "instantiated in program "+this.PROGRAM_NAME);
+        
+        compOp.execute(this);
+    }
     
     @Override
     public String tableName(){
@@ -75,13 +103,11 @@ public abstract class Program implements EnterpriseObject {
         this.PROGRAM_PARAM = PROGRAM_PARAM;
     }
 
-    public Collection<ComponentOperation> getCOMP_DEPENDENCIES() {
-        return COMP_DEPENDENCIES;
+    public Map<String,ComponentOperation> getCOMP_OPERATIONS() {
+        return COMP_OPERATIONS;
     }
 
-    public void setCOMP_DEPENDENCIES(Collection<ComponentOperation> COMP_DEPENDENCIES) {
-        this.COMP_DEPENDENCIES = COMP_DEPENDENCIES;
+    public void setCOMP_OPERATIONS(Map<String,ComponentOperation> COMP_OPERATIONS) {
+        this.COMP_OPERATIONS = COMP_OPERATIONS;
     }
-    
-    
 }
