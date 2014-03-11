@@ -13,6 +13,8 @@ import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
 import Template.Template;
 import Template.TemplateFactory;
+import View.ViewPage;
+import View.ViewPageFactory;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
@@ -75,8 +77,15 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         //return c.getCOMPONENT_DIRECTORY();
         //return "/components/entity/layout.xhtml";
         
-        System.out.println("Bootstrap is called from load! "+program);
+        ViewPageFactory vpf = ViewPageFactory.getViewPageFactory();
+        ViewPage vp;
         
+        if(program == null || program.isEmpty()){
+            vp = vpf.getViewPage(); //get the default program
+        }else{
+            vp = vpf.getViewPage(program);
+        }
+        elements.put("viewpage", vp);
     }
     
     @URLActions(actions={

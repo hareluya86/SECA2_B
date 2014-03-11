@@ -15,14 +15,18 @@ import Bootstrap.ComponentOperationFactory;
  */
 public class ComponentOperationFactoryDemo extends ComponentOperationFactory{
 
+    
     @Override
     public ComponentOperation getComponentDependency() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ComponentOperation getComponentDependency(String componentDependency) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ComponentOperation getComponentDependency(String componentOperation) {
+        if("SearchAndManageOperation".equalsIgnoreCase(componentOperation))
+            return new SearchAndManageOperation();
+        else
+            throw new RuntimeException("ComponentOperation "+componentOperation+" not recognized.");
     }
     
 }

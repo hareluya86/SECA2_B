@@ -5,30 +5,45 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/file/search.css" />
         <h:panelGroup layout="block" id="search-main">
             <h:form id="search-form">
                 <!--This is the search criteria form-->
-                <h:panelGroup layout="block" id="search-criteria">
-                    <p:panelGrid id="search-criteria-table" columns="2">
+                <h:panelGroup layout="block" id="search-criteria" class="panel">
+                    <p:panelGrid id="search-criteria-table" columns="2" columnClasses="criteria-columns">
+                        <f:facet name="header">Search Criteria</f:facet>
+                        
                         <p:outputLabel value="Filename: " />
                         <p:inputText id="filename">
-                            <p:ajax event="keyup" update="search-results-list" listener="#{bootstrap.elements['program'].PROGRAM_PARAM['EntitySearch'].search}" />
+                            <p:ajax event="keyup" update="search-results-list" listener="#{ProgramFile.newEntitySearch.search}" />
                         </p:inputText>
+                        
+                        <p:outputLabel value="Uploaded since: " />
+                        <p:calendar pattern="dd.MM.yyyy" />
+                        
+                        <p:outputLabel value="Uploaded before: " />
+                        <p:calendar pattern="dd.MM.yyyy" />
+                        
+                        <f:facet name="footer"> 
+                            <p:commandButton value="Search" update="search-results-list" action="#{ProgramFile.newEntitySearch.search}" />
+                        </f:facet> 
 
                     </p:panelGrid>
                 </h:panelGroup>
                 
                 <!--This is the search result list panel-->
-                <h:panelGroup layout="block" id="search-results">
+                <h:panelGroup layout="block" id="search-results" class="panel">
                     <h:outputText value="this is a datagrid" />
-                    <p:accordionPanel id="search-results-list" var="file" value="#{bootstrap.elements['program'].PROGRAM_PARAM['EntitySearch'].results}"  >
+                    <p:accordionPanel id="search-results-list" var="file" value="#{ProgramFile.newEntitySearch.results}"  >
                         <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
                             
                             <p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
                                 styleClass="ui-priority-primary"
-                                actionListener="#{bootstrap.elements['program'].COMP_OPERATIONS['SearchAndManageOperation'].execute}">
-                                <f:setPropertyActionListener target="#{bootstrap.elements['program'].PROGRAM_PARAM['selectedEnterpriseUnit']}" 
-                                                             value="#{file.OBJECTID}" />
+                                action="#{ProgramFile.manageEntity}">
+                                <f:setPropertyActionListener target="#{ProgramFile.subprogram}" 
+                                                             value="manage" />
+                                <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" 
+                                                             value="#{file}" />
                             </p:commandButton>
                         </p:tab>
                     </p:accordionPanel>

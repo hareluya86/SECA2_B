@@ -8,6 +8,7 @@ package Component.Entity.Manage.Demo;
 
 import Component.Entity.Manage.EntityManage;
 import Component.Entity.Manage.EntityManageFactory;
+import SECA2.File.FileEntity;
 
 /**
  *
@@ -17,12 +18,15 @@ public class EntityManageFactoryDemo extends EntityManageFactory {
 
     @Override
     public EntityManage getEntityManage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getEntityManage("File");
     }
 
     @Override
     public EntityManage getEntityManage(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if("File".equalsIgnoreCase(name))
+            return new EntityManageDemo<FileEntity>();
+        else
+            throw new RuntimeException("EntityManage "+name+" is not recognized.");
     }
     
 }

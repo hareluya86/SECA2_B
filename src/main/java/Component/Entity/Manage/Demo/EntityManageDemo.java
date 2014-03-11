@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author KH
  */
-public class EntityManageDemo extends AbstractEntityManage {
+public class EntityManageDemo<T extends EnterpriseUnit> extends AbstractEntityManage {
 
     @Override
     public void randInit() {
@@ -56,7 +56,7 @@ public class EntityManageDemo extends AbstractEntityManage {
     
     @Override
     public void update(DAO dao) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
@@ -69,5 +69,10 @@ public class EntityManageDemo extends AbstractEntityManage {
         this.entity = entity;
     }
 
+    @Override
+    public void update() {
+        
+    }
+    
     
 }

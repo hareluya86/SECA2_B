@@ -6,11 +6,9 @@
 
 package Bootstrap.Demo;
 
-import Bootstrap.Component;
 import Bootstrap.ComponentOperation;
 import Bootstrap.Program;
 import Component.Entity.Manage.AbstractEntityManage;
-import Component.Entity.Manage.EntityManageFactory;
 import Component.Entity.Search.AbstractEntitySearch;
 import EDS.BusinessUnit.EnterpriseUnit;
 
@@ -29,8 +27,9 @@ public class SearchAndManageOperation implements ComponentOperation {
         
         program.getPROGRAM_PARAM().put("subprogram","manage.xhtml");
         
-        //EnterpriseUnit selectedEnterpriseUnit = searchComponent.get
-        manageComponent.setEntity(null);
+        EnterpriseUnit selectedEnterpriseUnit = (EnterpriseUnit) program.getPROGRAM_PARAM().get(selectedResultName);
+        
+        manageComponent.setEntity(selectedEnterpriseUnit);
     }
 
     

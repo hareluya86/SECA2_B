@@ -44,7 +44,9 @@ public interface EntityManage<T extends EnterpriseUnit> {
      * @param dao The DAO instance used to flush the EnterpriseUnit into the database.
      */
     public void update(DAO dao);
-    
-    
+    /**
+     * Test method
+     */
+    public void update();
     
 }

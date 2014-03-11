@@ -6,17 +6,19 @@
       xmlns:p="http://primefaces.org/ui">
     <f:view contentType="text/html">
         <h:head>
-            <h:outputStylesheet name="templates/mytemplate/mytemplate.css" library="styles" />
-            <link href="templates/mytemplate/mytemplate.css" type="text/css" />
+            <!--<h:outputStylesheet name="mytemplate.css" library="styles" />-->
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/templates/mytemplate/mytemplate.css" />
         </h:head>
+        <h:panelGroup layout="block" id="header">
+            #{bootstrap.elements['header']}
+        </h:panelGroup>
         <h:panelGroup layout="block" id="container">
-            <h:panelGroup layout="block" id="header">
-                #{bootstrap.elements['header']}
-            </h:panelGroup>
             <h:panelGroup layout="block" id="content">
-                
-                <ui:insert name="search" />
-                <ui:insert name="subprogram" />
+                <ui:insert name="#{bootstrap.elements['viewpage'].components[0]}" />
+                <ui:insert name="#{bootstrap.elements['viewpage'].components[1]}" />
+                <ui:insert name="#{bootstrap.elements['viewpage'].components[2]}" />
+                <!--<ui:insert name="search" />
+                <ui:insert name="subprogram" />-->
                 
             </h:panelGroup>
         </h:panelGroup>

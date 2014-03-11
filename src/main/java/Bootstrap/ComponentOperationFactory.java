@@ -20,5 +20,5 @@ public abstract class ComponentOperationFactory {
     
     public abstract ComponentOperation getComponentDependency();
     
-    public abstract ComponentOperation getComponentDependency(String componentDependency);
+    public abstract ComponentOperation getComponentDependency(String componentOperation);
 }
