@@ -27,7 +27,7 @@
                         
                         <f:facet name="footer"> 
                             <p:commandButton value="Search" update="search-results-list" action="#{ProgramFile.newEntitySearch.search}">
-                                <f:ajax execute="search-results-table" render="search-results-list" />
+                                
                             </p:commandButton>
                             <p:commandButton value="Reset" update="search-results-list" action="#{ProgramFile.newEntitySearch.reset}" />
                         </f:facet> 
@@ -41,7 +41,8 @@
                         <f:facet name="header">Search Result</f:facet>
                         <p:ajaxStatus id="ajaxStatusPanel">
                             <f:facet name="start">
-                                <img src="ajax_loader.gif" />
+                                <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
+                                 <!--<h:graphicImage name="ajax_loader.gif" />-->
                             </f:facet>
 
                             <f:facet name="complete">

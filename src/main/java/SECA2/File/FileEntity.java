@@ -43,7 +43,8 @@ public class FileEntity extends EnterpriseUnit {
         int user = (int)(Math.random()*12345);
         
         this.setDATE_CREATED(sqlDate);
-        this.setCREATED_BY("User "+user);
+        //this.setCREATED_BY("User "+user);
+        this.setCREATED_BY(CREATED_BY);
     }
 
     @Override

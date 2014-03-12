@@ -40,3 +40,8 @@ body {
 #footer {
     background: pink;
 }
+
+img.ajax-large {
+    width: 50px; //fits the container
+    height: auto;
+}

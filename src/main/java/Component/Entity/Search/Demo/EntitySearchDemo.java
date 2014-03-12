@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,9 +29,11 @@ public class EntitySearchDemo<T extends EnterpriseUnit> extends AbstractEntitySe
     
     @Override
     public void search() {
-        
-        for(int i=0; i<100000000; i++){
-            
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(EntitySearchDemo.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace(System.out);
         }
         super.results = new ArrayList<>();
         for(int i=0;i<resultSize;i++){

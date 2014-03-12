@@ -12,7 +12,7 @@ and open the template in the editor.
     margin-right: 5px;
     min-width: 305px;
     //height: 500px;
-    overflow: scroll;
+    //overflow: scroll;
 }
 
 #search-criteria {
@@ -23,6 +23,7 @@ and open the template in the editor.
 
 #search-criteria-table {
     //width: 100%;
+    
 }
 
 td.criteria-columns{
@@ -33,9 +34,16 @@ td.criteria-columns{
 #search-results {
     //width: 500px;
 }
+#search-results-table {
+    width: 100%;
+    margin: 0;
+}
 
 #ajaxStatusPanel {
     min-width:375px;
-    overflow: auto;
+    //overflow: auto;
 }
 
+#search-ajax {
+    
+}
