@@ -30,13 +30,13 @@ public class FileListBean {
         FileEntity file5 = new FileEntity();
         FileEntity file6 = new FileEntity();
         FileEntity file7 = new FileEntity();
-        file1.randInit();file1.setFILENAME("7 liner 1");//file1.setCREATED_BY("Alex");
-        file2.randInit();file2.setFILENAME("6 liner 1");//file2.setCREATED_BY("Alex");
-        file3.randInit();file3.setFILENAME("6 liner 2");//file3.setCREATED_BY("Alex");
-        file4.randInit();file4.setFILENAME("6 liner 3");//file4.setCREATED_BY("Alex");
-        file5.randInit();file5.setFILENAME("6 liner 4");//file5.setCREATED_BY("Alex");
-        file6.randInit();file6.setFILENAME("8 liner 1");//file6.setCREATED_BY("Alex");
-        file7.randInit();file7.setFILENAME("Special Characters");//file7.setCREATED_BY("Alex");
+        file1.randInit();file1.setFILENAME("7 liner 1");file1.setCREATED_BY("Alex");
+        file2.randInit();file2.setFILENAME("6 liner 1");file2.setCREATED_BY("Alex");
+        file3.randInit();file3.setFILENAME("6 liner 2");file3.setCREATED_BY("Alex");
+        file4.randInit();file4.setFILENAME("6 liner 3");file4.setCREATED_BY("Alex");
+        file5.randInit();file5.setFILENAME("6 liner 4");file5.setCREATED_BY("Alex");
+        file6.randInit();file6.setFILENAME("8 liner 1");file6.setCREATED_BY("Alex");
+        file7.randInit();file7.setFILENAME("Special Characters");file7.setCREATED_BY("Alex");
         
         files.add(file1);
         files.add(file2);

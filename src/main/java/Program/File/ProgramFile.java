@@ -78,6 +78,7 @@ public class ProgramFile extends Program {
     private EntitySearch newEntitySearch;
     private EntityManage newEntityManage;
     private String subprogram;
+    private String subprogramTitle;
     private EnterpriseUnit selectedEU;
     private String searchTableID;
     
@@ -145,6 +146,14 @@ public class ProgramFile extends Program {
 
     public void setSearchTableID(String searchTableID) {
         this.searchTableID = searchTableID;
+    }
+
+    public String getSubprogramTitle() {
+        return subprogramTitle;
+    }
+
+    public void setSubprogramTitle(String subprogramTitle) {
+        this.subprogramTitle = subprogramTitle;
     }
 
     

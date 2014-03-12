@@ -5,7 +5,6 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="#{bootstrap.elements['template'].TEMPLATE_XHTML}">
-        <!--<ui:define name="file">-->
             <ui:define name="search">
                 <h:panelGroup id="search" layout="block" >
                     <ui:include src="search.xhtml" />
@@ -14,10 +13,10 @@
             </ui:define>
             <ui:define name="subprogram">
                 <h:panelGroup id="subprogram" layout="block" >
+                    <!--render this on startup-->
                     <ui:include src="#{ProgramFile.subprogram}" />
                 </h:panelGroup>
             </ui:define>
-        <!--</ui:define>-->
     </ui:composition>
 </html>
 

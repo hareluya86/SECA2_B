@@ -5,17 +5,24 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-        <p:panelGrid id="manage-panel" columns="2">
-            <p:outputLabel value="Filename: " />
-            <p:inputText id="filename" value="#{ProgramFile.newEntityManage.entity.FILENAME}">
-                
-            </p:inputText>
+        
+        <p:panelGrid id="manage-panel" columns="3" style="width:500px;">
+            <f:facet name="header">Manage File/Sequences</f:facet>
             
-            <p:commandButton value="Update" action="#{ProgramFile.updateEntity}"
-                             update=":#{p:component('search-result-list')}" >
-                <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" value="#{ProgramFile.newEntityManage.entity}" />
-            </p:commandButton>
+            <p:panelGrid columns="2" >
+                <p:outputLabel value="Filename: " />
+                <p:inputText id="filename" value="#{ProgramFile.newEntityManage.entity.FILENAME}">
 
+                </p:inputText>
+            </p:panelGrid>
+            <p:panelGrid columns="1" >
+                <p:commandButton value="Update" action="#{ProgramFile.updateEntity}"
+                                 update="" >
+                    <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" value="#{ProgramFile.newEntityManage.entity}" />
+                </p:commandButton>
+            </p:panelGrid>
+           
+            
         </p:panelGrid>
     </ui:composition>
 </html>

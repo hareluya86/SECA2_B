@@ -14,8 +14,8 @@
                         <f:facet name="header">Search Criteria</f:facet>
                         
                         <p:outputLabel value="Filename: " />
-                        <p:inputText id="filename">
-                            <p:ajax event="keyup" update="search-results-list" listener="#{ProgramFile.newEntitySearch.search}"
+                        <p:inputText id="filename" >
+                            <p:ajax update="search-results-list" listener="#{ProgramFile.newEntitySearch.search}"
                                     />
                         </p:inputText>
                         
@@ -26,43 +26,44 @@
                         <p:calendar pattern="dd.MM.yyyy" />
                         
                         <f:facet name="footer"> 
-                            <p:commandButton value="Search" update="search-results-list" action="#{ProgramFile.newEntitySearch.search}">
-                                
-                            </p:commandButton>
-                            <p:commandButton value="Reset" update="search-results-list" action="#{ProgramFile.newEntitySearch.reset}" />
+                            <p:commandButton id="search-button" value="Search" update="search-results-list" 
+                                             action="#{ProgramFile.newEntitySearch.search}"
+                                             />
+                            <p:commandButton id="reset-button" value="Reset" update="search-results-list" 
+                                             action="#{ProgramFile.newEntitySearch.reset}" 
+                                             />
                         </f:facet> 
-
                     </p:panelGrid>
                 </h:panelGroup>
-                
+               
                 <!--This is the search result list panel-->
-                <h:panelGroup layout="block" id="search-results" class="panel">
-                    <p:panelGrid id="search-results-table" columns="1">
+                <h:panelGroup layout="block" id="search-results" class="panel" style="height: 550px; overflow: scroll;">
+                    <p:panelGrid id="search-results-table" columns="1" style="width: 400px;">
                         <f:facet name="header">Search Result</f:facet>
-                        <p:ajaxStatus id="ajaxStatusPanel">
-                            <f:facet name="start">
-                                <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
-                                 <!--<h:graphicImage name="ajax_loader.gif" />-->
-                            </f:facet>
+                        <p:accordionPanel id="search-results-list" var="file" 
+                                          value="#{ProgramFile.newEntitySearch.results}"  
+                                           >
+                            <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
 
-                            <f:facet name="complete">
-                                <p:accordionPanel id="search-results-list" var="file" value="#{ProgramFile.newEntitySearch.results}"  >
-                                    <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
-
-                                        <p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
-                                            styleClass="ui-priority-primary"
-                                            action="#{ProgramFile.manageEntity}">
-                                            <f:setPropertyActionListener target="#{ProgramFile.subprogram}" 
-                                                                         value="manage" />
-                                            <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" 
-                                                                         value="#{file}" />
-                                        </p:commandButton>
-                                    </p:tab>
-                                </p:accordionPanel>
-                            </f:facet>
-                        </p:ajaxStatus>
+                                <p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
+                                    styleClass="ui-priority-primary"
+                                    action="#{ProgramFile.manageEntity}">
+                                    <f:setPropertyActionListener target="#{ProgramFile.subprogram}" 
+                                                                 value="manage" />
+                                    <f:setPropertyActionListener target="#{ProgramFile.subprogramTitle}" 
+                                                                 value="Manage File/Sequences" />
+                                    <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" 
+                                                                 value="#{file}" />
+                                </p:commandButton>
+                                <p:blockUI block=":subprogram" trigger="manage" />
+                            </p:tab>
+                        </p:accordionPanel>
                     </p:panelGrid>
                 </h:panelGroup>
+                 <p:blockUI block="search-results-table" trigger="search-button,reset-button">
+                    <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
+                </p:blockUI>
+                
             </h:form>
         </h:panelGroup>
     </ui:composition>
