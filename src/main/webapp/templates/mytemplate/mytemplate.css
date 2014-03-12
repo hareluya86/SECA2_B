@@ -19,6 +19,7 @@ body {
     background: blue;
     margin: auto;
     width: 1080px;
+    height: 550px;
 }
 
 #header {
@@ -30,4 +31,12 @@ body {
 
 #content {
     background: orange;
+}
+
+#content .panel {
+    
+}
+
+#footer {
+    background: pink;
 }

@@ -13,14 +13,16 @@
             #{bootstrap.elements['header']}
         </h:panelGroup>
         <h:panelGroup layout="block" id="container">
-            <h:panelGroup layout="block" id="content">
+            <p:panelGrid id="content" columns="3" columnClasses="panel">
                 <ui:insert name="#{bootstrap.elements['viewpage'].components[0]}" />
                 <ui:insert name="#{bootstrap.elements['viewpage'].components[1]}" />
                 <ui:insert name="#{bootstrap.elements['viewpage'].components[2]}" />
                 <!--<ui:insert name="search" />
                 <ui:insert name="subprogram" />-->
-                
-            </h:panelGroup>
+            </p:panelGrid>
+        </h:panelGroup>
+        <h:panelGroup layout="block" id="footer">
+            #{bootstrap.elements['header']}
         </h:panelGroup>
     </f:view>
 </html>

@@ -27,6 +27,14 @@ public interface EntitySearch<T extends EnterpriseUnit> {
     public void search();
     
     /**
+     * Resets the search result list
+     * <p>
+     * This method is a listener method which can be called when either an action is 
+     * executed or some form of update has been done on the client side.
+     */
+    public void reset();
+    
+    /**
      * Returns the result list
      * <p>
      * If search() has been called multiple times, this method returns the latest

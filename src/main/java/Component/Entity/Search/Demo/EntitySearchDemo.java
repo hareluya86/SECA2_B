@@ -23,10 +23,14 @@ import java.util.Map;
  */
 public class EntitySearchDemo<T extends EnterpriseUnit> extends AbstractEntitySearch {
 
-    private int resultSize = 10;
+    private int resultSize = 50;
     
     @Override
     public void search() {
+        
+        for(int i=0; i<100000000; i++){
+            
+        }
         super.results = new ArrayList<>();
         for(int i=0;i<resultSize;i++){
             FileEntity file = new FileEntity();
@@ -37,6 +41,7 @@ public class EntitySearchDemo<T extends EnterpriseUnit> extends AbstractEntitySe
         System.out.println("Result list: "+super.results.size());
         super.result = "Found";
     }
+    
 
     @Override
     public Collection<T> getResults() {
@@ -91,6 +96,11 @@ public class EntitySearchDemo<T extends EnterpriseUnit> extends AbstractEntitySe
     @Override
     public List exportAsList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void reset() {
+        this.results.clear();
     }
 
     
