@@ -24,5 +24,18 @@
            
             
         </p:panelGrid>
+        <p:dataTable var="file" value="#{fileList.largeFiles}" scrollRows="20"  
+                    scrollable="true" liveScroll="true" scrollHeight="150" id="dataTable4" >  
+  
+        <p:column headerText="Filename">  
+            <h:outputText value="#{file.FILENAME}" />  
+        </p:column>  
+  
+        <p:column headerText="Date uploaded">  
+            <h:outputText value="#{file.DATE_CREATED}" />  
+        </p:column>  
+  
+    </p:dataTable>  
+        
     </ui:composition>
 </html>
