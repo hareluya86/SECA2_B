@@ -35,13 +35,17 @@
                         </f:facet> 
                     </p:panelGrid>
                 </h:panelGroup>
-               
+                <p:blockUI block="search-results" trigger="search-button,reset-button">
+                    <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
+                </p:blockUI>
                 <!--This is the search result list panel-->
-                <h:panelGroup layout="block" id="search-results" class="panel" style="height: 550px; overflow: scroll;">
+                <h:panelGroup layout="block" id="search-results" class="panel" style="">
                     <p:panelGrid id="search-results-table" columns="1" style="width: 400px;">
                         <f:facet name="header">Search Result</f:facet>
+                        
                         <p:accordionPanel id="search-results-list" var="file" 
                                           value="#{ProgramFile.newEntitySearch.results}"  
+                                          style="height: 550px; overflow: scroll;"
                                            >
                             <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
 
@@ -60,9 +64,6 @@
                         </p:accordionPanel>
                     </p:panelGrid>
                 </h:panelGroup>
-                 <p:blockUI block="search-results-table" trigger="search-button,reset-button">
-                    <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
-                </p:blockUI>
                 
             </h:form>
         </h:panelGroup>

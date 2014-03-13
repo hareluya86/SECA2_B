@@ -39,7 +39,7 @@ public class EntitySearchDemo<T extends EnterpriseUnit> extends AbstractEntitySe
         for(int i=0;i<resultSize;i++){
             FileEntity file = new FileEntity();
             file.randInit();
-            file.setFILENAME("File "+i);
+            //file.setFILENAME("File "+i);
             super.results.add(file);
         }
         System.out.println("Result list: "+super.results.size());

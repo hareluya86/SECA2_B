@@ -41,7 +41,9 @@ public class FileEntity extends EnterpriseUnit {
         LocalDate ld = new LocalDate();
         java.sql.Date sqlDate = new java.sql.Date(ld.toDate().getTime());
         int user = (int)(Math.random()*12345);
+        int filename = (user+6)/7;
         
+        this.setFILENAME("File "+filename);
         this.setDATE_CREATED(sqlDate);
         this.setCREATED_BY("User "+user);
         this.setCREATED_BY(CREATED_BY);
