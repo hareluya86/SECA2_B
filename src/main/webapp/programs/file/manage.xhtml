@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         
-        <p:panelGrid id="manage-panel" columns="3" style="width:500px;">
+        <p:panelGrid id="manage-panel" columns="3" style="width:800px">
             <f:facet name="header">Manage File/Sequences</f:facet>
             
             <p:panelGrid columns="2" >
@@ -22,20 +22,19 @@
                 </p:commandButton>
             </p:panelGrid>
            
-            
         </p:panelGrid>
         <p:dataTable var="file" value="#{fileList.largeFiles}" scrollRows="20"  
-                    scrollable="true" liveScroll="true" scrollHeight="150" id="dataTable4" >  
-  
-        <p:column headerText="Filename">  
-            <h:outputText value="#{file.FILENAME}" />  
-        </p:column>  
-  
-        <p:column headerText="Date uploaded">  
-            <h:outputText value="#{file.DATE_CREATED}" />  
-        </p:column>  
-  
-    </p:dataTable>  
-        
+                        scrollable="true" liveScroll="true" scrollHeight="150" id="sequence-table"
+                        style="width: 300px">  
+
+            <p:column headerText="Filename" styleClass="scrollableCell">  
+                <h:outputText value="#{file.FILENAME}" />  
+            </p:column>  
+
+            <p:column headerText="Date uploaded" styleClass="scrollableCell">  
+                <h:outputText value="#{file.DATE_CREATED}" />  
+            </p:column>  
+
+        </p:dataTable> 
     </ui:composition>
 </html>
