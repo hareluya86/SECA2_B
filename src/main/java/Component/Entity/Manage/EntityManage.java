@@ -6,7 +6,6 @@
 
 package Component.Entity.Manage;
 
-import Bootstrap.Component;
 import EDS.BusinessUnit.EnterpriseUnit;
 import EDS.Data.DAO;
 
@@ -49,4 +48,7 @@ public interface EntityManage<T extends EnterpriseUnit> {
      */
     public void update();
     
+    /**
+     * Gets certain EnterpriseData of the EnterpriseUnit
+     */
 }

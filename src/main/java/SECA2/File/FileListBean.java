@@ -8,19 +8,22 @@ package SECA2.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 
 /**
  *
  * @author KH
  */
-@ManagedBean(name="fileList")
+@Named("fileList")
 public class FileListBean {
 
     private List<FileEntity> files;
     private List<FileEntity> largeFiles;
+    private List<FileSequence> sequences;
 
     public FileListBean() {
 
+        sequences = new ArrayList<FileSequence>();
         //Players  
         files = new ArrayList<FileEntity>();
         FileEntity file1 = new FileEntity();
@@ -52,6 +55,19 @@ public class FileListBean {
             fileTemp.randInit();fileTemp.setFILENAME("X liner "+i);//fileTemp.setCREATED_BY("Alex");
             largeFiles.add(fileTemp);
         }
+        String initialSequence = "\" 1\" \" 2\" \" 3\" \" 4\" \" 5\" \" 6\"";
+        int sequence_index = 1;
+        for(int i=7; i<45; i++){
+            String num = i+1+"";
+            if(i<10)
+                num = " ".concat(num);
+            String addSequence = initialSequence.concat(" \"").concat(num).concat("\"");
+            FileSequence fs = new FileSequence();
+            fs.randInit();
+            fs.setSEQUENCE_LINE(addSequence);
+            fs.setORIGINAL_LINE_NUM(sequence_index++);
+            sequences.add(fs);
+        }
     }
 
     public List<FileEntity> getFiles() {
@@ -68,6 +84,14 @@ public class FileListBean {
 
     public void setLargeFiles(List<FileEntity> largeFiles) {
         this.largeFiles = largeFiles;
+    }
+
+    public List<FileSequence> getSequences() {
+        return sequences;
+    }
+
+    public void setSequences(List<FileSequence> sequences) {
+        this.sequences = sequences;
     }
     
     

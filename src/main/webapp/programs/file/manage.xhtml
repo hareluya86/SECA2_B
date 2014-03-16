@@ -5,8 +5,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-        
-        <p:panelGrid id="manage-panel" columns="3" style="width:800px">
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/file/manage.css" />
+        <p:panelGrid id="manage-panel" columns="3" style="">
             <f:facet name="header">Manage File/Sequences</f:facet>
             
             <p:panelGrid columns="2" >
@@ -15,26 +15,43 @@
 
                 </p:inputText>
             </p:panelGrid>
-            <p:panelGrid columns="1" >
-                <p:commandButton value="Update" action="#{ProgramFile.updateEntity}"
-                                 update="" >
-                    <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" value="#{ProgramFile.newEntityManage.entity}" />
-                </p:commandButton>
+            <p:panelGrid columns="2" >
+                <p:outputLabel value="Upload Status: " />
+                <h:outputText id="file-status" value="#{ProgramFile.newEntityManage.entity.STATUS}" />
             </p:panelGrid>
+            <p:commandButton value="Update" action="#{ProgramFile.updateEntity}"
+                             update="" >
+                <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" value="#{ProgramFile.newEntityManage.entity}" />
+            </p:commandButton>
            
         </p:panelGrid>
-        <p:dataTable var="file" value="#{fileList.largeFiles}" scrollRows="20"  
-                        scrollable="true" liveScroll="true" scrollHeight="150" id="sequence-table"
-                        style="width: 300px">  
+        <p:panelGrid columns="3" >
+            <p:dataTable var="sequence" value="#{fileList.sequences}" scrollRows="20"  
+                            scrollable="true" liveScroll="true" scrollHeight="150" id="sequence-table"
+                            style="">  
 
-            <p:column headerText="Filename" styleClass="scrollableCell">  
-                <h:outputText value="#{file.FILENAME}" />  
-            </p:column>  
+                <p:column id="sequence-table-line-num" headerText="Filename" styleClass="scrollableCell" style="">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <p:inputText id="search-line-number" size="10" />  
+                        </p:outputPanel>
+                    </f:facet>
+                    <h:outputText value="#{sequence.ORIGINAL_LINE_NUM}" />  
+                </p:column>
+                <p:column headerText="Filename" styleClass="scrollableCell" style="width:180px">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <p:inputText id="search-sequences" maxlength="50"/>  
+                        </p:outputPanel>
+                    </f:facet>
+                    <h:outputText value="#{sequence.SEQUENCE_LINE}" />  
+                </p:column>  
 
-            <p:column headerText="Date uploaded" styleClass="scrollableCell">  
-                <h:outputText value="#{file.DATE_CREATED}" />  
-            </p:column>  
-
-        </p:dataTable> 
+            </p:dataTable>
+            <p:column>
+                <p:commandButton value="Remove Sequence" />
+                <p:commandButton value="Restore Sequence" />
+            </p:column>
+        </p:panelGrid>
     </ui:composition>
 </html>

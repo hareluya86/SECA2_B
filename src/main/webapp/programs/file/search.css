@@ -7,12 +7,9 @@ and open the template in the editor.
     Created on : Mar 10, 2014, 11:55:40 PM
     Author     : KH
 */
-#search-form .panel {
-    float: left;
-    margin-right: 5px;
-    min-width: 305px;
-    //height: 500px;
-    //overflow: scroll;
+.search-panel {
+    vertical-align: top;
+    padding: 2px;
 }
 
 #search-criteria {
@@ -21,9 +18,12 @@ and open the template in the editor.
     background: blue;
 }
 
-#search-criteria-table {
-    //width: 100%;
-    
+td input.search-input {
+    width: 100px;
+}
+
+span.search-input input{
+    width: 100px;
 }
 
 td.criteria-columns{
@@ -34,12 +34,12 @@ td.criteria-columns{
 #search-results {
     //width: 500px;
 }
-#search-results-table {
-    
+#search-form #search-results-table table {
+    //width: 305px; doesn't work!
 }
 
 #ajaxStatusPanel {
-    min-width:375px;
+    //min-width:375px;
     //overflow: auto;
 }
 

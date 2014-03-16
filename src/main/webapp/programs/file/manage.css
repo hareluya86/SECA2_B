@@ -8,9 +8,28 @@ and open the template in the editor.
     Author     : vincent.a.lee
 */
 
-.ui-datatable td.scrollableCell div.ui-dt-c {
-    width: 100px;
-    white-space: nowrap;
+#manage-panel {
+    width: 98%;
     overflow-x: scroll;
 }
 
+#sequence-table {
+    width:350px;
+}
+
+#sequence-table-line-num {
+    //width: 20%;
+    //padding: 2px 4px;
+}
+
+#sequence-table-line-num input {
+    //width: 90%;
+}
+
+td.scrollableCell {
+    padding: 2px 4px;
+}
+
+.scrollableCell .ui-inputfield {
+    padding: 2px;
+}

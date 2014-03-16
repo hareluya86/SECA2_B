@@ -25,7 +25,7 @@ public class EntityManageDemo<T extends EnterpriseUnit> extends AbstractEntityMa
     }
 
     @Override
-    public EnterpriseKey enterpriseKey() {
+    public EnterpriseKey getKey() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

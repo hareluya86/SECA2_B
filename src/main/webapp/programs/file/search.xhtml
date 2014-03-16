@@ -6,65 +6,68 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/file/search.css" />
+        
         <h:panelGroup layout="block" id="search-main">
             <h:form id="search-form">
-                <!--This is the search criteria form-->
-                <h:panelGroup layout="block" id="search-criteria" class="panel">
-                    <p:panelGrid id="search-criteria-table" columns="2" columnClasses="criteria-columns">
-                        <f:facet name="header">Search Criteria</f:facet>
-                        
-                        <p:outputLabel value="Filename: " />
-                        <p:inputText id="filename" >
-                            <p:ajax update="search-results-list" listener="#{ProgramFile.newEntitySearch.search}"
-                                    />
-                        </p:inputText>
-                        
-                        <p:outputLabel value="Uploaded since: " />
-                        <p:calendar pattern="dd.MM.yyyy" />
-                        
-                        <p:outputLabel value="Uploaded before: " />
-                        <p:calendar pattern="dd.MM.yyyy" />
-                        
-                        <f:facet name="footer"> 
-                            <p:commandButton id="search-button" value="Search" update="search-results-list" 
-                                             action="#{ProgramFile.newEntitySearch.search}"
-                                             />
-                            <p:commandButton id="reset-button" value="Reset" update="search-results-list" 
-                                             action="#{ProgramFile.newEntitySearch.reset}" 
-                                             />
-                        </f:facet> 
-                    </p:panelGrid>
-                </h:panelGroup>
-                <p:blockUI block="search-results" trigger="search-button,reset-button">
-                    <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
-                </p:blockUI>
-                <!--This is the search result list panel-->
-                <h:panelGroup layout="block" id="search-results" class="panel" style="">
-                    <p:panelGrid id="search-results-table" columns="1" style="width: 400px;">
-                        <f:facet name="header">Search Result</f:facet>
-                        
-                        <p:accordionPanel id="search-results-list" var="file" 
-                                          value="#{ProgramFile.newEntitySearch.results}"  
-                                          style="height: 550px; overflow: scroll;"
-                                           >
-                            <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
+                <h:panelGrid columns="2" columnClasses="search-panel,search-panel">
+                    <h:panelGroup layout="block" id="search-criteria">
+                        <p:panelGrid id="search-criteria-table" columns="2" columnClasses="criteria-columns">
+                            <f:facet name="header">Search Criteria</f:facet>
 
-                                <p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
-                                    styleClass="ui-priority-primary"
-                                    action="#{ProgramFile.manageEntity}">
-                                    <f:setPropertyActionListener target="#{ProgramFile.subprogram}" 
-                                                                 value="manage" />
-                                    <f:setPropertyActionListener target="#{ProgramFile.subprogramTitle}" 
-                                                                 value="Manage File/Sequences" />
-                                    <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" 
-                                                                 value="#{file}" />
-                                </p:commandButton>
-                                <p:blockUI block=":subprogram" trigger="manage" />
-                            </p:tab>
-                        </p:accordionPanel>
-                    </p:panelGrid>
-                </h:panelGroup>
-                
+                            <p:outputLabel value="Filename: " />
+                            <p:inputText id="filename" styleClass="search-input">
+                                <p:ajax update="search-results-list" listener="#{ProgramFile.newEntitySearch.search}"
+                                        />
+                            </p:inputText>
+
+                            <p:outputLabel value="Uploaded since: " />
+                            <p:calendar pattern="dd.MM.yyyy" styleClass="search-input" />
+
+                            <p:outputLabel value="Uploaded before: " />
+                            <p:calendar pattern="dd.MM.yyyy" styleClass="search-input"  />
+
+                            <f:facet name="footer"> 
+                                <p:commandButton id="search-button" value="Search" update="search-results-list" 
+                                                 action="#{ProgramFile.newEntitySearch.search}"
+                                                 />
+                                <p:commandButton id="reset-button" value="Reset" update="search-results-list" 
+                                                 action="#{ProgramFile.newEntitySearch.reset}" 
+                                                 />
+                            </f:facet> 
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    
+                    <h:panelGroup layout="block" id="search-results" style="">
+                        <p:blockUI block="search-results" trigger="search-button,reset-button">
+                            <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
+                        </p:blockUI>
+                        <p:panelGrid id="search-results-table" columns="1" style="width: 305px;">
+                            <f:facet name="header">Search Result</f:facet>
+
+                            <p:accordionPanel id="search-results-list" var="file" 
+                                              value="#{ProgramFile.newEntitySearch.results}"  
+                                              style="height: 550px; width: 100%; overflow: scroll;"
+                                               >
+                                <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
+
+                                    <p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
+                                        styleClass="ui-priority-primary"
+                                        action="#{ProgramFile.manageEntity}">
+                                        <f:setPropertyActionListener target="#{ProgramFile.subprogram}" 
+                                                                     value="manage" />
+                                        <f:setPropertyActionListener target="#{ProgramFile.subprogramTitle}" 
+                                                                     value="Manage File/Sequences" />
+                                        <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" 
+                                                                     value="#{file}" />
+                                    </p:commandButton>
+                                    <p:commandButton value="Generate Sequences" />
+                                    <p:commandButton value="Reset File" />
+                                    <p:blockUI block=":subprogram" trigger="manage" />
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                </h:panelGrid>
             </h:form>
         </h:panelGroup>
     </ui:composition>

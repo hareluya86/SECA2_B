@@ -7,7 +7,6 @@
 package Program.File;
 
 import Bootstrap.ComponentOperation;
-import Bootstrap.ComponentOperationFactory;
 import Bootstrap.Program;
 import Component.Entity.Manage.EntityManage;
 import Component.Entity.Manage.EntityManageFactory;
@@ -56,9 +55,10 @@ public class ProgramFile extends Program {
         //Instatiante all objects
         this.setPROGRAM_PARAM(new HashMap<String,Object>());
         this.setCOMP_OPERATIONS(new HashMap<String,ComponentOperation>());
+        //this.setSubprogram("manage.xhtml");
         
         this.setPROGRAM_XHTML("/programs/file/layout.xhtml");
-        this.getPROGRAM_PARAM().put("subprogram", "");
+        //this.getPROGRAM_PARAM().put("subprogram", "");
         this.setSearchTableID(":search-result-list");
         //this.getPROGRAM_PARAM().put("test-el-comment","This is a test of whether EL expressions are commented out by <!--");
         

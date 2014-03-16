@@ -30,7 +30,7 @@ public class EntitySearchDemo<T extends EnterpriseUnit> extends AbstractEntitySe
     @Override
     public void search() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException ex) {
             Logger.getLogger(EntitySearchDemo.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace(System.out);
@@ -68,7 +68,7 @@ public class EntitySearchDemo<T extends EnterpriseUnit> extends AbstractEntitySe
     }
 
     @Override
-    public EnterpriseKey enterpriseKey() {
+    public EnterpriseKey getKey() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

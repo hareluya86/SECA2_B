@@ -74,7 +74,7 @@ public abstract class Component implements EnterpriseEntity{
     public abstract void randInit();
 
     @Override
-    public abstract EnterpriseKey enterpriseKey();
+    public abstract EnterpriseKey getKey();
 
     @Override
     public abstract List exportAsList();
