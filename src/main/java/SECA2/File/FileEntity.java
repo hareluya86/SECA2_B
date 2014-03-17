@@ -7,35 +7,45 @@
 package SECA2.File;
 
 import EDS.BusinessUnit.EnterpriseUnit;
-import EDS.Data.EnterpriseKey;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import org.joda.time.DateMidnight;
 import org.joda.time.LocalDate;
 
 /**
- *
+ * An entity class that represents a File
+ * <p>
+ * 
+ * 
+ * Note: We will be using EDS, but this would not utilize the full features of 
+ * EDS. The following features will not be implemented from EDS:
+ * - EnterpriseData 
  * @author KH
  */
+@Entity
+@Table(name="FILEENTITY")
+@DiscriminatorValue("FILEENTITY")
 public class FileEntity extends EnterpriseUnit {
 
     private String FILENAME;
-
-    @Override
-    public Object key() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private long BYTE_SIZE;
+    private long SEQUENCE_SIZE;
+    private FILE_STATUS STATUS;
     
+    private List<FileSequence> sequences;
+
     public static enum FILE_STATUS{
         INCOMPLETE,
         COMPLETED
     }
     
-    private FILE_STATUS STATUS;
-    
-
     public String getFILENAME() {
         return FILENAME;
     }
@@ -53,12 +63,36 @@ public class FileEntity extends EnterpriseUnit {
         this.STATUS = STATUS;
     }
 
-    
-    @Override
-    public EnterpriseKey getKey() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public long getBYTE_SIZE() {
+        return BYTE_SIZE;
     }
 
+    public void setBYTE_SIZE(long BYTE_SIZE) {
+        this.BYTE_SIZE = BYTE_SIZE;
+    }
+
+    public long getSEQUENCE_SIZE() {
+        return SEQUENCE_SIZE;
+    }
+
+    public void setSEQUENCE_SIZE(long SEQUENCE_SIZE) {
+        this.SEQUENCE_SIZE = SEQUENCE_SIZE;
+    }
+
+    @OneToMany
+    public List<FileSequence> getSequences() {
+        return sequences;
+    }
+
+    public void setSequences(List<FileSequence> sequences) {
+        this.sequences = sequences;
+    }
+    
+    @Override
+    public Object key() {
+        return this.getOBJECTID();
+    }
+    
     @Override
     public void randInit() {
         DateMidnight dm = new DateMidnight();
@@ -70,7 +104,6 @@ public class FileEntity extends EnterpriseUnit {
         int filename = (user+6)/7;
         
         this.setFILENAME("File "+filename);
-        this.setDATE_CREATED(sqlDate);
         this.setCREATED_BY("User "+user);
     }
 
@@ -86,7 +119,14 @@ public class FileEntity extends EnterpriseUnit {
 
     @Override
     public Map<String, Object> exportAsMap() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Map<String, Object> map = super.exportAsMap();
+        
+        map.put("FILENAME", FILENAME);
+        map.put("BYTE_SIZE",BYTE_SIZE);
+        map.put("SEQUENCE_SIZE",SEQUENCE_SIZE);
+        map.put("FILE_STATUS",STATUS);    
+        
+        return map;
     }
 
     @Override

@@ -7,7 +7,6 @@
 package Bootstrap;
 
 import EDS.Data.EnterpriseEntity;
-import EDS.Data.EnterpriseKey;
 import java.util.List;
 import java.util.Map;
 
@@ -72,9 +71,6 @@ public abstract class Component implements EnterpriseEntity{
      */
     @Override
     public abstract void randInit();
-
-    @Override
-    public abstract EnterpriseKey getKey();
 
     @Override
     public abstract List exportAsList();

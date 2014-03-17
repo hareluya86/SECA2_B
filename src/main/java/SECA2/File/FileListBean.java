@@ -65,7 +65,7 @@ public class FileListBean {
             FileSequence fs = new FileSequence();
             fs.randInit();
             fs.setSEQUENCE_LINE(addSequence);
-            fs.setORIGINAL_LINE_NUM(sequence_index++);
+            fs.setSEQNUM(sequence_index++);
             sequences.add(fs);
         }
     }
