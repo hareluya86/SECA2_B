@@ -14,6 +14,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.joda.time.DateMidnight;
@@ -79,7 +80,7 @@ public class FileEntity extends EnterpriseUnit {
         this.SEQUENCE_SIZE = SEQUENCE_SIZE;
     }
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.LAZY)
     public List<FileSequence> getSequences() {
         return sequences;
     }
