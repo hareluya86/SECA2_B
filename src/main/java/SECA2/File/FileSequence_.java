@@ -6,6 +6,7 @@
 
 package SECA2.File;
 
+import EDS.BusinessUnit.EnterpriseData_;
 import SECA2.File.FileSequence.SEQUENCE_STATUS;
 import javax.persistence.metamodel.SingularAttribute;
 

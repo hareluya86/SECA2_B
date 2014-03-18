@@ -32,12 +32,12 @@ public class FileSequence extends EnterpriseData {
         REMOVED
     }
 
-    public long getORIGINAL_LINE_NUM() {
+    public long getCURRENT_LINE_NUM() {
         return CURRENT_LINE_NUM;
     }
 
-    public void setORIGINAL_LINE_NUM(long ORIGINAL_LINE_NUM) {
-        this.CURRENT_LINE_NUM = ORIGINAL_LINE_NUM;
+    public void setCURRENT_LINE_NUM(long CURRENT_LINE_NUM) {
+        this.CURRENT_LINE_NUM = CURRENT_LINE_NUM;
     }
 
     public String getSEQUENCE_LINE() {
@@ -46,14 +46,6 @@ public class FileSequence extends EnterpriseData {
 
     public void setSEQUENCE_LINE(String SEQUENCE_LINE) {
         this.SEQUENCE_CONTENT = SEQUENCE_LINE;
-    }
-
-    public long getCURRENT_LINE_NUM() {
-        return CURRENT_LINE_NUM;
-    }
-
-    public void setCURRENT_LINE_NUM(long CURRENT_LINE_NUM) {
-        this.CURRENT_LINE_NUM = CURRENT_LINE_NUM;
     }
 
     public String getSEQUENCE_CONTENT() {
@@ -72,7 +64,6 @@ public class FileSequence extends EnterpriseData {
     public void setSTATUS(SEQUENCE_STATUS STATUS) {
         this.STATUS = STATUS;
     }
-    
     
 
     @Override
@@ -101,6 +92,7 @@ public class FileSequence extends EnterpriseData {
         
         map.put("CURRENT_LINE_NUM", CURRENT_LINE_NUM);
         map.put("SEQUENCE_CONTENT", SEQUENCE_CONTENT);
+        map.put("STATUS", STATUS);
         
         return map;
     }

@@ -9,6 +9,7 @@ package SECA2.File;
 import EDS.BusinessUnit.EnterpriseUnit;
 import EDS.BusinessUnit.EnterpriseUnit_;
 import SECA2.File.FileEntity.FILE_STATUS;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -23,4 +24,5 @@ public class FileEntity_ extends EnterpriseUnit_{
     public static volatile SingularAttribute<FileEntity,Long> BYTE_SIZE;
     public static volatile SingularAttribute<FileEntity,Long> SEQUENCE_SIZE;
     public static volatile SingularAttribute<FileEntity,FILE_STATUS> STATUS;
+    public static volatile ListAttribute<FileEntity,FileSequence> sequences;
 }
