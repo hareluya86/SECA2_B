@@ -19,7 +19,7 @@ body {
     background: blue;
     margin: auto;
     width: 1280px;
-    //height: 550px;
+    height: 500px;
 }
 
 #header {
@@ -31,17 +31,19 @@ body {
 
 #content {
     background: orange;
-    height: 550px;
+    //height: 500px;
 }
 
 #content .panel {
     vertical-align: top;
-    height: auto;
+    //height: 100%;
     width: auto;
+    padding: 2px 4px;
 }
 
 #footer {
     background: pink;
+    margin-bottom: 0;
 }
 
 img.ajax-large {

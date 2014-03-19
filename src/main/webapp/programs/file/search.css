@@ -34,6 +34,10 @@ td.criteria-columns{
 #search-results {
     //width: 500px;
 }
+
+div #search-results-list {
+    
+}
 #search-form #search-results-table table {
     //width: 305px; doesn't work!
 }
