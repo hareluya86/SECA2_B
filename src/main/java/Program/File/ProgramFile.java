@@ -27,6 +27,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -90,6 +91,7 @@ public class ProgramFile extends Program {
     private String subprogramTitle;
     private EnterpriseUnit selectedEU;
     private String searchTableID;
+    private Part file;
     
     /**
      * ============== New UI action methods/listeners ==========================
@@ -119,6 +121,21 @@ public class ProgramFile extends Program {
             FacesMessage msg = new FacesMessage(ex.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+    }
+    
+    public void uploadFile(){
+        try {
+            //String fileContent = new Scanner(file.getInputStream()).useDelimiter("\\A").next();
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+            String lineSequence = new String();
+            int lineNum = 0;
+            while((lineSequence=bReader.readLine())!=null){
+                if(lineNum++%100 == 0)
+                    System.out.println(lineSequence);
+            }
+          } catch (IOException e) {
+            // Error handling
+          }
     }
     
     public void updateEntity(){
@@ -185,6 +202,14 @@ public class ProgramFile extends Program {
 
     public void setSubprogramTitle(String subprogramTitle) {
         this.subprogramTitle = subprogramTitle;
+    }
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
     }
 
     
