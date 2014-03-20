@@ -6,7 +6,6 @@
 
 package Program.File;
 
-import javax.inject.Named;
 
 /**
  * Utility class that processes file and sequence objects
@@ -14,7 +13,10 @@ import javax.inject.Named;
  * 
  * @author vincent.a.lee
  */
-@Named("FileManager")
 public class FileManager {
     
+/**
+ * 
+ * @author KH
+ */
 }

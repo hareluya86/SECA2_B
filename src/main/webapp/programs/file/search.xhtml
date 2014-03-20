@@ -46,13 +46,13 @@
 
                             <p:accordionPanel id="search-results-list" var="file" 
                                               value="#{ProgramFile.newEntitySearch.results}"  
-                                              style="height: 550px; width: 100%; overflow: scroll;"
+                                              style="width: 100%;overflow: scroll; height: 400px;"
                                                >
                                 <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
 
                                     <p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
                                         styleClass="ui-priority-primary"
-                                        action="#{ProgramFile.manageEntity}">
+                                        action="#{ProgramFile.manageFileAndSequences()}">
                                         <f:setPropertyActionListener target="#{ProgramFile.subprogram}" 
                                                                      value="manage" />
                                         <f:setPropertyActionListener target="#{ProgramFile.subprogramTitle}" 
@@ -60,14 +60,26 @@
                                         <f:setPropertyActionListener target="#{ProgramFile.selectedEU}" 
                                                                      value="#{file}" />
                                     </p:commandButton>
-                                    <p:commandButton value="Generate Sequences" />
+                                    <p:commandButton value="Generate Sequences" update=":subprogram" id="Generate"
+                                                     styleClass="ui-priority-primary">
+                                        
+                                    </p:commandButton>
                                     <p:commandButton value="Reset File" />
                                     <p:blockUI block=":subprogram" trigger="manage" />
                                 </p:tab>
                             </p:accordionPanel>
                         </p:panelGrid>
                     </h:panelGroup>
+                    
                 </h:panelGrid>
+            </h:form>
+            <h:form id="upload-form" enctype="multipart/form-data">
+                <p:fileUpload fileUploadListener="#{ProgramFile.uploadFile}" 
+                              mode="advanced" update="messages" auto="true" 
+                              sizeLimit="10000000000" allowTypes="/(\.|\/)(TXT|txt|jpe?g|csv)$/"
+                              label="Upload File"
+                               />  
+                <p:growl id="messages" showDetail="true"/>
             </h:form>
         </h:panelGroup>
     </ui:composition>

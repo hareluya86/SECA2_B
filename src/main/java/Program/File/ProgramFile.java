@@ -13,13 +13,22 @@ import Component.Entity.Manage.EntityManageFactory;
 import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
 import EDS.BusinessUnit.EnterpriseUnit;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -85,9 +94,31 @@ public class ProgramFile extends Program {
     /**
      * ============== New UI action methods/listeners ==========================
      */
-    public void manageEntity(){
+    public void manageFileAndSequences(){
         subprogram = subprogram.concat(".xhtml");
         newEntityManage.setEntity(selectedEU);
+    }
+    
+    public void generateSequences(){
+        subprogram = subprogram.concat(".xhtml");
+        
+    }
+    
+    public void uploadFile(FileUploadEvent event){
+        UploadedFile uploadedFile = event.getFile();
+        try {
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(uploadedFile.getInputstream()));
+            String lineSequence = new String();
+            int lineNum = 0;
+            while((lineSequence=bReader.readLine())!=null){
+                if(lineNum++%100 == 0)
+                    System.out.println(lineSequence);
+            }
+        } catch (IOException ex) {
+            //Logger.getLogger(ProgramFile.class.getName()).log(Level.SEVERE, null, ex);
+            FacesMessage msg = new FacesMessage(ex.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
     }
     
     public void updateEntity(){
