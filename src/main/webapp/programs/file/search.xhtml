@@ -80,11 +80,11 @@
                               label="Upload File"
                                />  
                 <p:growl id="messages" showDetail="true"/>
-                <h:form id="form" enctype="multipart/form-data">
-                    <h:inputFile id="file" value="#{ProgramFile.file}"/>
-                    <p:commandButton value="Upload"
-                        action="#{ProgramFile.uploadFile}"/>
-                </h:form>
+            </h:form>
+            <h:form id="form" enctype="multipart/form-data">
+                <h:inputFile id="file" value="#{ProgramFile.file}"/>
+                <h:commandButton value="Upload"
+                    action="#{ProgramFile.uploadFile}"/>
             </h:form>
         </h:panelGroup>
     </ui:composition>

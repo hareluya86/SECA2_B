@@ -16,6 +16,7 @@ import EDS.BusinessUnit.EnterpriseUnit;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -37,7 +38,7 @@ import org.primefaces.model.UploadedFile;
  */
 @Named("ProgramFile")
 @SessionScoped
-public class ProgramFile extends Program {
+public class ProgramFile extends Program implements Serializable {
     
     @Override
     public String className() {
@@ -113,7 +114,7 @@ public class ProgramFile extends Program {
             String lineSequence = new String();
             int lineNum = 0;
             while((lineSequence=bReader.readLine())!=null){
-                if(lineNum++%100 == 0)
+                if(lineNum++%1000000 == 0)
                     System.out.println(lineSequence);
             }
         } catch (IOException ex) {
@@ -130,7 +131,7 @@ public class ProgramFile extends Program {
             String lineSequence = new String();
             int lineNum = 0;
             while((lineSequence=bReader.readLine())!=null){
-                if(lineNum++%100 == 0)
+                if(lineNum++%1000000 == 0)
                     System.out.println(lineSequence);
             }
           } catch (IOException e) {
