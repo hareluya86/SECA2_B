@@ -7,9 +7,6 @@
 package Component.Entity.Manage;
 
 import Bootstrap.Component;
-import EDS.BusinessUnit.EnterpriseUnit;
-import EDS.Data.DAO;
-import EDS.Data.EnterpriseKey;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +15,8 @@ import java.util.Map;
  * @author KH
  * @param <T>
  */
-public abstract class AbstractEntityManage<T extends EnterpriseUnit> extends Component implements EntityManage{
+public abstract class AbstractEntityManage extends Component implements EntityManage{
 
-    protected T entity;
+    protected Object entity;
 
 }

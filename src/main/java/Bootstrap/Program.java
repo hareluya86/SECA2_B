@@ -6,7 +6,6 @@
 
 package Bootstrap;
 
-import EDS.Data.EnterpriseObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -20,7 +19,7 @@ import java.util.Map;
  * <p>
  * @author KH
  */
-public abstract class Program implements EnterpriseObject {
+public abstract class Program /*implements EnterpriseObject*/ {
     
     protected long PROGRAM_ID;
     protected String PROGRAM_NAME;
@@ -58,7 +57,7 @@ public abstract class Program implements EnterpriseObject {
         compOp.execute(this);
     }
     
-    @Override
+    //@Override
     public String tableName(){
         return "PROGRAM";
     }

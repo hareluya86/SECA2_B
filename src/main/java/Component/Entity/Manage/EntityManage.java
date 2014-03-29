@@ -6,15 +6,13 @@
 
 package Component.Entity.Manage;
 
-import EDS.BusinessUnit.EnterpriseUnit;
-import EDS.Data.DAO;
 
 /**
  *
  * @author KH
  * @param <T>
  */
-public interface EntityManage<T extends EnterpriseUnit> {
+public interface EntityManage {
     
     /**
      * Returns the managed EnterpriseUnit object
@@ -31,8 +29,8 @@ public interface EntityManage<T extends EnterpriseUnit> {
      * 
      * @return T
      */
-    public T getEntity();
-    public void setEntity(T entity);
+    public Object getEntity();
+    public void setEntity(Object entity);
     
     /**
      * Updates the underlying EnterpriseUnit object into the database
@@ -42,7 +40,7 @@ public interface EntityManage<T extends EnterpriseUnit> {
      * 
      * @param dao The DAO instance used to flush the EnterpriseUnit into the database.
      */
-    public void update(DAO dao);
+    //public void update(DAO dao);
     /**
      * Test method
      */

@@ -6,14 +6,13 @@
 
 package SECA2.File;
 
-import EDS.BusinessUnit.EnterpriseData;
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.joda.time.LocalDate;
 
 /**
  *
@@ -21,8 +20,9 @@ import org.joda.time.LocalDate;
  */
 @Entity
 @Table(name="FILESEQUENCE")
-public class FileSequence extends EnterpriseData {
+public class FileSequence implements Serializable /*extends EnterpriseData*/ {
 
+    private FileEntity FILE;
     private long CURRENT_LINE_NUM;
     private String SEQUENCE_CONTENT;
     private SEQUENCE_STATUS STATUS;
@@ -32,20 +32,21 @@ public class FileSequence extends EnterpriseData {
         REMOVED
     }
 
+    @Id @ManyToOne
+    public FileEntity getFILE() {
+        return FILE;
+    }
+
+    public void setFILE(FileEntity FILE) {
+        this.FILE = FILE;
+    }
+
     public long getCURRENT_LINE_NUM() {
         return CURRENT_LINE_NUM;
     }
 
     public void setCURRENT_LINE_NUM(long CURRENT_LINE_NUM) {
         this.CURRENT_LINE_NUM = CURRENT_LINE_NUM;
-    }
-
-    public String getSEQUENCE_LINE() {
-        return SEQUENCE_CONTENT;
-    }
-
-    public void setSEQUENCE_LINE(String SEQUENCE_LINE) {
-        this.SEQUENCE_CONTENT = SEQUENCE_LINE;
     }
 
     public String getSEQUENCE_CONTENT() {
@@ -65,7 +66,7 @@ public class FileSequence extends EnterpriseData {
         this.STATUS = STATUS;
     }
     
-
+    /*
     @Override
     public void randInit() {
         LocalDate ld = new LocalDate();
@@ -111,5 +112,5 @@ public class FileSequence extends EnterpriseData {
     public Object key() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+    */
 }

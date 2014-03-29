@@ -12,25 +12,17 @@ import Component.Entity.Manage.EntityManage;
 import Component.Entity.Manage.EntityManageFactory;
 import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
-import EDS.BusinessUnit.EnterpriseUnit;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.Part;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -40,22 +32,22 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class ProgramFile extends Program implements Serializable {
     
-    @Override
+    //@Override
     public String className() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public Map<String, Object> exportAsMap() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public String exportAsString() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public List exportAsList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -90,7 +82,7 @@ public class ProgramFile extends Program implements Serializable {
     private EntityManage newEntityManage;
     private String subprogram;
     private String subprogramTitle;
-    private EnterpriseUnit selectedEU;
+    private Object selectedEU;
     private String searchTableID;
     private Part file;
     
@@ -107,6 +99,7 @@ public class ProgramFile extends Program implements Serializable {
         
     }
     
+    /*
     public void uploadFile(FileUploadEvent event){
         UploadedFile uploadedFile = event.getFile();
         try {
@@ -122,12 +115,13 @@ public class ProgramFile extends Program implements Serializable {
             FacesMessage msg = new FacesMessage(ex.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-    }
+    }*/
     
     public void uploadFile(){
         try {
             //String fileContent = new Scanner(file.getInputStream()).useDelimiter("\\A").next();
             BufferedReader bReader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+            
             String lineSequence = new String();
             int lineNum = 0;
             while((lineSequence=bReader.readLine())!=null){
@@ -145,14 +139,14 @@ public class ProgramFile extends Program implements Serializable {
         newEntityManage.update(); //dummy
         
         //Find the EnterpriseUnit instance in newEntitySearch and update it
-        Iterator<EnterpriseUnit> i = newEntitySearch.getResults().iterator();
+        /*Iterator i = newEntitySearch.getResults().iterator();
         while(i.hasNext()){
             EnterpriseUnit eu = i.next();
             if(eu.getOBJECTID() == selectedEU.getOBJECTID()){
                 eu = selectedEU;
             }
         }
-        System.out.println("updateEntity is called!");
+        System.out.println("updateEntity is called!");*/
     }
     /**
      * New UI component setters and getters
@@ -181,11 +175,11 @@ public class ProgramFile extends Program implements Serializable {
         this.subprogram = subprogram;
     }
 
-    public EnterpriseUnit getSelectedEU() {
+    public Object getSelectedEU() {
         return selectedEU;
     }
 
-    public void setSelectedEU(EnterpriseUnit selectedEU) {
+    public void setSelectedEU(Object selectedEU) {
         this.selectedEU = selectedEU;
     }
 

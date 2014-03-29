@@ -6,7 +6,6 @@
 
 package Template;
 
-import EDS.Data.EnterpriseObject;
 import java.util.Map;
 
 
@@ -14,7 +13,7 @@ import java.util.Map;
  *
  * @author KH
  */
-public abstract class Template implements EnterpriseObject {
+public abstract class Template /*implements EnterpriseObject*/ {
     
     protected String TEMPLATE_ID;
     protected String TEMPLATE_NAME;
@@ -22,7 +21,7 @@ public abstract class Template implements EnterpriseObject {
     protected String TEMPLATE_XHTML;
     protected Map<String,Object> TEMPLATE_PARAMS;
 
-    @Override
+    //@Override
     public String tableName(){
         return "TEMPLATE";
     }

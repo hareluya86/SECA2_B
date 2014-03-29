@@ -2,9 +2,6 @@ package Component.Entity.Search.Demo;
 
 import Component.Entity.Search.EntitySearch;
 import Component.Entity.Search.EntitySearchFactory;
-import EDS.BusinessUnit.EnterpriseUnit;
-import EDS.BusinessUnit.Test.TestUnit;
-import EDS.BusinessUnit.Test.TestUnit_;
 import SECA2.File.FileEntity;
 
 /*
@@ -24,7 +21,7 @@ public class EntitySearchFactoryDemo extends EntitySearchFactory {
         
         //Testing using TestUnit
         if(entityUnitType.equalsIgnoreCase("File")){
-            EntitySearch<FileEntity> result = new EntitySearchDemo<FileEntity>();
+            EntitySearch result = new EntitySearchDemo();
             //result.setMetaClass(TestUnit_.class);
             return result;
         }

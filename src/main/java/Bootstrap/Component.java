@@ -6,7 +6,6 @@
 
 package Bootstrap;
 
-import EDS.Data.EnterpriseEntity;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import java.util.Map;
  *
  * @author KH
  */
-public abstract class Component implements EnterpriseEntity{
+public abstract class Component /*implements EnterpriseEntity*/{
     
     protected long COMPONENT_ID;
     protected String COMPONENT_NAME;
@@ -69,22 +68,22 @@ public abstract class Component implements EnterpriseEntity{
     /**
      * == Abstract getters and setters to be implemented in subclasses =========
      */
-    @Override
+    //@Override
     public abstract void randInit();
 
-    @Override
+    //@Override
     public abstract List exportAsList();
 
-    @Override
+    //@Override
     public abstract String exportAsString();
 
-    @Override
+    //@Override
     public abstract Map<String, Object> exportAsMap();
 
-    @Override
+    //@Override
     public abstract String className();
 
-    @Override
+    //@Override
     public abstract String tableName();
 
     

@@ -7,7 +7,6 @@
 package Component.Entity.Search;
 
 import Component.Entity.Search.Demo.EntitySearchFactoryDemo;
-import EDS.BusinessUnit.EnterpriseUnit;
 
 /**
  *

@@ -6,8 +6,6 @@
 
 package Component.Entity.Search;
 
-import EDS.BusinessUnit.EnterpriseUnit;
-import EDS.BusinessUnit.EnterpriseUnit_;
 import java.util.Collection;
 
 /**
@@ -16,7 +14,7 @@ import java.util.Collection;
  * @param <T>
  */
 
-public interface EntitySearch<T extends EnterpriseUnit> {
+public interface EntitySearch {
     
     /**
      * Executes the search action
@@ -44,7 +42,7 @@ public interface EntitySearch<T extends EnterpriseUnit> {
      * 
      * @return  Returns the most updated result list
      */
-    public Collection<T> getResults();
+    public Collection<Object> getResults();
     
     /**
      * Returns the underlying metaclass.
@@ -52,7 +50,7 @@ public interface EntitySearch<T extends EnterpriseUnit> {
      * 
      * @return EnterpriseUnit_ The underlying metaclass.
      */
-    public EnterpriseUnit_ getMetaClass();
+    //public EnterpriseUnit_ getMetaClass();
     
     /**
      * Sets the underlying metaclass.
@@ -63,7 +61,7 @@ public interface EntitySearch<T extends EnterpriseUnit> {
      * 
      * @param EnterpriseUnit_   The underlying metaclass to be set.
      */
-    public void setMetaClass(Class EnterpriseUnit_);
+    //public void setMetaClass(Class EnterpriseUnit_);
     
     public String getResult();
     

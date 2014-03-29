@@ -8,7 +8,6 @@ package Component.Entity.Manage.Demo;
 
 import Component.Entity.Manage.EntityManage;
 import Component.Entity.Manage.EntityManageFactory;
-import SECA2.File.FileEntity;
 
 /**
  *
@@ -24,7 +23,7 @@ public class EntityManageFactoryDemo extends EntityManageFactory {
     @Override
     public EntityManage getEntityManage(String name) {
         if("File".equalsIgnoreCase(name))
-            return new EntityManageDemo<FileEntity>();
+            return new EntityManageDemo();
         else
             throw new RuntimeException("EntityManage "+name+" is not recognized.");
     }

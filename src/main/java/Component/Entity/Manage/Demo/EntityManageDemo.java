@@ -7,9 +7,6 @@
 package Component.Entity.Manage.Demo;
 
 import Component.Entity.Manage.AbstractEntityManage;
-import EDS.BusinessUnit.EnterpriseUnit;
-import EDS.Data.DAO;
-import EDS.Data.EnterpriseKey;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +15,7 @@ import java.util.Map;
  *
  * @author KH
  */
-public class EntityManageDemo<T extends EnterpriseUnit> extends AbstractEntityManage {
+public class EntityManageDemo extends AbstractEntityManage {
 
     @Override
     public void randInit() {
@@ -49,19 +46,14 @@ public class EntityManageDemo<T extends EnterpriseUnit> extends AbstractEntityMa
     public String tableName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    @Override
-    public void update(DAO dao) {
-        
-    }
 
     @Override
-    public EnterpriseUnit getEntity() {
+    public Object getEntity() {
         return this.entity;
     }
 
     @Override
-    public void setEntity(EnterpriseUnit entity) {
+    public void setEntity(Object entity) {
         this.entity = entity;
     }
 
@@ -70,42 +62,42 @@ public class EntityManageDemo<T extends EnterpriseUnit> extends AbstractEntityMa
         
     }
 
-    @Override
+    //@Override
     public void setDATE_CREATED(Date DATE_CREATED) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public Date getDATE_CREATED() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public void setCREATED_BY(String CREATED_BY) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public String getCREATED_BY() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public void setDATE_CHANGED(Date DATE_CHANGED) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public Date getDATE_CHANGED() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public void setCHANGED_BY(String CHANGED_BY) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public String getCHANGED_BY() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

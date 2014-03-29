@@ -19,22 +19,22 @@ public class TemplateDemo extends Template {
     public TemplateDemo(){
         this.setTEMPLATE_XHTML("/templates/mytemplate/layout.xhtml");
     }
-    @Override
+    //@Override
     public String className() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public Map<String, Object> exportAsMap() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public String exportAsString() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
+    //@Override
     public List exportAsList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

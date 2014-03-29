@@ -1,0 +1,11 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<!-- a SessionFactory instance listed as /jndi/name -->
+    <session-factory >
+        <mapping package="SECA2.File" />
+        <mapping class="SECA2.File.FileEntity" />
+        <mapping class="SECA2.File.FileSequence" />
+    </session-factory>
+</hibernate-configuration>

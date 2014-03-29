@@ -6,15 +6,16 @@
 
 package SECA2.File;
 
-import EDS.BusinessUnit.EnterpriseUnit;
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.joda.time.DateMidnight;
@@ -28,25 +29,35 @@ import org.joda.time.LocalDate;
  * Note: We will be using EDS, but this would not utilize the full features of 
  * EDS. The following features will not be implemented from EDS:
  * - EnterpriseData 
+ * 
+ * Update: we will not be using EDS anymore, as there are too many problems in 
+ * compiling and dependency 
  * @author KH
  */
 @Entity
 @Table(name="FILEENTITY")
-@DiscriminatorValue("FILEENTITY")
-public class FileEntity extends EnterpriseUnit {
+@DiscriminatorValue("FILEENTITY") //for EDS
+public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
 
     private String FILENAME;
     private long BYTE_SIZE;
     private long SEQUENCE_SIZE;
     private FILE_STATUS STATUS;
+    private String MD5_HASH;
+    private java.sql.Date DATE_CREATED;
+    private String CREATED_BY;
     
-    private List<FileSequence> sequences;
+    private java.sql.Date DATE_CHANGED;
+    private String CHANGED_BY;
+    
+    private List<FileSequence> sequences = new ArrayList<FileSequence>();
 
     public static enum FILE_STATUS{
         INCOMPLETE,
         COMPLETED
     }
     
+    @Id
     public String getFILENAME() {
         return FILENAME;
     }
@@ -80,7 +91,47 @@ public class FileEntity extends EnterpriseUnit {
         this.SEQUENCE_SIZE = SEQUENCE_SIZE;
     }
 
-    @OneToMany(fetch=FetchType.LAZY)
+    public Date getDATE_CREATED() {
+        return DATE_CREATED;
+    }
+
+    public void setDATE_CREATED(Date DATE_CREATED) {
+        this.DATE_CREATED = DATE_CREATED;
+    }
+
+    public String getCREATED_BY() {
+        return CREATED_BY;
+    }
+
+    public void setCREATED_BY(String CREATED_BY) {
+        this.CREATED_BY = CREATED_BY;
+    }
+
+    public Date getDATE_CHANGED() {
+        return DATE_CHANGED;
+    }
+
+    public void setDATE_CHANGED(Date DATE_CHANGED) {
+        this.DATE_CHANGED = DATE_CHANGED;
+    }
+
+    public String getCHANGED_BY() {
+        return CHANGED_BY;
+    }
+
+    public void setCHANGED_BY(String CHANGED_BY) {
+        this.CHANGED_BY = CHANGED_BY;
+    }
+
+    public String getMD5_HASH() {
+        return MD5_HASH;
+    }
+
+    public void setMD5_HASH(String MD5_HASH) {
+        this.MD5_HASH = MD5_HASH;
+    }
+    
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="FILE")
     public List<FileSequence> getSequences() {
         return sequences;
     }
@@ -89,12 +140,16 @@ public class FileEntity extends EnterpriseUnit {
         this.sequences = sequences;
     }
     
+    
+    
+    /** ============= Methods inherited from EDS ============================
     @Override
+    
     public Object key() {
-        return this.getOBJECTID();
+        return this.getFILENAME();
     }
     
-    @Override
+    @Override*/
     public void randInit() {
         DateMidnight dm = new DateMidnight();
         LocalDate ld = new LocalDate();
@@ -107,7 +162,7 @@ public class FileEntity extends EnterpriseUnit {
         this.setFILENAME("File "+filename);
         this.setCREATED_BY("User "+user);
     }
-
+    /*
     @Override
     public String tableName() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -139,5 +194,6 @@ public class FileEntity extends EnterpriseUnit {
     public List exportAsList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    */
     
 }
