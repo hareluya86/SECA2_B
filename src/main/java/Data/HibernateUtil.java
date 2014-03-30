@@ -22,7 +22,7 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class HibernateUtil implements Serializable {
     
-    public Session getSession(){
+    public Session getSession() throws org.hibernate.exception.JDBCConnectionException{
         Configuration cfg = createFullConfig();
         cfg.configure();
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder ().applySettings(cfg.getProperties()).build();
