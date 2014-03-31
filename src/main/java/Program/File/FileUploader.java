@@ -31,6 +31,7 @@ import javax.servlet.http.Part;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.exception.JDBCConnectionException;
+import org.joda.time.DateTime;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -178,6 +179,9 @@ public class FileUploader implements Serializable {
                                             ,"");
                                         this.showInsertButton = false;
                                         this.disableInsertButton = true;
+                                        this.holdingFile = null;
+                                        this.uploadedFile = null;
+                                        
                                         break;
                     default         :   break;
                 }
@@ -202,6 +206,7 @@ public class FileUploader implements Serializable {
             //setFacesMessage(FacesMessage.SEVERITY_ERROR,ex.getClass().getName(),"");
             //this.showInsertButton = false;
             //throw unknown exceptions out to the front
+            this.cancel();
             throw ex;
         } 
     }
@@ -266,7 +271,7 @@ public class FileUploader implements Serializable {
      */
     public void insertFileAndSequences() {
         System.out.println(holdingFile.getFILENAME());
-        
+        DateTime startTime = new DateTime();
         Session session = hibernateUtil.getSession();
         FileEntity insertThisFile = this.holdingFile;
         UploadedFile fileContents = this.uploadedFile;
@@ -301,7 +306,8 @@ public class FileUploader implements Serializable {
             }
             //commit
             session.getTransaction().commit();
-            
+            DateTime endTime = new DateTime();
+            System.out.println("Start at "+startTime+" and End at "+endTime);
         } catch (IOException ex) {
             //Logger.getLogger(ProgramFile.class.getName()).log(Level.SEVERE, null, ex);
             FacesMessage msg = new FacesMessage(ex.getMessage());

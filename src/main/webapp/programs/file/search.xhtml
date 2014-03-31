@@ -92,11 +92,12 @@
                                      action="#{FileUploader.insertFileAndSequences}" 
                                      rendered="#{FileUploader.showInsertButton}"
                                      disabled="#{FileUploader.disableInsertButton}"
+                                     update="@form"
                                      />
                     <p:commandButton id="cancel-insert-button" value="cancel"
                                      action="#{FileUploader.cancel}"
                                      rendered="#{FileUploader.showInsertButton}"
-                                     update="@form" ajax="true" 
+                                     update="@form"  
                                      >
                         
                     </p:commandButton>
