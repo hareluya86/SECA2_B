@@ -76,11 +76,11 @@
             <h:panelGroup id="uploader" layout="block">
                 
                 <h:form id="upload-form" enctype="multipart/form-data" >
-                    <p:blockUI block="upload-form" trigger="cancel-insert-button">
+                    <p:blockUI block="upload-form" trigger="insert-file-button,cancel-insert-button">
                         <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
                     </p:blockUI>
                     <p:outputLabel id="messages-label" value="#{FileUploader.startUpload} " />
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                     <p:fileUpload fileUploadListener="#{FileUploader.uploadFile}" immediate="true" 
                                   mode="advanced" auto="true"
                                   sizeLimit="10000000000" allowTypes="/(\.|\/)(TXT|txt|jpe?g|csv)$/"

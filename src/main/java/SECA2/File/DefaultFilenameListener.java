@@ -14,7 +14,7 @@ import org.joda.time.DateTime;
  *
  * @author KH
  */
-public class FileEntityListener {
+public class DefaultFilenameListener {
     
     private final String DEFAULT_FILENAME = "FILE";
     

@@ -8,6 +8,8 @@ package Program.File;
 
 import Data.HibernateUtil;
 import SECA2.File.FileEntity;
+import static SECA2.File.FileEntity.FILE_STATUS.COMPLETED;
+import static SECA2.File.FileEntity.FILE_STATUS.INCOMPLETE;
 import SECA2.File.FileSequence;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,7 +45,7 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class FileUploader implements Serializable {
     
-    private final long MAX_RECORD_FLUSH = 10000;
+    private final long MAX_RECORD_FLUSH = 100000;
     private final long MAX_RECORD_COMMIT = 100000;
     
     @Inject
@@ -154,47 +156,8 @@ public class FileUploader implements Serializable {
      * 3) 
      * @param event 
      */
-    public void uploadFile(FileUploadEvent event){
-        /*uploadedFile = event.getFile();
-        
-        //1) Validate file
-        //- Make sure each line is of the same length
-        //- Compute MD5 checksum at the same time
-        //- Compute byte and sequence size at the same time
-        String md5Checksum = "";
-        int lineNum = 0;
-        long fileSize = uploadedFile.getSize();
-        */
-        
+    public void uploadFile(FileUploadEvent event) throws Exception{
         try {
-            /*MessageDigest md = MessageDigest.getInstance("MD5");
-            InputStream is = uploadedFile.getInputstream();
-            DigestInputStream dis = new DigestInputStream(is, md);
-            
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(dis));
-            String line = new String();
-             
-            int prevLineSize = 0;
-            while((line=bReader.readLine())!=null){
-                lineNum++;
-                if(prevLineSize > 0 && prevLineSize != line.length()){ //last line is empty although gvim shows no last line
-                    System.out.println(line);
-                    throw new InvalidFileException("File "+uploadedFile.getFileName()+" does not contain equal length sequences!");
-                }
-                prevLineSize = line.length();
-            }
-            byte[] digest = md.digest();// dis.getMessageDigest().digest();
-            for(int i=0; i<digest.length; i++){
-                System.out.print(digest[i]);
-            }
-            md5Checksum = String.format("%032x", new BigInteger(digest));
-            System.out.println("MD5 hash: "+md5Checksum);
-            
-            //initialize temp FileEntity set all variables to proceed with the remaining checks
-            holdingFile = this.createNewFile(uploadedFile.getFileName());
-            holdingFile.setBYTE_SIZE(fileSize);
-            holdingFile.setSEQUENCE_SIZE(lineNum);
-            holdingFile.setMD5_HASH(md5Checksum);*/
             FileEntity checkedLengthAndChecksum = checkLengthAndComputeChecksum(event.getFile());
             if(checkedLengthAndChecksum == null)
                 throw new InvalidFileException("File "+event.getFile().getFileName()+" does not contain equal length sequences!");
@@ -202,7 +165,7 @@ public class FileUploader implements Serializable {
             FileEntity existingFile = this.checkFileExists(hibernateUtil.getSession(), checkedLengthAndChecksum);
             if(existingFile != null){
                 System.out.println("Existing file "+existingFile.getFILENAME()+" found");//debug
-                switch(existingFile.getSTATUS()){
+                switch(existingFile.getUPLOAD_STATUS()){
                     case INCOMPLETE :   setFacesMessage(FacesMessage.SEVERITY_INFO,
                                             "File \""+existingFile.getFILENAME()+"\" has been uploaded before."
                                             ,"");
@@ -223,8 +186,11 @@ public class FileUploader implements Serializable {
                 this.insertButtonValue = "Insert new file \""+event.getFile().getFileName()+"\"";
                 this.showInsertButton = true;
                 this.disableInsertButton = false;
+                existingFile = checkedLengthAndChecksum;
             }
+            //Hold temp files reference in memory *very impt!*
             this.holdingFile = existingFile;
+            this.uploadedFile = event.getFile();
             
         }  catch (InvalidFileException ifex){
             setFacesMessage(FacesMessage.SEVERITY_ERROR,ifex.getMessage(),"");
@@ -233,8 +199,10 @@ public class FileUploader implements Serializable {
             setFacesMessage(FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
             this.showInsertButton = false;
         } catch (Exception ex) {
-            setFacesMessage(FacesMessage.SEVERITY_ERROR,ex.getMessage(),"");
-            this.showInsertButton = false;
+            //setFacesMessage(FacesMessage.SEVERITY_ERROR,ex.getClass().getName(),"");
+            //this.showInsertButton = false;
+            //throw unknown exceptions out to the front
+            throw ex;
         } 
     }
     /**
@@ -282,60 +250,70 @@ public class FileUploader implements Serializable {
         return checkedFile;
     }
     
+    /**
+     * Helper to set Faces message
+     * @param level
+     * @param headline
+     * @param description 
+     */
     public void setFacesMessage(FacesMessage.Severity level, String headline, String description){
         FacesMessage msg = new FacesMessage(level,headline,description);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
+    /**
+     * 
+     */
     public void insertFileAndSequences() {
         System.out.println(holdingFile.getFILENAME());
         
         Session session = hibernateUtil.getSession();
+        FileEntity insertThisFile = this.holdingFile;
+        UploadedFile fileContents = this.uploadedFile;
 
-        //Check if file exists
-        String filename = uploadedFile.getFileName();
-        FileEntity newFile = this.createNewFile(filename);
-        
-        FileEntity checkFile = this.checkFileExists(session, newFile);
-        if(checkFile != null){ //file exists
-            newFile = checkFile;
-        }else{//file doesn't exist
-            session.getTransaction().begin();
-            session.save(newFile);
-            //session.flush();
-            session.getTransaction().commit();
-        }
-        
         //resume from the sequence number where the upload has stopped
         try {
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(uploadedFile.getInputstream()));
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(fileContents.getInputstream()));
             String lineSequence = new String();
-            long lineNum = newFile.getSEQUENCE_SIZE();
             
             //move bufferedreader to the last line read
+            long lineNum = insertThisFile.getLAST_SEQUENCE();
+            bReader.skip(lineNum);
             
             session.getTransaction().begin();
-            
-            
+            session.saveOrUpdate(insertThisFile);
             while((lineSequence=bReader.readLine())!=null){
-                FileSequence nextSequence = this.addSequence(newFile, lineSequence);
+                FileSequence nextSequence = this.addSequence(insertThisFile, lineSequence);
                 session.save(nextSequence);
-                if(lineNum++%MAX_RECORD_FLUSH == 0){
+                /*if(lineNum++%MAX_RECORD_FLUSH == 0){
                     System.out.println("Flush at: "+lineSequence);
+                    //session.update(insertThisFile);//test whether insertThisFile is auto-managed or needs to be updated explicitly
                     session.flush();
-                }
-                if(lineNum++%MAX_RECORD_COMMIT == 0){
+                    session.clear();
+                }*/
+                if(insertThisFile.getLAST_SEQUENCE()%MAX_RECORD_COMMIT == 0){
                     System.out.println("Commit at: "+lineSequence);
+                    session.saveOrUpdate(insertThisFile);
                     session.getTransaction().commit();
+                    session.clear();
                     session.getTransaction().begin();
                 }
             }
+            //commit
             session.getTransaction().commit();
+            
         } catch (IOException ex) {
             //Logger.getLogger(ProgramFile.class.getName()).log(Level.SEVERE, null, ex);
             FacesMessage msg = new FacesMessage(ex.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, msg);
-        } 
+            this.setFacesMessage(FacesMessage.SEVERITY_ERROR, ex.getClass().getName(), ex.getMessage());
+        } catch(java.lang.OutOfMemoryError e){
+            this.setFacesMessage(FacesMessage.SEVERITY_ERROR, e.getClass().getName(), e.getMessage());
+        } catch (Exception e) {
+            throw e;
+        } finally { //clear all temp files and variables
+            this.cancel();
+        }
     }
     
     public FileEntity createNewFile(String filename){
@@ -343,23 +321,30 @@ public class FileUploader implements Serializable {
         fileEntity.setFILENAME(filename);
         fileEntity.setSEQUENCE_SIZE(0);
         fileEntity.setBYTE_SIZE(0);
-        fileEntity.setSTATUS(FileEntity.FILE_STATUS.INCOMPLETE);
+        fileEntity.setLAST_SEQUENCE(0);
+        fileEntity.setUPLOAD_STATUS(INCOMPLETE);
         
         return fileEntity;
     };
     
     public FileSequence addSequence(FileEntity file, FileSequence sequence){
-        
+        if(file.getUPLOAD_STATUS()==COMPLETED)
+            throw new RuntimeException("File "+file.getFILENAME()+" has completed uploading and cannot be overwritten. "
+                    + "Please delete file and re-upload again.");
         sequence.setFILE(file);
         file.getSequences().add(sequence);
-        file.setSEQUENCE_SIZE(file.getSEQUENCE_SIZE()+1);
+        file.setLAST_SEQUENCE(file.getLAST_SEQUENCE()+1);
+        sequence.setORIGINAL_LINE_NUM(file.getLAST_SEQUENCE());
+        sequence.setCURRENT_LINE_NUM(file.getLAST_SEQUENCE());
+        if(file.getSEQUENCE_SIZE() <= file.getLAST_SEQUENCE())
+            file.setUPLOAD_STATUS(COMPLETED);
         return sequence;
     };
     
     public FileSequence addSequence(FileEntity file, String sequenceContent){
         FileSequence sequence = new FileSequence();
         sequence.setSEQUENCE_CONTENT(sequenceContent);
-        
+        sequence.setSTATUS(FileSequence.SEQUENCE_STATUS.ACTIVE);
         return addSequence(file,sequence);
     }
     
@@ -421,8 +406,7 @@ public class FileUploader implements Serializable {
      * 
      * @throws IOException 
      */
-    public void cancel() throws IOException{
-        if(this.partFile!=null) this.partFile.delete();
+    public void cancel() {
         this.partFile = null;
         this.uploadedFile = null;
         this.holdingFile = null;

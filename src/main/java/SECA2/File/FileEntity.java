@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -37,13 +38,15 @@ import org.joda.time.LocalDate;
 @Entity
 @Table(name="FILEENTITY")
 @DiscriminatorValue("FILEENTITY") //for EDS
+@EntityListeners({DateCreatedListener.class, DefaultFilenameListener.class})
 public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
 
     private String FILENAME;
-    private long BYTE_SIZE;
-    private long SEQUENCE_SIZE;
-    private FILE_STATUS STATUS;
-    private String MD5_HASH;
+    private long BYTE_SIZE; //Total original file byte size together with newline and carriage returns
+    private long SEQUENCE_SIZE; //Total number of sequences
+    private long LAST_SEQUENCE; //The last sequence that was uploaded (LAST_SEQUENCE = SEQUENCE_SIZE if FILE_STATUS = COMPLETED)
+    private FILE_STATUS UPLOAD_STATUS; 
+    private String MD5_HASH; 
     private java.sql.Date DATE_CREATED;
     private String CREATED_BY;
     
@@ -67,12 +70,12 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
     }
 
     @Enumerated(EnumType.STRING)
-    public FILE_STATUS getSTATUS() {
-        return STATUS;
+    public FILE_STATUS getUPLOAD_STATUS() {
+        return UPLOAD_STATUS;
     }
 
-    public void setSTATUS(FILE_STATUS STATUS) {
-        this.STATUS = STATUS;
+    public void setUPLOAD_STATUS(FILE_STATUS UPLOAD_STATUS) {
+        this.UPLOAD_STATUS = UPLOAD_STATUS;
     }
 
     public long getBYTE_SIZE() {
@@ -139,8 +142,14 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
     public void setSequences(List<FileSequence> sequences) {
         this.sequences = sequences;
     }
-    
-    
+
+    public long getLAST_SEQUENCE() {
+        return LAST_SEQUENCE;
+    }
+
+    public void setLAST_SEQUENCE(long LAST_SEQUENCE) {
+        this.LAST_SEQUENCE = LAST_SEQUENCE;
+    }
     
     /** ============= Methods inherited from EDS ============================
     @Override
@@ -155,8 +164,8 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
         LocalDate ld = new LocalDate();
         java.sql.Date sqlDate = new java.sql.Date(ld.toDate().getTime());
         int user = (int)(Math.random()*12345);
-        if(Math.random() >0.5) this.setSTATUS(FILE_STATUS.COMPLETED);
-        else this.setSTATUS(FILE_STATUS.INCOMPLETE);
+        if(Math.random() >0.5) this.setUPLOAD_STATUS(FILE_STATUS.COMPLETED);
+        else this.setUPLOAD_STATUS(FILE_STATUS.INCOMPLETE);
         int filename = (user+6)/7;
         
         this.setFILENAME("File "+filename);

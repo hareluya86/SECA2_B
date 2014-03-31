@@ -148,7 +148,7 @@ public class FileManager_EDS implements Serializable {
         fileEntity.setFILENAME(filename);
         fileEntity.setSEQUENCE_SIZE(0);
         fileEntity.setBYTE_SIZE(0);
-        fileEntity.setSTATUS(FileEntity.FILE_STATUS.INCOMPLETE);
+        fileEntity.setUPLOAD_STATUS(FileEntity.FILE_STATUS.INCOMPLETE);
         
         return fileEntity;
     };

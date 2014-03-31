@@ -23,6 +23,7 @@ import javax.persistence.Table;
 public class FileSequence implements Serializable /*extends EnterpriseData*/ {
 
     private FileEntity FILE;
+    private long ORIGINAL_LINE_NUM;
     private long CURRENT_LINE_NUM;
     private String SEQUENCE_CONTENT;
     private SEQUENCE_STATUS STATUS;
@@ -65,6 +66,7 @@ public class FileSequence implements Serializable /*extends EnterpriseData*/ {
     public void setSTATUS(SEQUENCE_STATUS STATUS) {
         this.STATUS = STATUS;
     }
+    
     
     /*
     @Override
@@ -113,4 +115,13 @@ public class FileSequence implements Serializable /*extends EnterpriseData*/ {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     */
+
+    @Id
+    public long getORIGINAL_LINE_NUM() {
+        return ORIGINAL_LINE_NUM;
+    }
+
+    public void setORIGINAL_LINE_NUM(long ORIGINAL_LINE_NUM) {
+        this.ORIGINAL_LINE_NUM = ORIGINAL_LINE_NUM;
+    }
 }
