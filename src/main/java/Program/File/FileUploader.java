@@ -62,12 +62,14 @@ public class FileUploader implements Serializable {
     private boolean showInsertButton;
     private boolean disableInsertButton;
     private boolean showRetryButton;
+    private String insertFileMessage;
     
     @PostConstruct
     public void init(){
         insertButtonValue = "";
         showInsertButton = false;
         disableInsertButton = true;
+        insertFileMessage = "";
     }
 
     public HibernateUtil getHibernateUtil() {
@@ -141,6 +143,14 @@ public class FileUploader implements Serializable {
     public void setShowRetryButton(boolean showRetryButton) {
         this.showRetryButton = showRetryButton;
     }
+
+    public String getInsertFileMessage() {
+        return insertFileMessage;
+    }
+
+    public void setInsertFileMessage(String insertFileMessage) {
+        this.insertFileMessage = insertFileMessage;
+    }
     
     public void startFileUpload(){
         this.startUpload = "File upload has started";
@@ -163,7 +173,9 @@ public class FileUploader implements Serializable {
             if(checkedLengthAndChecksum == null)
                 throw new InvalidFileException("File "+event.getFile().getFileName()+" does not contain equal length sequences!");
             //Compare with existing file and determine if insert button should be a "Insert new file"/"Resume existing file"/"File already uploaded"
-            FileEntity existingFile = this.checkFileExists(hibernateUtil.getSession(), checkedLengthAndChecksum);
+            Session session = hibernateUtil.getSession();
+            FileEntity existingFile = this.checkFileExists(session, checkedLengthAndChecksum);
+            session.close();
             if(existingFile != null){
                 System.out.println("Existing file "+existingFile.getFILENAME()+" found");//debug
                 switch(existingFile.getUPLOAD_STATUS()){
@@ -283,12 +295,15 @@ public class FileUploader implements Serializable {
             String lineSequence = new String();
             
             //move bufferedreader to the last line read
-            long lineNum = insertThisFile.getLAST_SEQUENCE();
-            bReader.skip(lineNum*insertThisFile.getLINE_SIZE());
+            long lineNum = 0;//insertThisFile.getLAST_SEQUENCE();
+            //bReader.skip(lineNum*insertThisFile.getLINE_SIZE());
             
             session.getTransaction().begin();
             session.saveOrUpdate(insertThisFile);
             while((lineSequence=bReader.readLine())!=null){
+                
+                if(++lineNum < insertThisFile.getLAST_SEQUENCE())
+                    continue; //skip to the last inserted sequence
                 FileSequence nextSequence = this.addSequence(insertThisFile, lineSequence);
                 session.save(nextSequence);
                 if(insertThisFile.getLAST_SEQUENCE()%MAX_RECORD_FLUSH == 0){
@@ -302,11 +317,15 @@ public class FileUploader implements Serializable {
                         session.getTransaction().commit();
                         session.clear();
                         session.getTransaction().begin();
+                        
+                        //Update view with progress
+                        this.insertFileMessage = insertThisFile.getLAST_SEQUENCE() + " out of "
+                                + insertThisFile.getNUM_OF_SEQUENCE() + " uploaded successfully!";
                     }
                 }
-                
             }
             //commit
+            session.saveOrUpdate(insertThisFile);
             session.getTransaction().commit();
             DateTime endTime = new DateTime();
             System.out.println("Start at "+startTime+" and End at "+endTime);
@@ -340,7 +359,7 @@ public class FileUploader implements Serializable {
             throw new RuntimeException("File "+file.getFILENAME()+" has completed uploading and cannot be overwritten. "
                     + "Please delete file and re-upload again.");
         sequence.setFILE(file);
-        file.getSequences().add(sequence);
+        //file.getSequences().add(sequence);//Because you will end up with a list of millions of objects in memory
         file.setLAST_SEQUENCE(file.getLAST_SEQUENCE()+1);
         sequence.setORIGINAL_LINE_NUM(file.getLAST_SEQUENCE());
         sequence.setCURRENT_LINE_NUM(file.getLAST_SEQUENCE());
@@ -364,12 +383,12 @@ public class FileUploader implements Serializable {
      * <li>If no existing file with given hash value, return null</li>
      * <li>If existing files with given hash value, proceed to the next check</li>
      * </ul>
-     * <strong>2) File size</strong>
+     * <strong>2) File size</strong> [REDUNDANT?]
      * <ul>
      * <li>If no existing files with given file size, return null</li>
      * <li>If existing files with given file size, proceed to the next check</li>
      * </ul>
-     * <strong>3) Number of sequences</strong>
+     * <strong>3) Number of sequences</strong> [REDUNDANT?]
      * <ul>
      * <li>If no existing files with given number of sequences, return null</li>
      * <li>If existing files with given file number of sequences, proceed to the next check</li>
@@ -391,7 +410,6 @@ public class FileUploader implements Serializable {
      */
     public FileEntity checkFileExists(Session session, FileEntity file){
         List<FileEntity> results;
-        //1) Hash value
         String hashValueQuery = "SELECT file "
                                 + "FROM FileEntity file "
                                 + "WHERE "

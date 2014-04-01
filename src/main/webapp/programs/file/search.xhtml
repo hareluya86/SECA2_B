@@ -78,6 +78,7 @@
                 <h:form id="upload-form" enctype="multipart/form-data" >
                     <p:blockUI block="upload-form" trigger="insert-file-button,cancel-insert-button">
                         <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
+                        <h:outputText>#{FileUploader.insertFileMessage}</h:outputText>
                     </p:blockUI>
                     <p:outputLabel id="messages-label" value="#{FileUploader.startUpload} " />
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />

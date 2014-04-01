@@ -16,9 +16,12 @@ import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import org.joda.time.DateMidnight;
 import org.joda.time.LocalDate;
 
@@ -39,13 +42,16 @@ import org.joda.time.LocalDate;
 @Table(name="FILEENTITY")
 @DiscriminatorValue("FILEENTITY") //for EDS
 @EntityListeners({DateCreatedListener.class, DefaultFilenameListener.class})
+@TableGenerator(name="FILEENTITY_SEQ",initialValue=1,allocationSize=1,table="SEQUENCE") //No uploads of multiple files, so allocationSize 1 is fine
 public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
 
+    private long FILE_ID;
     private String FILENAME;
     private long FILE_SIZE_BYTE; //Total original file byte size together with newline and carriage returns
     private long NUM_OF_SEQUENCE; //Total number of sequences
     private int LINE_SIZE; //Length of each line
     private long LAST_SEQUENCE; //The last sequence that was uploaded (LAST_SEQUENCE = NUM_OF_SEQUENCE if FILE_STATUS = COMPLETED)
+    private long REMAINING_SEQUENCE; //The number of active sequences remaining
     private FILE_STATUS UPLOAD_STATUS; 
     private String MD5_HASH; 
     private java.sql.Date DATE_CREATED;
@@ -60,8 +66,16 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
         INCOMPLETE,
         COMPLETED
     }
+
+    @Id @GeneratedValue(generator="FILEENTITY_SEQ",strategy=GenerationType.TABLE)
+    public long getFILE_ID() {
+        return FILE_ID;
+    }
+
+    public void setFILE_ID(long FILE_ID) {
+        this.FILE_ID = FILE_ID;
+    }
     
-    @Id
     public String getFILENAME() {
         return FILENAME;
     }
@@ -158,6 +172,14 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
 
     public void setLINE_SIZE(int LINE_SIZE) {
         this.LINE_SIZE = LINE_SIZE;
+    }
+
+    public long getREMAINING_SEQUENCE() {
+        return REMAINING_SEQUENCE;
+    }
+
+    public void setREMAINING_SEQUENCE(long REMAINING_SEQUENCE) {
+        this.REMAINING_SEQUENCE = REMAINING_SEQUENCE;
     }
     
     
