@@ -146,8 +146,8 @@ public class FileManager_EDS implements Serializable {
     public FileEntity createFile(String filename){
         FileEntity fileEntity = new FileEntity();
         fileEntity.setFILENAME(filename);
-        fileEntity.setSEQUENCE_SIZE(0);
-        fileEntity.setBYTE_SIZE(0);
+        fileEntity.setNUM_OF_SEQUENCE(0);
+        fileEntity.setFILE_SIZE_BYTE(0);
         fileEntity.setUPLOAD_STATUS(FileEntity.FILE_STATUS.INCOMPLETE);
         
         return fileEntity;
@@ -157,7 +157,7 @@ public class FileManager_EDS implements Serializable {
         
         sequence.setFILE(file);
         file.getSequences().add(sequence);
-        file.setSEQUENCE_SIZE(file.getSEQUENCE_SIZE()+1);
+        file.setNUM_OF_SEQUENCE(file.getNUM_OF_SEQUENCE()+1);
         return sequence;
     };
     

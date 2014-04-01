@@ -6,8 +6,6 @@
 
 package Data;
 
-import SECA2.File.FileEntity;
-import SECA2.File.FileSequence;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
@@ -61,7 +59,7 @@ public class HibernateUtil implements Serializable {
         cfg.setProperty("hibernate.current_session_context_class", "thread");
         cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         cfg.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        cfg.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/seca2");
+        cfg.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/seca2?rewriteBatchedStatements=true");
         cfg.setProperty("hibernate.connection.username","seca2");
         cfg.setProperty("hibernate.connection.password","seca2");
         cfg.setProperty("hibernate.c3p0.min_size","5");

@@ -42,9 +42,10 @@ import org.joda.time.LocalDate;
 public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
 
     private String FILENAME;
-    private long BYTE_SIZE; //Total original file byte size together with newline and carriage returns
-    private long SEQUENCE_SIZE; //Total number of sequences
-    private long LAST_SEQUENCE; //The last sequence that was uploaded (LAST_SEQUENCE = SEQUENCE_SIZE if FILE_STATUS = COMPLETED)
+    private long FILE_SIZE_BYTE; //Total original file byte size together with newline and carriage returns
+    private long NUM_OF_SEQUENCE; //Total number of sequences
+    private int LINE_SIZE; //Length of each line
+    private long LAST_SEQUENCE; //The last sequence that was uploaded (LAST_SEQUENCE = NUM_OF_SEQUENCE if FILE_STATUS = COMPLETED)
     private FILE_STATUS UPLOAD_STATUS; 
     private String MD5_HASH; 
     private java.sql.Date DATE_CREATED;
@@ -78,20 +79,20 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
         this.UPLOAD_STATUS = UPLOAD_STATUS;
     }
 
-    public long getBYTE_SIZE() {
-        return BYTE_SIZE;
+    public long getFILE_SIZE_BYTE() {
+        return FILE_SIZE_BYTE;
     }
 
-    public void setBYTE_SIZE(long BYTE_SIZE) {
-        this.BYTE_SIZE = BYTE_SIZE;
+    public void setFILE_SIZE_BYTE(long FILE_SIZE_BYTE) {
+        this.FILE_SIZE_BYTE = FILE_SIZE_BYTE;
     }
 
-    public long getSEQUENCE_SIZE() {
-        return SEQUENCE_SIZE;
+    public long getNUM_OF_SEQUENCE() {
+        return NUM_OF_SEQUENCE;
     }
 
-    public void setSEQUENCE_SIZE(long SEQUENCE_SIZE) {
-        this.SEQUENCE_SIZE = SEQUENCE_SIZE;
+    public void setNUM_OF_SEQUENCE(long NUM_OF_SEQUENCE) {
+        this.NUM_OF_SEQUENCE = NUM_OF_SEQUENCE;
     }
 
     public Date getDATE_CREATED() {
@@ -150,6 +151,15 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
     public void setLAST_SEQUENCE(long LAST_SEQUENCE) {
         this.LAST_SEQUENCE = LAST_SEQUENCE;
     }
+
+    public int getLINE_SIZE() {
+        return LINE_SIZE;
+    }
+
+    public void setLINE_SIZE(int LINE_SIZE) {
+        this.LINE_SIZE = LINE_SIZE;
+    }
+    
     
     /** ============= Methods inherited from EDS ============================
     @Override
@@ -187,8 +197,8 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
         Map<String, Object> map = super.exportAsMap();
         
         map.put("FILENAME", FILENAME);
-        map.put("BYTE_SIZE",BYTE_SIZE);
-        map.put("SEQUENCE_SIZE",SEQUENCE_SIZE);
+        map.put("FILE_SIZE_BYTE",FILE_SIZE_BYTE);
+        map.put("NUM_OF_SEQUENCE",NUM_OF_SEQUENCE);
         map.put("FILE_STATUS",STATUS);    
         
         return map;

@@ -47,7 +47,7 @@ import org.primefaces.model.UploadedFile;
 public class FileUploader implements Serializable {
     
     private final long MAX_RECORD_FLUSH = 100000;
-    private final long MAX_RECORD_COMMIT = 100000;
+    private final long MAX_FLUSH_COMMIT = 3;
     
     @Inject
     private HibernateUtil hibernateUtil;
@@ -240,7 +240,7 @@ public class FileUploader implements Serializable {
             prevLineSize = line.length();
         }
         byte[] digest = md.digest();// dis.getMessageDigest().digest();
-        for(int i=0; i<digest.length; i++){
+        for(int i=0; i<digest.length; i++){//debug
             System.out.print(digest[i]);
         }
         md5Checksum = String.format("%032x", new BigInteger(digest));
@@ -248,9 +248,10 @@ public class FileUploader implements Serializable {
             
         //initialize temp FileEntity set all variables to proceed with the remaining checks
         checkedFile = this.createNewFile(uploadedFile.getFileName());
-        checkedFile.setBYTE_SIZE(fileSize);
-        checkedFile.setSEQUENCE_SIZE(lineNum);
+        checkedFile.setFILE_SIZE_BYTE(fileSize);
+        checkedFile.setNUM_OF_SEQUENCE(lineNum);
         checkedFile.setMD5_HASH(md5Checksum);
+        checkedFile.setLINE_SIZE(prevLineSize);
         
         return checkedFile;
     }
@@ -283,26 +284,27 @@ public class FileUploader implements Serializable {
             
             //move bufferedreader to the last line read
             long lineNum = insertThisFile.getLAST_SEQUENCE();
-            bReader.skip(lineNum);
+            bReader.skip(lineNum*insertThisFile.getLINE_SIZE());
             
             session.getTransaction().begin();
             session.saveOrUpdate(insertThisFile);
             while((lineSequence=bReader.readLine())!=null){
                 FileSequence nextSequence = this.addSequence(insertThisFile, lineSequence);
                 session.save(nextSequence);
-                /*if(lineNum++%MAX_RECORD_FLUSH == 0){
+                if(insertThisFile.getLAST_SEQUENCE()%MAX_RECORD_FLUSH == 0){
                     System.out.println("Flush at: "+lineSequence);
                     //session.update(insertThisFile);//test whether insertThisFile is auto-managed or needs to be updated explicitly
                     session.flush();
                     session.clear();
-                }*/
-                if(insertThisFile.getLAST_SEQUENCE()%MAX_RECORD_COMMIT == 0){
-                    System.out.println("Commit at: "+lineSequence);
-                    session.saveOrUpdate(insertThisFile);
-                    session.getTransaction().commit();
-                    session.clear();
-                    session.getTransaction().begin();
+                    if(insertThisFile.getLAST_SEQUENCE()%(MAX_FLUSH_COMMIT*MAX_RECORD_FLUSH) == 0){
+                        System.out.println("Commit at: "+lineSequence);
+                        session.saveOrUpdate(insertThisFile);
+                        session.getTransaction().commit();
+                        session.clear();
+                        session.getTransaction().begin();
+                    }
                 }
+                
             }
             //commit
             session.getTransaction().commit();
@@ -325,8 +327,8 @@ public class FileUploader implements Serializable {
     public FileEntity createNewFile(String filename){
         FileEntity fileEntity = new FileEntity();
         fileEntity.setFILENAME(filename);
-        fileEntity.setSEQUENCE_SIZE(0);
-        fileEntity.setBYTE_SIZE(0);
+        fileEntity.setNUM_OF_SEQUENCE(0);
+        fileEntity.setFILE_SIZE_BYTE(0);
         fileEntity.setLAST_SEQUENCE(0);
         fileEntity.setUPLOAD_STATUS(INCOMPLETE);
         
@@ -342,7 +344,7 @@ public class FileUploader implements Serializable {
         file.setLAST_SEQUENCE(file.getLAST_SEQUENCE()+1);
         sequence.setORIGINAL_LINE_NUM(file.getLAST_SEQUENCE());
         sequence.setCURRENT_LINE_NUM(file.getLAST_SEQUENCE());
-        if(file.getSEQUENCE_SIZE() <= file.getLAST_SEQUENCE())
+        if(file.getNUM_OF_SEQUENCE() <= file.getLAST_SEQUENCE())
             file.setUPLOAD_STATUS(COMPLETED);
         return sequence;
     };
@@ -394,8 +396,8 @@ public class FileUploader implements Serializable {
                                 + "FROM FileEntity file "
                                 + "WHERE "
                                     + "file.MD5_HASH = '"+file.getMD5_HASH()+"' AND "
-                                    + "file.BYTE_SIZE = "+file.getBYTE_SIZE()+" AND "
-                                    + "file.SEQUENCE_SIZE = "+file.getSEQUENCE_SIZE()+" AND "
+                                    + "file.FILE_SIZE_BYTE = "+file.getFILE_SIZE_BYTE()+" AND "
+                                    + "file.NUM_OF_SEQUENCE = "+file.getNUM_OF_SEQUENCE()+" AND "
                                     + "file.FILENAME = '"+file.getFILENAME()+ "'";
         Query q = session.createQuery(hashValueQuery);
         results = q.list();
