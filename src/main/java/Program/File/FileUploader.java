@@ -19,9 +19,9 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -72,90 +72,6 @@ public class FileUploader implements Serializable {
         insertFileMessage = "";
     }
 
-    public HibernateUtil getHibernateUtil() {
-        return hibernateUtil;
-    }
-
-    public void setHibernateUtil(HibernateUtil hibernateUtil) {
-        this.hibernateUtil = hibernateUtil;
-    }
-
-    public Part getPartFile() {
-        return partFile;
-    }
-
-    public void setPartFile(Part partFile) {
-        this.partFile = partFile;
-    }
-
-    public UploadedFile getUploadedFile() {
-        return uploadedFile;
-    }
-
-    public void setUploadedFile(UploadedFile uploadedFile) {
-        this.uploadedFile = uploadedFile;
-    }
-
-    public String getStartUpload() {
-        return startUpload;
-    }
-
-    public void setStartUpload(String startUpload) {
-        this.startUpload = startUpload;
-    }
-
-    public FileEntity getHoldingFile() {
-        return holdingFile;
-    }
-
-    public void setHoldingFile(FileEntity holdingFile) {
-        this.holdingFile = holdingFile;
-    }
-
-    public String getInsertButtonValue() {
-        return insertButtonValue;
-    }
-
-    public void setInsertButtonValue(String insertButtonValue) {
-        this.insertButtonValue = insertButtonValue;
-    }
-
-    public boolean isDisableInsertButton() {
-        return disableInsertButton;
-    }
-
-    public void setDisableInsertButton(boolean disableInsertButton) {
-        this.disableInsertButton = disableInsertButton;
-    }
-
-    public boolean isShowInsertButton() {
-        return showInsertButton;
-    }
-
-    public void setShowInsertButton(boolean showInsertButton) {
-        this.showInsertButton = showInsertButton;
-    }
-
-    public boolean isShowRetryButton() {
-        return showRetryButton;
-    }
-
-    public void setShowRetryButton(boolean showRetryButton) {
-        this.showRetryButton = showRetryButton;
-    }
-
-    public String getInsertFileMessage() {
-        return insertFileMessage;
-    }
-
-    public void setInsertFileMessage(String insertFileMessage) {
-        this.insertFileMessage = insertFileMessage;
-    }
-    
-    public void startFileUpload(){
-        this.startUpload = "File upload has started";
-        System.out.println(this.startUpload);
-    }
     
     /**
      * 1) Validate file:
@@ -178,6 +94,14 @@ public class FileUploader implements Serializable {
             session.close();
             if(existingFile != null){
                 System.out.println("Existing file "+existingFile.getFILENAME()+" found");//debug
+                
+                if(!existingFile.getMD5_HASH().equals(checkedLengthAndChecksum.getMD5_HASH())){ //corrupted file
+                    System.out.println("Existing file "+existingFile.getFILENAME()+" found but corrupted. "
+                            + "You may want to delete the file and re-upload it again.");//debug
+                    throw new InvalidFileException("Existing file "+existingFile.getFILENAME()+" found but corrupted. "
+                            + "You may want to delete the file and re-upload it again.");
+                }
+                    
                 switch(existingFile.getUPLOAD_STATUS()){
                     case INCOMPLETE :   setFacesMessage(FacesMessage.SEVERITY_INFO,
                                             "File \""+existingFile.getFILENAME()+"\" has been uploaded before."
@@ -195,7 +119,7 @@ public class FileUploader implements Serializable {
                                         this.uploadedFile = null;
                                         
                                         break;
-                    default         :   break;
+                    default         :   throw new RuntimeException("Unknown UPLOAD_STATUS for file "+existingFile.getFILENAME());
                 }
             } else {
                 System.out.println("No existing file found");//debug
@@ -214,13 +138,14 @@ public class FileUploader implements Serializable {
         } catch(JDBCConnectionException jdbcex){
             setFacesMessage(FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
             this.showInsertButton = false;
-        } catch (Exception ex) {
+        } catch (Exception ex) {//all unknown Exceptions
             //setFacesMessage(FacesMessage.SEVERITY_ERROR,ex.getClass().getName(),"");
             //this.showInsertButton = false;
             //throw unknown exceptions out to the front
-            this.cancel();
             throw ex;
-        } 
+        } finally {
+            this.cancel();
+        }
     }
     /**
      * Returns an initialized FileEntity object if it passes both length and checksum validation.
@@ -327,6 +252,7 @@ public class FileUploader implements Serializable {
             //commit
             session.saveOrUpdate(insertThisFile);
             session.getTransaction().commit();
+            session.clear();
             DateTime endTime = new DateTime();
             System.out.println("Start at "+startTime+" and End at "+endTime);
         } catch (IOException ex) {
@@ -413,9 +339,9 @@ public class FileUploader implements Serializable {
         String hashValueQuery = "SELECT file "
                                 + "FROM FileEntity file "
                                 + "WHERE "
-                                    + "file.MD5_HASH = '"+file.getMD5_HASH()+"' AND "
+                                    /*+ "file.MD5_HASH = '"+file.getMD5_HASH()+"' AND "
                                     + "file.FILE_SIZE_BYTE = "+file.getFILE_SIZE_BYTE()+" AND "
-                                    + "file.NUM_OF_SEQUENCE = "+file.getNUM_OF_SEQUENCE()+" AND "
+                                    + "file.NUM_OF_SEQUENCE = "+file.getNUM_OF_SEQUENCE()+" AND "*/
                                     + "file.FILENAME = '"+file.getFILENAME()+ "'";
         Query q = session.createQuery(hashValueQuery);
         results = q.list();
@@ -450,5 +376,92 @@ public class FileUploader implements Serializable {
             buffer[i] = c;
         }
         return new String(buffer);
+    }
+    
+    
+    // <editor-fold defaultstate="collapsed" desc="Getters and Setters...">
+    public HibernateUtil getHibernateUtil() {
+        return hibernateUtil;
+    }
+
+    public void setHibernateUtil(HibernateUtil hibernateUtil) {
+        this.hibernateUtil = hibernateUtil;
+    }
+
+    public Part getPartFile() {
+        return partFile;
+    }
+
+    public void setPartFile(Part partFile) {
+        this.partFile = partFile;
+    }
+
+    public UploadedFile getUploadedFile() {
+        return uploadedFile;
+    }
+
+    public void setUploadedFile(UploadedFile uploadedFile) {
+        this.uploadedFile = uploadedFile;
+    }
+
+    public String getStartUpload() {
+        return startUpload;
+    }
+
+    public void setStartUpload(String startUpload) {
+        this.startUpload = startUpload;
+    }
+
+    public FileEntity getHoldingFile() {
+        return holdingFile;
+    }
+
+    public void setHoldingFile(FileEntity holdingFile) {
+        this.holdingFile = holdingFile;
+    }
+
+    public String getInsertButtonValue() {
+        return insertButtonValue;
+    }
+
+    public void setInsertButtonValue(String insertButtonValue) {
+        this.insertButtonValue = insertButtonValue;
+    }
+
+    public boolean isDisableInsertButton() {
+        return disableInsertButton;
+    }
+
+    public void setDisableInsertButton(boolean disableInsertButton) {
+        this.disableInsertButton = disableInsertButton;
+    }
+
+    public boolean isShowInsertButton() {
+        return showInsertButton;
+    }
+
+    public void setShowInsertButton(boolean showInsertButton) {
+        this.showInsertButton = showInsertButton;
+    }
+
+    public boolean isShowRetryButton() {
+        return showRetryButton;
+    }
+
+    public void setShowRetryButton(boolean showRetryButton) {
+        this.showRetryButton = showRetryButton;
+    }
+
+    public String getInsertFileMessage() {
+        return insertFileMessage;
+    }
+
+    public void setInsertFileMessage(String insertFileMessage) {
+        this.insertFileMessage = insertFileMessage;
+    }
+    // </editor-fold>
+    public void startFileUpload(){
+        this.startUpload = "File upload has started";
+        System.out.println(this.startUpload);
     }
 }
