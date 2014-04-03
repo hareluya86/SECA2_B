@@ -142,9 +142,10 @@ public class FileUploader implements Serializable {
             //setFacesMessage(FacesMessage.SEVERITY_ERROR,ex.getClass().getName(),"");
             //this.showInsertButton = false;
             //throw unknown exceptions out to the front
+            this.cancel();
             throw ex;
         } finally {
-            this.cancel();
+            
         }
     }
     /**
@@ -227,7 +228,7 @@ public class FileUploader implements Serializable {
             session.saveOrUpdate(insertThisFile);
             while((lineSequence=bReader.readLine())!=null){
                 
-                if(++lineNum < insertThisFile.getLAST_SEQUENCE())
+                if(++lineNum <= insertThisFile.getLAST_SEQUENCE())
                     continue; //skip to the last inserted sequence
                 FileSequence nextSequence = this.addSequence(insertThisFile, lineSequence);
                 session.save(nextSequence);
@@ -255,10 +256,9 @@ public class FileUploader implements Serializable {
             session.clear();
             DateTime endTime = new DateTime();
             System.out.println("Start at "+startTime+" and End at "+endTime);
+            this.setFacesMessage(FacesMessage.SEVERITY_INFO, insertThisFile.getFILENAME()+" has been successfully uploaded", "");
         } catch (IOException ex) {
             //Logger.getLogger(ProgramFile.class.getName()).log(Level.SEVERE, null, ex);
-            FacesMessage msg = new FacesMessage(ex.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, msg);
             this.setFacesMessage(FacesMessage.SEVERITY_ERROR, ex.getClass().getName(), ex.getMessage());
         } catch(java.lang.OutOfMemoryError e){
             this.setFacesMessage(FacesMessage.SEVERITY_ERROR, e.getClass().getName(), e.getMessage());

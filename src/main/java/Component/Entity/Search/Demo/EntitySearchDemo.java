@@ -87,7 +87,7 @@ public class EntitySearchDemo extends AbstractEntitySearch {
 
     @Override
     public void reset() {
-        this.results.clear();
+        if(this.results != null) this.results.clear();
     }
 
     //@Override
