@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.component.fileupload.FileUploadRenderer;
 
 /**
- *
+ * Workaround for p:commandButton to be contained in a multi-part form.
  * @author vincent.a.lee
  */
 public class OverrideFileUploadRenderer extends FileUploadRenderer {

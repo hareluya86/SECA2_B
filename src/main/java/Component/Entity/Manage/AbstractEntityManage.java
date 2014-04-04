@@ -7,8 +7,6 @@
 package Component.Entity.Manage;
 
 import Bootstrap.Component;
-import java.util.List;
-import java.util.Map;
 
 /**
  *

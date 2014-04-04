@@ -6,12 +6,15 @@
 
 package Component.Entity.Manage;
 
+import javax.inject.Named;
+
 
 /**
  *
  * @author KH
  * @param <T>
  */
+@Named("EntityManage")
 public interface EntityManage {
     
     /**
@@ -26,6 +29,9 @@ public interface EntityManage {
      * <ul>
      * <li>Validations - not advisable to implement in persistence class</li>
      * <li>Conversions - Codes should be converted to descriptions.</li>
+     * </ul>
+     * UPDATE 03.04.2014: Since we're not using EDS at the moment, we don't use 
+     * this interface and go straight to the implementation instead.
      * 
      * @return T
      */

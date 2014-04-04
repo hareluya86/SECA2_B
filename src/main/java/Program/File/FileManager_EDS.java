@@ -6,8 +6,8 @@
 
 package Program.File;
 
-import SECA2.File.FileEntity;
-import SECA2.File.FileSequence;
+import Entity.File.FileEntity;
+import Entity.File.FileSequence;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;

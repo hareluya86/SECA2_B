@@ -8,21 +8,16 @@ package Program.File;
 
 import Bootstrap.ComponentOperation;
 import Bootstrap.Program;
-import Component.Entity.Manage.EntityManage;
-import Component.Entity.Manage.EntityManageFactory;
-import Component.Entity.Search.EntitySearch;
-import Component.Entity.Search.EntitySearchFactory;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import Component.Entity.Manage.Demo.EntityManageDemo;
+import Component.Entity.Search.Demo.EntitySearchDemo;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.Part;
 
 /**
  *
@@ -65,107 +60,33 @@ public class ProgramFile extends Program implements Serializable {
         this.setSearchTableID(":search-result-list");
         //this.getPROGRAM_PARAM().put("test-el-comment","This is a test of whether EL expressions are commented out by <!--");
         
-        //Create all required Component factories
-        EntitySearchFactory esf = EntitySearchFactory.getEntitySearchFactory();
-        EntityManageFactory emf = EntityManageFactory.getEntityManageFactory();
-        
-        //For the new framework
-        newEntitySearch = esf.getEntitySearch("File");
-        newEntityManage = emf.getEntityManage("File");
-        
     }
     
-    /**
-     * New UI components
-     */
-    private EntitySearch newEntitySearch;
-    private EntityManage newEntityManage;
+    //Application components
+    @Inject private EntitySearchDemo entitySearch;
+    @Inject private EntityManageDemo entityManage;
+    
+    //UI components
     private String subprogram;
     private String subprogramTitle;
     private Object selectedEU;
     private String searchTableID;
-    private Part file;
     
     /**
      * ============== New UI action methods/listeners ==========================
      */
     public void manageFileAndSequences(){
         subprogram = subprogram.concat(".xhtml");
-        newEntityManage.setEntity(selectedEU);
+        //newEntityManage.setEntity(selectedEU);
     }
     
     public void generateSequences(){
         subprogram = subprogram.concat(".xhtml");
         
     }
-    
-    /*
-    public void uploadFile(FileUploadEvent event){
-        UploadedFile uploadedFile = event.getFile();
-        try {
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(uploadedFile.getInputstream()));
-            String lineSequence = new String();
-            int lineNum = 0;
-            while((lineSequence=bReader.readLine())!=null){
-                if(lineNum++%1000000 == 0)
-                    System.out.println(lineSequence);
-            }
-        } catch (IOException ex) {
-            //Logger.getLogger(ProgramFile.class.getName()).log(Level.SEVERE, null, ex);
-            FacesMessage msg = new FacesMessage(ex.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }*/
-    
-    public void uploadFile(){
-        try {
-            //String fileContent = new Scanner(file.getInputStream()).useDelimiter("\\A").next();
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(file.getInputStream()));
-            
-            String lineSequence = new String();
-            int lineNum = 0;
-            while((lineSequence=bReader.readLine())!=null){
-                if(lineNum++%1000000 == 0)
-                    System.out.println(lineSequence);
-            }
-          } catch (IOException e) {
-            // Error handling
-          }
-    }
-    
-    public void updateEntity(){
-        
-        //Update entity
-        newEntityManage.update(); //dummy
-        
-        //Find the EnterpriseUnit instance in newEntitySearch and update it
-        /*Iterator i = newEntitySearch.getResults().iterator();
-        while(i.hasNext()){
-            EnterpriseUnit eu = i.next();
-            if(eu.getOBJECTID() == selectedEU.getOBJECTID()){
-                eu = selectedEU;
-            }
-        }
-        System.out.println("updateEntity is called!");*/
-    }
     /**
      * New UI component setters and getters
      */
-    public EntitySearch getNewEntitySearch() {
-        return newEntitySearch;
-    }
-
-    public void setNewEntitySearch(EntitySearch newEntitySearch) {
-        this.newEntitySearch = newEntitySearch;
-    }
-
-    public EntityManage getNewEntityManage() {
-        return newEntityManage;
-    }
-
-    public void setNewEntityManage(EntityManage newEntityManage) {
-        this.newEntityManage = newEntityManage;
-    }
 
     public String getSubprogram() {
         return subprogram;
@@ -199,13 +120,21 @@ public class ProgramFile extends Program implements Serializable {
         this.subprogramTitle = subprogramTitle;
     }
 
-    public Part getFile() {
-        return file;
+    public EntitySearchDemo getEntitySearch() {
+        return entitySearch;
     }
 
-    public void setFile(Part file) {
-        this.file = file;
+    public void setEntitySearch(EntitySearchDemo entitySearch) {
+        this.entitySearch = entitySearch;
     }
 
+    public EntityManageDemo getEntityManage() {
+        return entityManage;
+    }
+
+    public void setEntityManage(EntityManageDemo entityManage) {
+        this.entityManage = entityManage;
+    }
+    
     
  }

@@ -7,10 +7,10 @@
 package Program.File;
 
 import Data.HibernateUtil;
-import SECA2.File.FileEntity;
-import static SECA2.File.FileEntity.FILE_STATUS.COMPLETED;
-import static SECA2.File.FileEntity.FILE_STATUS.INCOMPLETE;
-import SECA2.File.FileSequence;
+import Entity.File.FileEntity;
+import static Entity.File.FileEntity.FILE_STATUS.COMPLETED;
+import static Entity.File.FileEntity.FILE_STATUS.INCOMPLETE;
+import Entity.File.FileSequence;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +22,7 @@ import java.security.MessageDigest;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -43,7 +44,7 @@ import org.primefaces.model.UploadedFile;
  * @author vincent.a.lee
  */
 @Named("FileUploader")
-@SessionScoped
+@SessionScoped //try to use ViewScoped or ViewAccessScoped
 public class FileUploader implements Serializable {
     
     private final long MAX_RECORD_FLUSH = 100000;

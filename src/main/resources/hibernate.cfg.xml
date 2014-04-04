@@ -5,7 +5,7 @@
 <!-- a SessionFactory instance listed as /jndi/name -->
     <session-factory >
         <mapping package="SECA2.File" />
-        <mapping class="SECA2.File.FileEntity" />
-        <mapping class="SECA2.File.FileSequence" />
+        <mapping class="Entity.File.FileEntity" />
+        <mapping class="Entity.File.FileSequence" />
     </session-factory>
 </hibernate-configuration>

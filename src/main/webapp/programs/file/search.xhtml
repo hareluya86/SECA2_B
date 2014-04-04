@@ -16,7 +16,7 @@
 
                             <p:outputLabel value="Filename: " />
                             <p:inputText id="filename" styleClass="search-input">
-                                <p:ajax update="search-results-list" listener="#{ProgramFile.newEntitySearch.search}"
+                                <p:ajax update="search-results-list" listener="#{ProgramFile.entitySearch.search}"
                                         />
                             </p:inputText>
 
@@ -28,10 +28,10 @@
 
                             <f:facet name="footer"> 
                                 <p:commandButton id="search-button" value="Search" update="search-results-list" 
-                                                 action="#{ProgramFile.newEntitySearch.search}"
+                                                 action="#{ProgramFile.entitySearch.search}"
                                                  />
                                 <p:commandButton id="reset-button" value="Reset" update="search-results-list" 
-                                                 action="#{ProgramFile.newEntitySearch.reset}" 
+                                                 action="#{ProgramFile.entitySearch.reset}" 
                                                  />
                             </f:facet> 
                         </p:panelGrid>
@@ -45,7 +45,7 @@
                             <f:facet name="header">Search Result</f:facet>
 
                             <p:accordionPanel id="search-results-list" var="file" 
-                                              value="#{ProgramFile.newEntitySearch.results}"  
+                                              value="#{ProgramFile.entitySearch.results}"  
                                               style="width: 100%;overflow: scroll; height: 400px;"
                                                >
                                 <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">

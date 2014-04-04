@@ -10,7 +10,6 @@ import Bootstrap.Bootstrap;
 import Bootstrap.Program;
 import Bootstrap.ProgramFactory;
 import Component.Entity.Search.EntitySearch;
-import Component.Entity.Search.EntitySearchFactory;
 import Template.Template;
 import Template.TemplateFactory;
 import View.ViewPage;

@@ -8,6 +8,8 @@ package Data;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -20,36 +22,25 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class HibernateUtil implements Serializable {
     
-    public Session getSession() throws org.hibernate.exception.JDBCConnectionException{
-        Configuration cfg = createFullConfig();
-        cfg.configure();
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder ().applySettings(cfg.getProperties()).build();
-        SessionFactory sessionFactory = cfg.buildSessionFactory(serviceRegistry);
-        Session session = sessionFactory.openSession();
-        
-        return session;
-    }
+    private SessionFactory sessionFactory;
     
-    public Session getSession(List<Class> entities){
-        Configuration cfg = createFullConfig();
-        cfg.configure();
-        
-        for(Object e:entities){
-            cfg.addAnnotatedClass(e.getClass());
+    /**
+     * Singleton factory method
+     * @return 
+     */
+    public SessionFactory getSessionFactory(){
+        if(sessionFactory == null){
+            Configuration cfg = createFullConfig();
+            cfg.configure();
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder ().applySettings(cfg.getProperties()).build();
+            sessionFactory = cfg.buildSessionFactory(serviceRegistry);
         }
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder ().applySettings(cfg.getProperties()).build();
-        SessionFactory sessionFactory = cfg.buildSessionFactory(serviceRegistry);
-        Session session = sessionFactory.openSession();
-        
-        return session;
+        return sessionFactory;
     }
     
-    public Session getSession(Object entity){
-        Configuration cfg = createFullConfig();
-        cfg.configure().addAnnotatedClass(entity.getClass());
-        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder ().applySettings(cfg.getProperties()).build();
-        SessionFactory sessionFactory = cfg.buildSessionFactory(serviceRegistry);
-        Session session = sessionFactory.openSession();
+    public Session getSession() throws org.hibernate.exception.JDBCConnectionException{
+        
+        Session session = getSessionFactory().openSession();
         
         return session;
     }

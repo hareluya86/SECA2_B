@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package SECA2.File;
+package Entity.File;
 
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;

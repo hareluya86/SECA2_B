@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package SECA2.File;
+package Entity.File;
 
-import SECA2.File.FileEntity.FILE_STATUS;
+import Entity.File.FileEntity.FILE_STATUS;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
