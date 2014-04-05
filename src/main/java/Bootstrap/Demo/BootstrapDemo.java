@@ -9,7 +9,6 @@ package Bootstrap.Demo;
 import Bootstrap.Bootstrap;
 import Bootstrap.Program;
 import Bootstrap.ProgramFactory;
-import Component.Entity.Search.EntitySearch;
 import Template.Template;
 import Template.TemplateFactory;
 import View.ViewPage;
@@ -21,7 +20,9 @@ import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -43,13 +44,13 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     private String program;
     
     private Map<String,Object> elements;
-    private EntitySearch entitySearch;
     
-    public BootstrapDemo(){
+    @PostConstruct
+    public void init(){
         elements = new HashMap<String,Object>();
         elements.put("header", "this is the header from the map object");
         
-        System.out.println("Bootstrap is called from constructor! "+module);
+        System.out.println("Bootstrap is called from @PostConstruct! "+module);
     }
     /**
      * Decides which module to load
@@ -118,14 +119,6 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
 
     public void setElements(Map<String, Object> elements) {
         this.elements = elements;
-    }
-
-    public EntitySearch getEntitySearch() {
-        return entitySearch;
-    }
-
-    public void setEntitySearch(EntitySearch entitySearch) {
-        this.entitySearch = entitySearch;
     }
 
     public String getProgram() {

@@ -7,6 +7,7 @@
 package Program.File;
 
 import View.ViewPage;
+import View.ViewPageType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  *
  * @author KH
  */
+@ViewPageType("ViewPageFile")
 public class ViewPageFile implements ViewPage {
 
     private String root = "/programs/file/layout.xhtml";

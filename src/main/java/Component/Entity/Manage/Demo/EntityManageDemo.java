@@ -6,11 +6,7 @@
 
 package Component.Entity.Manage.Demo;
 
-import Component.Entity.Manage.AbstractEntityManage;
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  *

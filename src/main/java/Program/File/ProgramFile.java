@@ -6,7 +6,6 @@
 
 package Program.File;
 
-import Bootstrap.ComponentOperation;
 import Bootstrap.Program;
 import Component.Entity.Manage.Demo.EntityManageDemo;
 import Component.Entity.Search.Demo.EntitySearchDemo;
@@ -52,7 +51,6 @@ public class ProgramFile extends Program implements Serializable {
     public void init() {
         //Instatiante all objects
         this.setPROGRAM_PARAM(new HashMap<String,Object>());
-        this.setCOMP_OPERATIONS(new HashMap<String,ComponentOperation>());
         //this.setSubprogram("manage.xhtml");
         
         this.setPROGRAM_XHTML("/programs/file/layout.xhtml");

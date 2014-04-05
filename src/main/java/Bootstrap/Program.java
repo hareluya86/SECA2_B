@@ -6,8 +6,6 @@
 
 package Bootstrap;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -26,7 +24,6 @@ public abstract class Program /*implements EnterpriseObject*/ {
     protected String PROGRAM_DIRECTORY;
     protected String PROGRAM_XHTML;
     protected Map<String,Object> PROGRAM_PARAM;
-    protected Map<String,ComponentOperation> COMP_OPERATIONS;
     
     /**
      * Must be called after constructor.
@@ -45,17 +42,6 @@ public abstract class Program /*implements EnterpriseObject*/ {
      * 
      * @param operation 
      */
-    public void execute(String operation){
-        
-        ComponentOperation compOp;
-        
-        if(!COMP_OPERATIONS.containsKey(operation) || 
-                (compOp = COMP_OPERATIONS.get(operation)) == null)
-            throw new RuntimeException("Operation "+operation+" is not injected/"
-                    + "instantiated in program "+this.PROGRAM_NAME);
-        
-        compOp.execute(this);
-    }
     
     //@Override
     public String tableName(){
@@ -100,13 +86,5 @@ public abstract class Program /*implements EnterpriseObject*/ {
 
     public void setPROGRAM_PARAM(Map<String, Object> PROGRAM_PARAM) {
         this.PROGRAM_PARAM = PROGRAM_PARAM;
-    }
-
-    public Map<String,ComponentOperation> getCOMP_OPERATIONS() {
-        return COMP_OPERATIONS;
-    }
-
-    public void setCOMP_OPERATIONS(Map<String,ComponentOperation> COMP_OPERATIONS) {
-        this.COMP_OPERATIONS = COMP_OPERATIONS;
     }
 }

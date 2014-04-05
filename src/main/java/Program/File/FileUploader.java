@@ -44,7 +44,7 @@ import org.primefaces.model.UploadedFile;
  * @author vincent.a.lee
  */
 @Named("FileUploader")
-@SessionScoped //try to use ViewScoped or ViewAccessScoped
+@SessionScoped//try to use ViewScoped or ViewAccessScoped
 public class FileUploader implements Serializable {
     
     private final long MAX_RECORD_FLUSH = 100000;
