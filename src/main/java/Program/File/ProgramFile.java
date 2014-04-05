@@ -10,6 +10,7 @@ import Bootstrap.ComponentOperation;
 import Bootstrap.Program;
 import Component.Entity.Manage.Demo.EntityManageDemo;
 import Component.Entity.Search.Demo.EntitySearchDemo;
+import Data.HibernateUtil;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.hibernate.Session;
 
 /**
  *
@@ -57,20 +59,28 @@ public class ProgramFile extends Program implements Serializable {
         
         this.setPROGRAM_XHTML("/programs/file/layout.xhtml");
         //this.getPROGRAM_PARAM().put("subprogram", "");
-        this.setSearchTableID(":search-result-list");
+        //this.setSearchTableID(":search-result-list");
         //this.getPROGRAM_PARAM().put("test-el-comment","This is a test of whether EL expressions are commented out by <!--");
         
     }
     
-    //Application components
+    //Inject Application components
     @Inject private EntitySearchDemo entitySearch;
     @Inject private EntityManageDemo entityManage;
+    @Inject private HibernateUtil hibernateUtil;
+    
+    //Utility components
+    Session session;
+    
+    //Subprograms
+    @Inject private ProgramFileUploader fileUploader;
+    @Inject private ProgramFileSearch fileSearch;
     
     //UI components
     private String subprogram;
     private String subprogramTitle;
     private Object selectedEU;
-    private String searchTableID;
+    
     
     /**
      * ============== New UI action methods/listeners ==========================
@@ -84,6 +94,8 @@ public class ProgramFile extends Program implements Serializable {
         subprogram = subprogram.concat(".xhtml");
         
     }
+    
+    
     /**
      * New UI component setters and getters
      */
@@ -102,14 +114,6 @@ public class ProgramFile extends Program implements Serializable {
 
     public void setSelectedEU(Object selectedEU) {
         this.selectedEU = selectedEU;
-    }
-
-    public String getSearchTableID() {
-        return searchTableID;
-    }
-
-    public void setSearchTableID(String searchTableID) {
-        this.searchTableID = searchTableID;
     }
 
     public String getSubprogramTitle() {
@@ -134,6 +138,14 @@ public class ProgramFile extends Program implements Serializable {
 
     public void setEntityManage(EntityManageDemo entityManage) {
         this.entityManage = entityManage;
+    }
+
+    public ProgramFileUploader getFileUploader() {
+        return fileUploader;
+    }
+
+    public void setFileUploader(ProgramFileUploader fileUploader) {
+        this.fileUploader = fileUploader;
     }
     
     

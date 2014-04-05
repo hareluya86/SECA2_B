@@ -78,26 +78,26 @@
                 <h:form id="upload-form" enctype="multipart/form-data" >
                     <p:blockUI block="upload-form" trigger="insert-file-button,cancel-insert-button">
                         <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
-                        <h:outputText>#{FileUploader.insertFileMessage}</h:outputText>
+                        <h:outputText>#{ProgramFile.fileUploader.insertFileMessage}</h:outputText>
                     </p:blockUI>
-                    <p:outputLabel id="messages-label" value="#{FileUploader.startUpload} " />
+                    <p:outputLabel id="messages-label" value="#{ProgramFile.fileUploader.startUpload} " />
                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-                    <p:fileUpload fileUploadListener="#{FileUploader.uploadFile}" immediate="true" 
+                    <p:fileUpload fileUploadListener="#{ProgramFile.fileUploader.uploadFile}" immediate="true" 
                                   mode="advanced" auto="true"
                                   sizeLimit="10000000000" allowTypes="/(\.|\/)(TXT|txt|jpe?g|csv)$/"
                                   label="Upload File"
                                   update="@form"
                                   >
                     </p:fileUpload>
-                    <p:commandButton id="insert-file-button" value="#{FileUploader.insertButtonValue}" 
-                                     action="#{FileUploader.insertFileAndSequences}" 
-                                     rendered="#{FileUploader.showInsertButton}"
-                                     disabled="#{FileUploader.disableInsertButton}"
+                    <p:commandButton id="insert-file-button" value="#{ProgramFile.fileUploader.insertButtonValue}" 
+                                     action="#{ProgramFile.fileUploader.insertFileAndSequences}" 
+                                     rendered="#{ProgramFile.fileUploader.showInsertButton}"
+                                     disabled="#{ProgramFile.fileUploader.disableInsertButton}"
                                      update="@form"
                                      />
                     <p:commandButton id="cancel-insert-button" value="cancel"
-                                     action="#{FileUploader.cancel}"
-                                     rendered="#{FileUploader.showInsertButton}"
+                                     action="#{ProgramFile.fileUploader.cancel}"
+                                     rendered="#{ProgramFile.fileUploader.showInsertButton}"
                                      update="@form"  
                                      >
                         

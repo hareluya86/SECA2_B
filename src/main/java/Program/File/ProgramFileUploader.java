@@ -21,8 +21,6 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -38,14 +36,14 @@ import org.primefaces.model.UploadedFile;
 
 
 /**
- * Utility class that processes file and sequence objects
+ * Subprogram that processes file and sequence objects
  * <p>
  * 
  * @author vincent.a.lee
  */
 @Named("FileUploader")
-@SessionScoped //try to use ViewScoped or ViewAccessScoped
-public class FileUploader implements Serializable {
+//@SessionScoped //if it can only be sessionscoped, then it's best to embed it in another session scope object
+public class ProgramFileUploader implements Serializable {
     
     private final long MAX_RECORD_FLUSH = 100000;
     private final long MAX_FLUSH_COMMIT = 3;
@@ -179,9 +177,9 @@ public class FileUploader implements Serializable {
             prevLineSize = line.length();
         }
         byte[] digest = md.digest();// dis.getMessageDigest().digest();
-        for(int i=0; i<digest.length; i++){//debug
+        /*for(int i=0; i<digest.length; i++){//debug
             System.out.print(digest[i]);
-        }
+        }debug*/
         md5Checksum = String.format("%032x", new BigInteger(digest));
         System.out.println("MD5 hash: "+md5Checksum);
             
