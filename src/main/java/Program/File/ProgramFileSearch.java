@@ -6,12 +6,56 @@
 
 package Program.File;
 
+import Component.EntitySearch.EntitySearchDemo;
+import Entity.File.FileEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
 
 /**
  *
  * @author vincent.a.lee
  */
 public class ProgramFileSearch implements Serializable {
+    
+    //UI elements
+    private List<Criterion> criteria;
+    private List<FileEntity> results;
+    
+    //Dependencies
+    @Inject private EntitySearchDemo entitySearch;
+    private Session session;
+    
+    @PostConstruct
+    public void init(){
+        criteria = new ArrayList<Criterion>();
+        results = new ArrayList<FileEntity>();
+        //Initialize required criteria
+        
+    }
+    
+    public void search(){
+        
+    }
+
+    public List<FileEntity> getResults() {
+        return results;
+    }
+
+    public void setResults(List<FileEntity> results) {
+        this.results = results;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
     
 }

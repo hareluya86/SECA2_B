@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Component.Entity.Search.Demo;
+package Component.EntitySearch;
 
 import java.io.Serializable;
 import java.util.List;

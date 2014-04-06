@@ -4,18 +4,12 @@
  * and open the template in the editor.
  */
 
-package Component.Entity.Search.Demo;
+package Entity.User;
 
 /**
  *
- * @author vincent.a.lee
+ * @author KH
  */
-public enum SearchOp {
-    EQUALS,
-    GREATER,
-    GREATEREQUALS,
-    LESS,
-    LESSEQUALS,
-    CONTAINS,
+public class NewUserListener {
     
 }

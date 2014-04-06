@@ -7,8 +7,8 @@
 package Program.File;
 
 import Bootstrap.Program;
-import Component.Entity.Manage.Demo.EntityManageDemo;
-import Component.Entity.Search.Demo.EntitySearchDemo;
+import Component.EntityManage.EntityManageDemo;
+import Component.EntitySearch.EntitySearchDemo;
 import Data.HibernateUtil;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -56,19 +56,25 @@ public class ProgramFile extends Program implements Serializable {
         //this.setSubprogram("manage.xhtml");
         
         this.setPROGRAM_XHTML("/programs/file/layout.xhtml");
-        //this.getPROGRAM_PARAM().put("subprogram", "");
-        //this.setSearchTableID(":search-result-list");
-        //this.getPROGRAM_PARAM().put("test-el-comment","This is a test of whether EL expressions are commented out by <!--");
         
+        /**
+         * Manually injects the same session object into each SessionScoped 
+         * subprogram object.
+         * 
+         * Is this a good method? Let's find out...
+         */
+        Session session = hibernateUtil.getSession();
+        fileSearch.setSession(session);
+        fileUploader.setSession(session);
     }
     
     //Inject Application components
-    @Inject private EntitySearchDemo entitySearch;
+    //@Inject private EntitySearchDemo entitySearch;
     @Inject private EntityManageDemo entityManage;
     @Inject private HibernateUtil hibernateUtil;
     
     //Utility components
-    Session session;
+    
     
     //Subprograms
     @Inject private ProgramFileUploader fileUploader;
@@ -122,14 +128,6 @@ public class ProgramFile extends Program implements Serializable {
         this.subprogramTitle = subprogramTitle;
     }
 
-    public EntitySearchDemo getEntitySearch() {
-        return entitySearch;
-    }
-
-    public void setEntitySearch(EntitySearchDemo entitySearch) {
-        this.entitySearch = entitySearch;
-    }
-
     public EntityManageDemo getEntityManage() {
         return entityManage;
     }
@@ -144,6 +142,14 @@ public class ProgramFile extends Program implements Serializable {
 
     public void setFileUploader(ProgramFileUploader fileUploader) {
         this.fileUploader = fileUploader;
+    }
+
+    public ProgramFileSearch getFileSearch() {
+        return fileSearch;
+    }
+
+    public void setFileSearch(ProgramFileSearch fileSearch) {
+        this.fileSearch = fileSearch;
     }
     
     

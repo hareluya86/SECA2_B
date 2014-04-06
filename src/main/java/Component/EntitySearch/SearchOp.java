@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 
-package Component.Entity.Manage.Demo;
-
-import java.io.Serializable;
+package Component.EntitySearch;
 
 /**
  *
- * @author KH
+ * @author vincent.a.lee
  */
-
-public class EntityManageDemo implements Serializable {
-    
-    private Object managedEntity;
-    
+public enum SearchOp {
+    EQUALS,
+    GREATER,
+    GREATEREQUALS,
+    LESS,
+    LESSEQUALS,
+    CONTAINS,
     
 }

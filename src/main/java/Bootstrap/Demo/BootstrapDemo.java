@@ -7,8 +7,6 @@
 package Bootstrap.Demo;
 
 import Bootstrap.Bootstrap;
-import Bootstrap.Program;
-import Bootstrap.ProgramFactory;
 import Template.Template;
 import Template.TemplateFactory;
 import View.ViewPage;
@@ -22,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -65,18 +62,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         @URLAction(mappingId="program", onPostback=false)
     })
     public void loadProgram(){
-        ProgramFactory cf = ProgramFactory.getProgramFactory();
-        Program p;
-        
-        if(program == null || program.isEmpty()){
-            p = cf.getProgram(); //get the default program
-        }else{
-            p = cf.getProgram(program);
-        }
-        elements.put("program", p);
-        //return c.getCOMPONENT_DIRECTORY();
-        //return "/components/entity/layout.xhtml";
-        
+        //Only load views and let views load their own program dependencies!
         ViewPageFactory vpf = ViewPageFactory.getViewPageFactory();
         ViewPage vp;
         
@@ -103,6 +89,14 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
             t = tf.getTemplate(template);
         }
         elements.put("template", t);
+    }
+    
+    @URLActions(actions={
+        @URLAction(mappingId="home", onPostback=true),
+        @URLAction(mappingId="program", onPostback=true)
+    })
+    public void loadUser(){
+        
     }
     
     public String getTemplate(){

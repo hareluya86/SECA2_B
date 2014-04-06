@@ -6,6 +6,7 @@
 
 package Entity.File;
 
+import Entity.DateCreatedListener;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -54,9 +55,9 @@ public class FileEntity implements Serializable /*extends EnterpriseUnit*/ {
     private long REMAINING_SEQUENCE; //The number of active sequences remaining
     private FILE_STATUS UPLOAD_STATUS; 
     private String MD5_HASH; 
+    
     private java.sql.Date DATE_CREATED;
     private String CREATED_BY;
-    
     private java.sql.Date DATE_CHANGED;
     private String CHANGED_BY;
     

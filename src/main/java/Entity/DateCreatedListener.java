@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package Entity.File;
+package Entity;
 
+import Entity.File.FileEntity;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import org.joda.time.DateTime;

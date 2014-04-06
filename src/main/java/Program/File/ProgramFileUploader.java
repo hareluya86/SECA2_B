@@ -51,6 +51,8 @@ public class ProgramFileUploader implements Serializable {
     @Inject
     private HibernateUtil hibernateUtil;
     
+    private Session session;
+    
     private Part partFile;
     private UploadedFile uploadedFile;
     private FileEntity holdingFile;
@@ -88,9 +90,9 @@ public class ProgramFileUploader implements Serializable {
             if(checkedLengthAndChecksum == null)
                 throw new InvalidFileException("File "+event.getFile().getFileName()+" does not contain equal length sequences!");
             //Compare with existing file and determine if insert button should be a "Insert new file"/"Resume existing file"/"File already uploaded"
-            Session session = hibernateUtil.getSession();
+            //Session session = hibernateUtil.getSession();
             FileEntity existingFile = this.checkFileExists(session, checkedLengthAndChecksum);
-            session.close();
+            //session.close();
             if(existingFile != null){
                 System.out.println("Existing file "+existingFile.getFILENAME()+" found");//debug
                 
@@ -210,7 +212,7 @@ public class ProgramFileUploader implements Serializable {
     public void insertFileAndSequences() {
         System.out.println(holdingFile.getFILENAME());
         DateTime startTime = new DateTime();
-        Session session = hibernateUtil.getSession();
+        //Session session = hibernateUtil.getSession();
         FileEntity insertThisFile = this.holdingFile;
         UploadedFile fileContents = this.uploadedFile;
 
@@ -379,6 +381,14 @@ public class ProgramFileUploader implements Serializable {
     
     
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters...">
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+    
     public HibernateUtil getHibernateUtil() {
         return hibernateUtil;
     }
