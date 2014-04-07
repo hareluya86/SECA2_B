@@ -6,7 +6,7 @@
 
 package Program.File;
 
-import Data.HibernateUtil;
+import Component.Data.HibernateUtil;
 import Entity.File.FileEntity;
 import static Entity.File.FileEntity.FILE_STATUS.COMPLETED;
 import static Entity.File.FileEntity.FILE_STATUS.INCOMPLETE;

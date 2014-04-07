@@ -4,39 +4,33 @@
  * and open the template in the editor.
  */
 
-package Program.File;
+package Program.User;
 
 import View.ViewPage;
-import View.ViewPageType;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author KH
  */
-@ViewPageType("ViewPageFile")
-public class ViewPageFile implements ViewPage {
+public class ViewPageUser implements ViewPage{
 
-    private String root = "/programs/file/layout.xhtml";
+    private String root = "/programs/user/layout.xhtml";
     private String name = "file";
-    private List<String> components;
     
     @Override
-    public void init(){
-        components = new ArrayList<String>();
-        components.add("search");
-        components.add("subprogram");
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public String getRoot() {
-        return root;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setRoot(String root) {
-        this.root = root;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -51,12 +45,12 @@ public class ViewPageFile implements ViewPage {
 
     @Override
     public List<String> getComponents() {
-        return components;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setComponents(List<String> components) {
-        this.components = components;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

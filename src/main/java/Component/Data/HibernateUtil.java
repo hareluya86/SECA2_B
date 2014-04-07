@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Data;
+package Component.Data;
 
 import java.io.Serializable;
 import java.util.List;

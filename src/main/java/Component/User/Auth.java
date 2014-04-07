@@ -6,7 +6,7 @@
 
 package Component.User;
 
-import Data.HibernateUtil;
+import Component.Data.HibernateUtil;
 import java.io.IOException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;

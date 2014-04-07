@@ -19,18 +19,19 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
- *
+ * Just a dispatcher
  * @author KH
  */
 
 
 @URLMappings(mappings={
     @URLMapping(id="home", pattern="/",viewId="/faces/index.xhtml"),
-    @URLMapping(id="program", pattern="/#{bootstrap.program}",viewId="/faces/index.xhtml"),
+    //@URLMapping(id="program", pattern="/#{bootstrap.program}",viewId="/faces/index.xhtml"),
 })
 @Named("bootstrap")
 @SessionScoped
@@ -59,9 +60,9 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
      */
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
-        @URLAction(mappingId="program", onPostback=false)
+        //@URLAction(mappingId="program", onPostback=false)
     })
-    public void loadProgram(){
+    public void loadView(){
         //Only load views and let views load their own program dependencies!
         ViewPageFactory vpf = ViewPageFactory.getViewPageFactory();
         ViewPage vp;
@@ -76,7 +77,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
-        @URLAction(mappingId="program", onPostback=false)
+        //@URLAction(mappingId="program", onPostback=false)
     })
     public void loadTemplate(){
         TemplateFactory tf = TemplateFactory.getTemplateFactory();
@@ -93,7 +94,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=true),
-        @URLAction(mappingId="program", onPostback=true)
+        //@URLAction(mappingId="program", onPostback=true)
     })
     public void loadUser(){
         

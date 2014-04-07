@@ -8,8 +8,7 @@ package Program.File;
 
 import Bootstrap.Program;
 import Component.EntityManage.EntityManageDemo;
-import Component.EntitySearch.EntitySearchDemo;
-import Data.HibernateUtil;
+import Component.Data.HibernateUtil;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;

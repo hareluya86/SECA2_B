@@ -7,7 +7,7 @@
 package Component.User;
 
 import Entity.User.UserEntity;
-import Data.HibernateUtil;
+import Component.Data.HibernateUtil;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
