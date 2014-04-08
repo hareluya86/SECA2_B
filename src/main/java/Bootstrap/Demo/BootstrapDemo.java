@@ -21,7 +21,11 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Just a dispatcher
@@ -29,12 +33,12 @@ import javax.inject.Named;
  */
 
 
-@URLMappings(mappings={
-    @URLMapping(id="home", pattern="/",viewId="/faces/index.xhtml"),
-    //@URLMapping(id="program", pattern="/#{bootstrap.program}",viewId="/faces/index.xhtml"),
-})
+//@URLMappings(mappings={
+    //@URLMapping(id="home", pattern="/",viewId="/faces/index.xhtml"),
+    //URLMapping(id="program", pattern="/#{bootstrap.program}",viewId="/faces/index.xhtml"),
+//})
 @Named("bootstrap")
-@SessionScoped
+@RequestScoped
 public class BootstrapDemo extends Bootstrap implements Serializable {
     
     private String module;
@@ -58,10 +62,10 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
      * if i return String then it is not called when searching
      * if i return void then it is called when searching
      */
-    @URLActions(actions={
-        @URLAction(mappingId="home", onPostback=false),
+    //@URLActions(actions={
+        //@URLAction(mappingId="home", onPostback=false)
         //@URLAction(mappingId="program", onPostback=false)
-    })
+    //})
     public void loadView(){
         //Only load views and let views load their own program dependencies!
         ViewPageFactory vpf = ViewPageFactory.getViewPageFactory();
@@ -73,12 +77,17 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
             vp = vpf.getViewPage(program);
         }
         elements.put("viewpage", vp);
+        
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        
+        HttpSession sess = (HttpSession)ec.getSession(true);
+        sess.setAttribute("viewpage", vp.getRoot());
     }
     
-    @URLActions(actions={
-        @URLAction(mappingId="home", onPostback=false),
-        //@URLAction(mappingId="program", onPostback=false)
-    })
+    //@URLActions(actions={
+        //@URLAction(mappingId="home", onPostback=true)//,
+        //@URLAction(mappingId="program", onPostback=true)
+    //})
     public void loadTemplate(){
         TemplateFactory tf = TemplateFactory.getTemplateFactory();
         Template t;
@@ -90,12 +99,17 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
             t = tf.getTemplate(template);
         }
         elements.put("template", t);
+        
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        
+        HttpSession sess = (HttpSession)ec.getSession(true);
+        sess.setAttribute("template", t.getTEMPLATE_XHTML());
     }
     
-    @URLActions(actions={
-        @URLAction(mappingId="home", onPostback=true),
+    //@URLActions(actions={
+        //@URLAction(mappingId="home", onPostback=true),
         //@URLAction(mappingId="program", onPostback=true)
-    })
+    //})
     public void loadUser(){
         
     }

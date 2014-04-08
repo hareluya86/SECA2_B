@@ -6,13 +6,14 @@
 
 package View;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author KH
  */
-public interface ViewPage {
+public interface ViewPage extends Serializable{
     
     public void init();
     /**

@@ -6,6 +6,8 @@ http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.1.xsd">
    <url-mapping id="home">
       <pattern value="/" />
       <view-id value="/faces/index.xhtml" />
+      <action onPostback="false">#{bootstrap.loadView}</action>
+      <action onPostback="false">#{bootstrap.loadTemplate}</action>
    </url-mapping>
    
    <url-mapping id="program">
@@ -13,6 +15,6 @@ http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.1.xsd">
        <view-id value="/faces/index.xhtml" />
        <action onPostback="false">#{bootstrap.loadView}</action>
        <action onPostback="false">#{bootstrap.loadTemplate}</action>
-   </url-mapping>
+   </url-mapping>-->
 
 </pretty-config>

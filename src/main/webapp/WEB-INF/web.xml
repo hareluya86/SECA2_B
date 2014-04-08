@@ -45,6 +45,7 @@
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
         <dispatcher>FORWARD</dispatcher>
+        <url-pattern>/file</url-pattern>
     </filter-mapping>
     <filter-mapping> 
         <filter-name>Pretty Filter</filter-name> 
@@ -53,6 +54,5 @@
         <dispatcher>REQUEST</dispatcher> 
         <dispatcher>ERROR</dispatcher>-->
     </filter-mapping>
-    
     
 </web-app>
