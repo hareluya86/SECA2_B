@@ -214,4 +214,14 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
+#############
+## Maven
+#############
+
 target/
+
+#############
+## Netbeans
+#############
+
+nbactions.xml
