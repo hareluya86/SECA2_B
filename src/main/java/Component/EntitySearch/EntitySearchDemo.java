@@ -6,10 +6,12 @@
 
 package Component.EntitySearch;
 
+import Component.Data.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
@@ -24,6 +26,7 @@ import org.hibernate.criterion.Restrictions;
 public class EntitySearchDemo<T> implements Serializable{
     
     private List<Object> results;
+    @Inject private HibernateUtil hibernateUtil;
     /**
     * Components should not have to deal with database connections. Reason:
     * - Each frontend program uses many components and it is not necessary for a

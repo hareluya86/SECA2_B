@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 
 /**
@@ -28,7 +27,6 @@ public class ProgramFileSearch implements Serializable {
     
     //Dependencies
     @Inject private EntitySearchDemo entitySearch;
-    private Session session;
     
     @PostConstruct
     public void init(){
@@ -50,12 +48,4 @@ public class ProgramFileSearch implements Serializable {
         this.results = results;
     }
 
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-    
 }

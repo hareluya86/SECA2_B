@@ -62,15 +62,12 @@ public class ProgramFile extends Program implements Serializable {
          * 
          * Is this a good method? Let's find out...
          */
-        Session session = hibernateUtil.getSession();
-        fileSearch.setSession(session);
-        fileUploader.setSession(session);
     }
     
     //Inject Application components
     //@Inject private EntitySearchDemo entitySearch;
-    @Inject private EntityManageDemo entityManage;
-    @Inject private HibernateUtil hibernateUtil;
+    //@Inject private EntityManageDemo entityManage;
+    //@Inject private HibernateUtil hibernateUtil;
     
     //Utility components
     
@@ -125,14 +122,6 @@ public class ProgramFile extends Program implements Serializable {
 
     public void setSubprogramTitle(String subprogramTitle) {
         this.subprogramTitle = subprogramTitle;
-    }
-
-    public EntityManageDemo getEntityManage() {
-        return entityManage;
-    }
-
-    public void setEntityManage(EntityManageDemo entityManage) {
-        this.entityManage = entityManage;
     }
 
     public ProgramFileUploader getFileUploader() {

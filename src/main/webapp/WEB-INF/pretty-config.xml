@@ -11,10 +11,12 @@ http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.1.xsd">
    </url-mapping>
    
    <url-mapping id="program">
-       <pattern value="/#{bootstrap.program}" />
+       <pattern value="/program/#{bootstrap.program}" />
        <view-id value="/faces/index.xhtml" />
-       <action onPostback="false">#{bootstrap.loadView}</action>
-       <action onPostback="false">#{bootstrap.loadTemplate}</action>
-   </url-mapping>-->
+       <action onPostback="true">#{bootstrap.loadView}</action>
+       <action onPostback="true">#{bootstrap.loadTemplate}</action>
+   </url-mapping>
+   
+   <!--<rewrite inbound="true" match="/(\w+)" substitute="faces/$1" />-->
 
 </pretty-config>

@@ -7,9 +7,6 @@
 package Component.Data;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.inject.Named;
-import javax.inject.Singleton;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

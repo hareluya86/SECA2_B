@@ -75,7 +75,7 @@
             </h:form>
             <h:panelGroup id="uploader" layout="block">
                 
-                <h:form id="upload-form" enctype="multipart/form-data" >
+                <h:form id="upload-form" enctype="multipart/form-data"  >
                     <p:blockUI block="upload-form" trigger="insert-file-button,cancel-insert-button">
                         <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
                         <h:outputText>#{ProgramFile.fileUploader.insertFileMessage}</h:outputText>
