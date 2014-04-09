@@ -41,7 +41,7 @@ import org.primefaces.model.UploadedFile;
  * 
  * @author vincent.a.lee
  */
-@Named("FileUploader")
+//@Named("FileUploader")
 //@SessionScoped //if it can only be sessionscoped, then it's best to embed it in another session scope object
 public class ProgramFileUploader implements Serializable {
     

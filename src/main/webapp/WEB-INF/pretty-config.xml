@@ -3,7 +3,7 @@
    xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.2.1
 http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.1.xsd">
 
-   <url-mapping id="home">
+   <!--<url-mapping id="home">
       <pattern value="/" />
       <view-id value="/faces/index.xhtml" />
       <action onPostback="false">#{bootstrap.loadView}</action>
@@ -11,12 +11,13 @@ http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.1.xsd">
    </url-mapping>
    
    <url-mapping id="program">
-       <pattern value="/program/#{bootstrap.program}" />
+       <pattern value="/#{bootstrap.program}" />
        <view-id value="/faces/index.xhtml" />
-       <action onPostback="true">#{bootstrap.loadView}</action>
-       <action onPostback="true">#{bootstrap.loadTemplate}</action>
+       <action onPostback="false">#{bootstrap.loadView}</action>
+       <action onPostback="false">#{bootstrap.loadTemplate}</action>
    </url-mapping>
    
-   <!--<rewrite inbound="true" match="/(\w+)" substitute="faces/$1" />-->
+   <rewrite trailingSlash="append" match="/(\w+)"  />
+   <rewrite trailingSlash="append" match="/(\w+)"  />-->
 
 </pretty-config>

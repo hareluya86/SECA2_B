@@ -7,8 +7,6 @@
 package Program.File;
 
 import Bootstrap.Program;
-import Component.EntityManage.EntityManageDemo;
-import Component.Data.HibernateUtil;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.hibernate.Session;
 
 /**
  *
@@ -56,12 +53,6 @@ public class ProgramFile extends Program implements Serializable {
         
         this.setPROGRAM_XHTML("/programs/file/layout.xhtml");
         
-        /**
-         * Manually injects the same session object into each SessionScoped 
-         * subprogram object.
-         * 
-         * Is this a good method? Let's find out...
-         */
     }
     
     //Inject Application components
