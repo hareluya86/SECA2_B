@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vincent.a.lee
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class PrependFilter implements Filter {
 
     @Override
@@ -49,6 +49,8 @@ public class PrependFilter implements Filter {
             pathInfo = servletPath;
             servletPath = "/faces";
             requestURI = servletPath+pathInfo;
+            System.out.println("Rewrite URI = "+requestURI+", ContextPath = "+contextPath+", servletPath = "
+            +servletPath+", pathInfo = "+pathInfo);
             
             RequestDispatcher rd = req.getRequestDispatcher(requestURI);
             rd.forward(request, response);

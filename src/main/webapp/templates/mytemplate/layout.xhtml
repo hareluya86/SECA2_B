@@ -14,8 +14,8 @@
         </h:panelGroup>
         <h:panelGroup layout="block" id="container">
             <p:panelGrid id="content" columns="2" columnClasses="panel,panel" >
-                <ui:insert name="#{bootstrap.elements['viewpage'].components[0]}"  />
-                <ui:insert name="#{bootstrap.elements['viewpage'].components[1]}"  />
+                <ui:insert name="#{session.getAttribute('viewpage').components[0]}"  />
+                <ui:insert name="#{session.getAttribute('viewpage').components[1]}"  />
             </p:panelGrid>
         </h:panelGroup>
         <h:panelGroup layout="block" id="footer">
