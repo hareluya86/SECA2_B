@@ -64,7 +64,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
      */
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
-        @URLAction(mappingId="program", onPostback=false)
+        @URLAction(mappingId="program", onPostback=true)
     })
     public void loadView(){
         //Only load views and let views load their own program dependencies!
@@ -86,7 +86,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
-        @URLAction(mappingId="program", onPostback=false)
+        @URLAction(mappingId="program", onPostback=true)
     })
     public void loadTemplate(){
         TemplateFactory tf = TemplateFactory.getTemplateFactory();

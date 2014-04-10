@@ -25,7 +25,7 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>excite-bike</param-value>
     </context-param>
-    <filter>
+    <!--<filter>
         <filter-name>Pretty Filter</filter-name>
         <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
     </filter>
@@ -38,11 +38,11 @@
         <servlet-name>Faces Servlet</servlet-name>
         <dispatcher>FORWARD</dispatcher> 
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>Pretty Filter</filter-name>
+    <filter-mapping>-->
+        <!--<filter-name>Pretty Filter</filter-name>
         <url-pattern>/*</url-pattern>
-        <!--<dispatcher>FORWARD</dispatcher> 
+        <dispatcher>FORWARD</dispatcher> 
         <dispatcher>REQUEST</dispatcher> 
-        <dispatcher>ERROR</dispatcher>-->
-    </filter-mapping>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>-->
 </web-app>
