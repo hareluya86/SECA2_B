@@ -13,17 +13,18 @@ import View.ViewPage;
 import View.ViewPageFactory;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
-import com.ocpsoft.pretty.faces.annotation.URLBeanName;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -36,9 +37,8 @@ import javax.servlet.http.HttpSession;
     @URLMapping(id="home", pattern="/",viewId="/faces/index.xhtml"),
     @URLMapping(id="program", pattern="/#{bootstrap.program}/",viewId="/faces/index.xhtml")
 })
-//@Named("bootstrap")
-//@SessionScoped
-@URLBeanName("bootstrap")
+@Named("bootstrap")
+@SessionScoped
 public class BootstrapDemo extends Bootstrap implements Serializable {
     
     private String module;
@@ -64,7 +64,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
      */
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
-        @URLAction(mappingId="program", onPostback=false)
+        @URLAction(mappingId="program", onPostback=true)
     })
     public void loadView(){
         //Only load views and let views load their own program dependencies!
@@ -78,15 +78,15 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         }
         elements.put("viewpage", vp);
         
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        //ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         
-        HttpSession sess = (HttpSession)ec.getSession(true);
-        sess.setAttribute("viewpage", vp);
+        //HttpSession sess = (HttpSession)ec.getSession(true);
+        //sess.setAttribute("viewpage", vp.getRoot());
     }
     
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
-        @URLAction(mappingId="program", onPostback=false)
+        @URLAction(mappingId="program", onPostback=true)
     })
     public void loadTemplate(){
         TemplateFactory tf = TemplateFactory.getTemplateFactory();
@@ -100,10 +100,10 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         }
         elements.put("template", t);
         
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        //ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         
-        HttpSession sess = (HttpSession)ec.getSession(true);
-        sess.setAttribute("template", t.getTEMPLATE_XHTML());
+        //HttpSession sess = (HttpSession)ec.getSession(true);
+        //sess.setAttribute("template", t.getTEMPLATE_XHTML());
     }
     
     //@URLActions(actions={
