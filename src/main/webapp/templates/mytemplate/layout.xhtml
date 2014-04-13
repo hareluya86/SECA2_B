@@ -7,10 +7,46 @@
     <f:view contentType="text/html">
         <h:head>
             <!--<h:outputStylesheet name="mytemplate.css" library="styles" />-->
+            <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
             <link type="text/css" rel="stylesheet" href="#{request.contextPath}/templates/mytemplate/mytemplate.css" />
+            <script type="text/javascript">
+                $ = jQuery;
+                $(document).ready(function() {
+                    if (typeof(Storage) != "undefined")
+                    {
+                    // Store
+                        localStorage.setItem("username", "#{ProgramUser.username}");
+                        // Retrieve
+                        if(localStorage.getItem("username") == null || 
+                                localStorage.getItem("username") == '' ){
+                            $("#modalDialog").show();
+                            //$PF('loginbox').show()
+                            //loginBox.show();
+                            window.alert("sometext");
+
+                        }else{
+                            $('modalDialog').hide();
+                        }
+                    }
+                    else
+                    {
+                        document.getElementById("header").innerHTML = "<br/>Sorry, your browser does not support Web Storage...";
+                    }
+                }
+                
+            </script>
         </h:head>
+
+        <p:dialog id="modalDialog" widgetVar="loginbox" header="Modal Dialog" modal="true" height="100"
+                  style="" appendToBody="true">  
+            <h:outputText value="This is a Modal Dialog." /> 
+            <h:form>
+                <p:commandButton value="Log in" action="#{ProgramUser.login()}" />
+            </h:form>
+        </p:dialog>  
         <h:panelGroup layout="block" id="header">
-            #{bootstrap.elements['header']}
+            #{bootstrap.elements['loggedin']}
+                <p:commandButton value="Log in" onclick="PF('loginbox').show();" type="button"/>
         </h:panelGroup>
         <h:panelGroup layout="block" id="container">
             <p:panelGrid id="content" columns="2" columnClasses="panel,panel" >

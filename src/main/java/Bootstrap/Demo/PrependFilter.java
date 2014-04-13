@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author vincent.a.lee
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class PrependFilter implements Filter {
 
     @Override
@@ -47,11 +47,16 @@ public class PrependFilter implements Filter {
                 pathInfo == null || pathInfo.isEmpty()){ //no servlet patterns recognized yet
             
             pathInfo = servletPath;
-            servletPath = "/faces";
+            servletPath = "/program";
             requestURI = servletPath+pathInfo;
             
-            RequestDispatcher rd = req.getRequestDispatcher(requestURI);
-            rd.forward(request, response);
+            //RequestDispatcher rd = req.getRequestDispatcher(requestURI);
+            System.out.println("Rewrite URI = "+requestURI+", ContextPath = "+contextPath+", servletPath = "
+            +servletPath+", pathInfo = "+pathInfo);
+            //rd.forward(request, response);
+            
+            resp.sendRedirect(requestURI);
+            return;
         }else{
             chain.doFilter(req, resp);
         }

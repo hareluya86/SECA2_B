@@ -7,6 +7,7 @@
 package Bootstrap.Demo;
 
 import Bootstrap.Bootstrap;
+import Program.User.ProgramUser;
 import Template.Template;
 import Template.TemplateFactory;
 import View.ViewPage;
@@ -23,6 +24,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,8 +36,8 @@ import javax.servlet.http.HttpSession;
 
 
 @URLMappings(mappings={
-    @URLMapping(id="home", pattern="/",viewId="/faces/index.xhtml"),
-    @URLMapping(id="program", pattern="/#{bootstrap.program}/",viewId="/faces/index.xhtml")
+    @URLMapping(id="home", pattern="/",viewId="/program/index.xhtml"),
+    @URLMapping(id="program", pattern="/program/#{bootstrap.program}/",viewId="/program/index.xhtml")
 })
 @Named("bootstrap")
 @SessionScoped
@@ -47,12 +49,23 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     
     private Map<String,Object> elements;
     
+    @Inject private ProgramUser programUser;
+    
     @PostConstruct
     public void init(){
         elements = new HashMap<String,Object>();
         elements.put("header", "this is the header from the map object");
         
         System.out.println("Bootstrap is called from @PostConstruct! "+module);
+    }
+    
+    @URLActions(actions={
+        @URLAction(mappingId="home", onPostback=true),
+        @URLAction(mappingId="program", onPostback=true)
+    })
+    public void loadUser(){
+        
+        
     }
     /**
      * Decides which module to load
@@ -64,7 +77,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
      */
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
-        @URLAction(mappingId="program", onPostback=true)
+        @URLAction(mappingId="program", onPostback=false)
     })
     public void loadView(){
         //Only load views and let views load their own program dependencies!
@@ -86,7 +99,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
-        @URLAction(mappingId="program", onPostback=true)
+        @URLAction(mappingId="program", onPostback=false)
     })
     public void loadTemplate(){
         TemplateFactory tf = TemplateFactory.getTemplateFactory();
@@ -106,11 +119,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         //sess.setAttribute("template", t.getTEMPLATE_XHTML());
     }
     
-    //@URLActions(actions={
-        //@URLAction(mappingId="home", onPostback=true),
-        //@URLAction(mappingId="program", onPostback=true)
-    //})
-    public void loadUser(){
+    public void login(){
         
     }
     

@@ -8,11 +8,13 @@ package Component.User;
 
 import Component.Data.HibernateUtil;
 import java.io.IOException;
+import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -23,11 +25,16 @@ public class Auth {
     private String username;
     private String password;
     
+    private String sSessionId; //secure server side sessionid, do not allow access by client
+    private String cSessionId; //passed to client
+    
+    private DateTime sessionStarttime; //time that the login session starts
+    
+    @PostConstruct
     public void init(){
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        
     }
     
-    @Inject private HibernateUtil hibernateUtil;
     
     public void login() throws IOException{
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -43,5 +50,9 @@ public class Auth {
             // Handle unknown username/password in request.login().
             //context.addMessage(null, new FacesMessage("Unknown login"));
         }
+    }
+    
+    public void checkCSession(){
+        
     }
 }
