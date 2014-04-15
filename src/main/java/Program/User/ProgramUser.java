@@ -6,10 +6,14 @@
 
 package Program.User;
 
+import Component.User.UserService;
+import Program.Util.FacesMessenger;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -32,7 +36,11 @@ public class ProgramUser implements Serializable {
     private String sSessionId; //secure server side sessionid, do not allow access by client
     private String cSessionId; //passed to client
     
+    private String loginboxTitle;
+    
     private DateTime sessionStarttime; //time that the login session starts
+    
+    @EJB private UserService userService;
     
     @PostConstruct
     public void init(){
@@ -40,6 +48,14 @@ public class ProgramUser implements Serializable {
     }
     
     public void login(){
+        //Check if username and password are present
+        if(username == null || username.isEmpty()){
+            FacesMessenger.setFacesMessage("login-form-messages", FacesMessage.SEVERITY_ERROR,
+                    "Please enter username", null);
+            return;
+        }
+            
+        
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest req = (HttpServletRequest) ec.getRequest();
         
@@ -100,6 +116,14 @@ public class ProgramUser implements Serializable {
 
     public void setSessionStarttime(DateTime sessionStarttime) {
         this.sessionStarttime = sessionStarttime;
+    }
+
+    public String getLoginboxTitle() {
+        return loginboxTitle;
+    }
+
+    public void setLoginboxTitle(String loginboxTitle) {
+        this.loginboxTitle = loginboxTitle;
     }
     
     

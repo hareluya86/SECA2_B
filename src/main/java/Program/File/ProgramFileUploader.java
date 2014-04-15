@@ -11,6 +11,7 @@ import Entity.File.FileEntity;
 import static Entity.File.FileEntity.FILE_STATUS.COMPLETED;
 import static Entity.File.FileEntity.FILE_STATUS.INCOMPLETE;
 import Entity.File.FileSequence;
+import Program.Util.FacesMessenger;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,11 +22,9 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.Part;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -50,7 +49,6 @@ public class ProgramFileUploader implements Serializable {
     
     @Inject
     private HibernateUtil hibernateUtil;
-    private Part partFile;
     private UploadedFile uploadedFile;
     private FileEntity holdingFile;
     
@@ -61,6 +59,8 @@ public class ProgramFileUploader implements Serializable {
     private boolean disableInsertButton;
     private boolean showRetryButton;
     private String insertFileMessage;
+    
+    private String messageBoxId = "upload-messages";
     
     @PostConstruct
     public void init(){
@@ -101,14 +101,14 @@ public class ProgramFileUploader implements Serializable {
                 }
                     
                 switch(existingFile.getUPLOAD_STATUS()){
-                    case INCOMPLETE :   setFacesMessage(FacesMessage.SEVERITY_INFO,
+                    case INCOMPLETE :   FacesMessenger.setFacesMessage(messageBoxId,FacesMessage.SEVERITY_INFO,
                                             "File \""+existingFile.getFILENAME()+"\" has been uploaded before."
                                             ,"");
                                         this.insertButtonValue = "Resume upload for file \""+existingFile.getFILENAME()+"\"";
                                         this.showInsertButton = true;
                                         this.disableInsertButton = false;
                                         break;
-                    case COMPLETED  :   setFacesMessage(FacesMessage.SEVERITY_INFO,
+                    case COMPLETED  :   FacesMessenger.setFacesMessage(messageBoxId,FacesMessage.SEVERITY_INFO,
                                             "Uploading has already completed for this file \""+existingFile.getFILENAME()+"\""
                                             ,"");
                                         this.showInsertButton = false;
@@ -131,10 +131,10 @@ public class ProgramFileUploader implements Serializable {
             this.uploadedFile = event.getFile();
             
         }  catch (InvalidFileException ifex){
-            setFacesMessage(FacesMessage.SEVERITY_ERROR,ifex.getMessage(),"");
+            FacesMessenger.setFacesMessage(messageBoxId,FacesMessage.SEVERITY_ERROR,ifex.getMessage(),"");
             this.showInsertButton = false;
         } catch(JDBCConnectionException jdbcex){
-            setFacesMessage(FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
+            FacesMessenger.setFacesMessage(messageBoxId,FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
             this.showInsertButton = false;
         } catch (Exception ex) {//all unknown Exceptions
             //setFacesMessage(FacesMessage.SEVERITY_ERROR,ex.getClass().getName(),"");
@@ -194,14 +194,15 @@ public class ProgramFileUploader implements Serializable {
     
     /**
      * Helper to set Faces message
+     * @param clientId
      * @param level
      * @param headline
      * @param description 
-     */
-    public void setFacesMessage(FacesMessage.Severity level, String headline, String description){
+     *
+    public void setFacesMessage(String clientId, FacesMessage.Severity level, String headline, String description){
         FacesMessage msg = new FacesMessage(level,headline,description);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+        FacesContext.getCurrentInstance().addMessage(clientId, msg);
+    }*/
     
     /**
      * 
@@ -254,12 +255,12 @@ public class ProgramFileUploader implements Serializable {
             session.clear();
             DateTime endTime = new DateTime();
             System.out.println("Start at "+startTime+" and End at "+endTime);
-            this.setFacesMessage(FacesMessage.SEVERITY_INFO, insertThisFile.getFILENAME()+" has been successfully uploaded", "");
+            FacesMessenger.setFacesMessage(messageBoxId,FacesMessage.SEVERITY_INFO, insertThisFile.getFILENAME()+" has been successfully uploaded", "");
         } catch (IOException ex) {
             //Logger.getLogger(ProgramFile.class.getName()).log(Level.SEVERE, null, ex);
-            this.setFacesMessage(FacesMessage.SEVERITY_ERROR, ex.getClass().getName(), ex.getMessage());
+            FacesMessenger.setFacesMessage(messageBoxId,FacesMessage.SEVERITY_ERROR, ex.getClass().getName(), ex.getMessage());
         } catch(java.lang.OutOfMemoryError e){
-            this.setFacesMessage(FacesMessage.SEVERITY_ERROR, e.getClass().getName(), e.getMessage());
+            FacesMessenger.setFacesMessage(messageBoxId,FacesMessage.SEVERITY_ERROR, e.getClass().getName(), e.getMessage());
         } catch (Exception e) {
             throw e;
         } finally { //clear all temp files and variables
@@ -357,7 +358,6 @@ public class ProgramFileUploader implements Serializable {
      * @throws IOException 
      */
     public void cancel() {
-        this.partFile = null;
         this.uploadedFile = null;
         this.holdingFile = null;
         this.disableInsertButton = true;
@@ -385,14 +385,6 @@ public class ProgramFileUploader implements Serializable {
 
     public void setHibernateUtil(HibernateUtil hibernateUtil) {
         this.hibernateUtil = hibernateUtil;
-    }
-
-    public Part getPartFile() {
-        return partFile;
-    }
-
-    public void setPartFile(Part partFile) {
-        this.partFile = partFile;
     }
 
     public UploadedFile getUploadedFile() {

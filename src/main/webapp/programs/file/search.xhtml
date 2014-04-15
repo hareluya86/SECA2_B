@@ -81,9 +81,10 @@
                         <h:outputText>#{ProgramFile.fileUploader.insertFileMessage}</h:outputText>
                     </p:blockUI>
                     <p:outputLabel id="messages-label" value="#{ProgramFile.fileUploader.startUpload} " />
-                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                    <p:messages id="upload-messages" showDetail="true" autoUpdate="true" closable="true" 
+                                for="fileUploader"/>
                     <p:fileUpload fileUploadListener="#{ProgramFile.fileUploader.uploadFile}" immediate="true" 
-                                  mode="advanced" auto="true"
+                                  mode="advanced" auto="true" id="fileUploader"
                                   sizeLimit="10000000000" allowTypes="/(\.|\/)(TXT|txt|jpe?g|csv)$/"
                                   label="Upload File"
                                   update="@form"

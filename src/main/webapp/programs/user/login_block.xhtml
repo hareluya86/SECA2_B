@@ -4,7 +4,56 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <ui:composition template="#{bootstrap.elements['template'].TEMPLATE_XHTML}">
-        <h:link type="text/javascript" value="//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" />
+    <ui:composition>
+        <!--<script type="text/javascript" src="#{request.contextPath}/programs/user/login_block.js" />
+        <h:outputScript name="login_block.js" library="login" target="head" />-->
+        <h:panelGroup id="loginbox-container" layout="block">
+            <p:dialog id="modalDialog" widgetVar="loginbox" header="#{ProgramUser.loginboxTitle}" modal="true" 
+                      height="200" width="500"
+                      style="" closable="false">  
+                <h:form>
+                    <p:panelGrid id="login-form-table" columns="2">
+                        <f:facet name="header">
+                            <p:messages id="login-form-messages" showDetail="false" autoUpdate="true" />
+                        </f:facet>
+                        <p:outputLabel value="Username: " />
+                        <p:inputText value="#{ProgramUser.username}" />
+                        
+                        <p:outputLabel value="Password: " />
+                        <p:password value="#{ProgramUser.password}" />
+                    </p:panelGrid>
+                    
+                    
+                    <p:commandButton value="Log in" action="#{ProgramUser.login()}" 
+                                     update=":loginbox-container" />
+                </h:form>
+            </p:dialog>
+            <script type="text/javascript">
+               //window.alert("sometext");
+               $(document).ready(function() {
+                   if (typeof (Storage) != "undefined")
+                   {
+                       // Store
+                       localStorage.setItem("username", "#{session.getAttribute("user")}");
+                       // Retrieve
+                       if (localStorage.getItem("username") == null ||
+                               localStorage.getItem("username") == '') {
+                           //$("#modalDialog").show();
+                           PF('loginbox').show()
+                           //loginBox.show();
+                           //window.alert("not logged in");
+
+                       } else {
+                           $('modalDialog').hide();
+                           //window.alert("logged in");
+                       }
+                    }
+                    else
+                    {
+                        document.getElementById("header").innerHTML = "<br/>Sorry, your browser does not support Web Storage...";
+                    }
+                });
+            </script>
+        </h:panelGroup>
     </ui:composition>
 </html>
