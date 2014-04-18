@@ -39,6 +39,7 @@ public class ProgramUser implements Serializable {
     private String loginboxTitle;
     
     private DateTime sessionStarttime; //time that the login session starts
+    private String messageBoxId = "login-form";
     
     @EJB private UserService userService;
     
@@ -50,7 +51,7 @@ public class ProgramUser implements Serializable {
     public void login(){
         //Check if username and password are present
         if(username == null || username.isEmpty()){
-            FacesMessenger.setFacesMessage("login-form-messages", FacesMessage.SEVERITY_ERROR,
+            FacesMessenger.setFacesMessage(messageBoxId, FacesMessage.SEVERITY_ERROR,
                     "Please enter username", null);
             return;
         }

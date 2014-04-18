@@ -82,7 +82,7 @@
                     </p:blockUI>
                     <p:outputLabel id="messages-label" value="#{ProgramFile.fileUploader.startUpload} " />
                     <p:messages id="upload-messages" showDetail="true" autoUpdate="true" closable="true" 
-                                for="fileUploader"/>
+                                for="upload-form"/>
                     <p:fileUpload fileUploadListener="#{ProgramFile.fileUploader.uploadFile}" immediate="true" 
                                   mode="advanced" auto="true" id="fileUploader"
                                   sizeLimit="10000000000" allowTypes="/(\.|\/)(TXT|txt|jpe?g|csv)$/"

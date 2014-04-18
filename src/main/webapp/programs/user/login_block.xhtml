@@ -11,10 +11,11 @@
             <p:dialog id="modalDialog" widgetVar="loginbox" header="#{ProgramUser.loginboxTitle}" modal="true" 
                       height="200" width="500"
                       style="" closable="false">  
-                <h:form>
+                <h:form id="login-form">
                     <p:panelGrid id="login-form-table" columns="2">
                         <f:facet name="header">
-                            <p:messages id="login-form-messages" showDetail="false" autoUpdate="true" />
+                            <p:messages id="login-form-messages" showDetail="false" autoUpdate="true"
+                                        for="login-form"/>
                         </f:facet>
                         <p:outputLabel value="Username: " />
                         <p:inputText value="#{ProgramUser.username}" />

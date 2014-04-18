@@ -60,7 +60,7 @@ public class ProgramFileUploader implements Serializable {
     private boolean showRetryButton;
     private String insertFileMessage;
     
-    private String messageBoxId = "upload-messages";
+    private String messageBoxId = "upload-form";
     
     @PostConstruct
     public void init(){
