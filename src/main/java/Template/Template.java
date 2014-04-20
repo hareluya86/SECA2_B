@@ -7,6 +7,7 @@
 package Template;
 
 import java.util.Map;
+import javax.annotation.PostConstruct;
 
 
 /**
@@ -66,5 +67,6 @@ public abstract class Template /*implements EnterpriseObject*/ {
         this.TEMPLATE_PARAMS = TEMPLATE_PARAMS;
     }
     
-    
+    @PostConstruct
+    public abstract void init();
 }

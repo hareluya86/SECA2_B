@@ -22,12 +22,15 @@ public class TemplateFactoryDemo extends TemplateFactory{
 
     @Override
     public Template getTemplate(String template) {
+        Template newTemplate;
         if(template.equalsIgnoreCase("mytemplate")){
-            return new TemplateDemo();
+            newTemplate = new TemplateDemo();
         }
         else{
             throw new RuntimeException("No such template: "+template);
         }
+        newTemplate.init();
+        return newTemplate;
     }
     
 }

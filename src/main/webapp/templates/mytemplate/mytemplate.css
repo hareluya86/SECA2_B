@@ -12,23 +12,24 @@ body {
     padding: 0;
     margin: 0;
     font-size: 12px;
-    font-family: Arial, Helvetica, Verdana, Sans-serif;
+    font-family: Helvetica, Arial, Verdana, Sans-serif;
 }
 
 #container {
     background: blue;
     margin: auto;
     width: 1280px;
-    height: 500px;
+    height: fit-content;
 }
 
 #header {
-    background: green;
+    background: #3F3F3F;
     font-size: 20px;
-    height: 50px;
-    //margin: 0;
+    color: #B7B7B7;
+    height: 30px;
     top: 0;
-    z-index: 99;
+    //z-index: 99;
+    padding: 10px;
 }
 
 #content {
@@ -53,4 +54,14 @@ body {
 img.ajax-large {
     width: 50px; //fits the container
     height: auto;
+}
+
+#header .menu {
+    
+}
+#header .menu-item {
+    
+}
+#header a.menu-item  {
+    text-decoration: none;
 }
