@@ -19,7 +19,7 @@ import org.hibernate.criterion.Criterion;
  *
  * @author vincent.a.lee
  */
-public class ProgramFileSearch implements Serializable {
+public class FormFileSearch implements Serializable {
     
     //UI elements
     private List<Criterion> criteria;

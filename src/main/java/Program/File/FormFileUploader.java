@@ -42,7 +42,7 @@ import org.primefaces.model.UploadedFile;
  */
 //@Named("FileUploader")
 //@SessionScoped //if it can only be sessionscoped, then it's best to embed it in another session scope object
-public class ProgramFileUploader implements Serializable {
+public class FormFileUploader implements Serializable {
     
     private final long MAX_RECORD_FLUSH = 100000;
     private final long MAX_FLUSH_COMMIT = 3;

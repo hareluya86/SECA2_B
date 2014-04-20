@@ -7,27 +7,23 @@
 package Bootstrap.Demo;
 
 import Bootstrap.Bootstrap;
-import Program.User.ProgramUser;
+import Program.User.FormUserLogin;
 import Template.Template;
 import Template.TemplateFactory;
 import View.ViewPage;
 import View.ViewPageFactory;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLActions;
+import com.ocpsoft.pretty.faces.annotation.URLBeanName;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Just a dispatcher
@@ -39,6 +35,7 @@ import javax.servlet.http.HttpSession;
     @URLMapping(id="home", pattern="/",viewId="/program/index.xhtml"),
     @URLMapping(id="program", pattern="/program/#{bootstrap.program}/",viewId="/program/index.xhtml")
 })
+@URLBeanName("bootstrap")
 @Named("bootstrap")
 @SessionScoped
 public class BootstrapDemo extends Bootstrap implements Serializable {
@@ -49,7 +46,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     
     private Map<String,Object> elements;
     
-    @Inject private ProgramUser programUser;
+    @Inject private FormUserLogin programUserLogin;
     
     @PostConstruct
     public void init(){
@@ -64,16 +61,12 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         @URLAction(mappingId="program", onPostback=true)
     })
     public void loadUser(){
-        
+        //this.programUserLogin.checkSessionActive();
         
     }
     /**
      * Decides which module to load
      * <p>
- This method will return the directory of the current module.
-     * @return //Must return something in order for the rest of the application to work?
-     * if i return String then it is not called when searching
-     * if i return void then it is called when searching
      */
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
@@ -154,4 +147,14 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     public void setModule(String module){
         this.module = module;
     }
+
+    public FormUserLogin getProgramUserLogin() {
+        return programUserLogin;
+    }
+
+    public void setProgramUserLogin(FormUserLogin programUserLogin) {
+        this.programUserLogin = programUserLogin;
+    }
+    
+    
 }

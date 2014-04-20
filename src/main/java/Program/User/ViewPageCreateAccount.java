@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author KH
  */
-public class ViewPageUser implements ViewPage{
+public class ViewPageCreateAccount implements ViewPage{
 
     private String root;
     private String name;
@@ -22,9 +22,10 @@ public class ViewPageUser implements ViewPage{
     
     @Override
     public void init() {
-        root = "/programs/user/layout.xhtml";
-        name = "User";
+        root = "/programs/user/create_account.xhtml";
+        name = "CreateAccount";
         components = new ArrayList<String>();
+        
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ViewPageUser implements ViewPage{
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
@@ -49,12 +50,12 @@ public class ViewPageUser implements ViewPage{
 
     @Override
     public List<String> getComponents() {
-        return this.getComponents();
+        return this.components;
     }
 
     @Override
     public void setComponents(List<String> components) {
-        this.setComponents(components);
+        this.components = components;
     }
     
 }

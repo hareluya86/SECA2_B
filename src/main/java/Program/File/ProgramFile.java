@@ -64,8 +64,8 @@ public class ProgramFile extends Program implements Serializable {
     
     
     //Subprograms
-    @Inject private ProgramFileUploader fileUploader;
-    @Inject private ProgramFileSearch fileSearch;
+    @Inject private FormFileUploader fileUploader;
+    @Inject private FormFileSearch fileSearch;
     
     //UI components
     private String subprogram;
@@ -115,19 +115,19 @@ public class ProgramFile extends Program implements Serializable {
         this.subprogramTitle = subprogramTitle;
     }
 
-    public ProgramFileUploader getFileUploader() {
+    public FormFileUploader getFileUploader() {
         return fileUploader;
     }
 
-    public void setFileUploader(ProgramFileUploader fileUploader) {
+    public void setFileUploader(FormFileUploader fileUploader) {
         this.fileUploader = fileUploader;
     }
 
-    public ProgramFileSearch getFileSearch() {
+    public FormFileSearch getFileSearch() {
         return fileSearch;
     }
 
-    public void setFileSearch(ProgramFileSearch fileSearch) {
+    public void setFileSearch(FormFileSearch fileSearch) {
         this.fileSearch = fileSearch;
     }
     

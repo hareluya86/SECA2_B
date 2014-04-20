@@ -18,12 +18,14 @@ import java.util.List;
 @ViewPageType("ViewPageFile")
 public class ViewPageFile implements ViewPage {
 
-    private String root = "/programs/file/layout.xhtml";
-    private String name = "file";
+    private String root;
+    private String name;
     private List<String> components;
     
     @Override
     public void init(){
+        root = "/programs/file/layout.xhtml";
+        name = "file";
         components = new ArrayList<String>();
         components.add("search");
         components.add("subprogram");
