@@ -24,7 +24,7 @@ body {
 
 #header {
     background: #3F3F3F;
-    font-size: 20px;
+    font-size: 18px;
     color: #B7B7B7;
     height: 30px;
     top: 0;
@@ -64,4 +64,16 @@ img.ajax-large {
 }
 #header a.menu-item  {
     text-decoration: none;
+    color: #B7B7B7;
+    margin: 0 10px;
+    
+    padding: 0 10px;
+}
+#header a.menu-item .selected {
+    background: #95A5A5;
+    color: #FFFFFF;
+    
+}
+#header a.menu-item .rest{
+    border-left: 1px solid;
 }

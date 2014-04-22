@@ -8,6 +8,7 @@ package Program.User;
 
 import Bootstrap.Program;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,9 +23,11 @@ public class ProgramUser extends Program implements Serializable {
 
     @Inject private FormUserLogin userLogin;
     
+    
+    @PostConstruct
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     public FormUserLogin getUserLogin() {
@@ -34,6 +37,4 @@ public class ProgramUser extends Program implements Serializable {
     public void setUserLogin(FormUserLogin userLogin) {
         this.userLogin = userLogin;
     }
-    
-    
 }

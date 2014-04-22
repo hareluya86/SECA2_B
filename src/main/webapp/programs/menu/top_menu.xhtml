@@ -5,6 +5,11 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-        
+        <!--<img src="#{request.contextPath.concat(bootstrap.elements['template'].TEMPLATE_PARAMS['logo'])}" />-->
+        <h:panelGroup layout="block" styleClass="menu" >
+            <p:commandLink styleClass="menu-item selected" value="file"  />
+            <p:commandLink styleClass="menu-item rest" value="user" action="/program/user/"/>
+            <p:commandLink styleClass="menu-item rest" value="preference" action="/program/preference/"/>
+        </h:panelGroup>
     </ui:composition>
 </html>

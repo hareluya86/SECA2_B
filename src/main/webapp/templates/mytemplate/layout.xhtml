@@ -11,12 +11,7 @@
             <link type="text/css" rel="stylesheet" href="#{request.contextPath}/templates/mytemplate/mytemplate.css" />
         </h:head>
         <h:panelGroup layout="block" id="header">
-            <!--<img src="#{request.contextPath.concat(bootstrap.elements['template'].TEMPLATE_PARAMS['logo'])}" />-->
-            <h:panelGroup layout="block" styleClass="menu" >
-                <p:commandLink styleClass="menu-item" value="File" />
-                <p:commandLink styleClass="menu-item" value="User" />
-                <p:commandLink styleClass="menu-item" value="Preference" />
-            </h:panelGroup>
+            <ui:include src="#{ProgramMenu.PROGRAM_XHTML}" />
         </h:panelGroup>
         <h:panelGroup layout="block" id="container">
             <p:panelGrid id="content" columns="2" columnClasses="panel,panel" >

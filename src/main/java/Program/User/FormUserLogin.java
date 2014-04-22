@@ -47,6 +47,7 @@ public class FormUserLogin implements Serializable {
     //private String cSessionId; //passed to client
     
     private String loginboxTitle;
+    private String loginBlockXHTML;
     
     private DateTime sessionStarttime; //time that the login session starts
     private String messageBoxId = "login-form";
@@ -56,6 +57,7 @@ public class FormUserLogin implements Serializable {
     @PostConstruct
     public void init(){
         username = "";
+        //loginBlockXHTML = "/programs/user/login_block.xhtml";
     }
     
     public void login(){
@@ -161,5 +163,11 @@ public class FormUserLogin implements Serializable {
         this.loginboxTitle = loginboxTitle;
     }
     
-    
+    public String getLoginBlockXHTML() {
+        return loginBlockXHTML;
+    }
+
+    public void setLoginBlockXHTML(String loginBlockXHTML) {
+        this.loginBlockXHTML = loginBlockXHTML;
+    }
 }
