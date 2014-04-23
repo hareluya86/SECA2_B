@@ -1,0 +1,11 @@
+#search-form{
+    background: #eaedf1;
+    border: none;
+    
+    height: 1000px; 
+    width: 400px;
+}
+
+.ui-panelgrid td {
+    border: 0;
+}

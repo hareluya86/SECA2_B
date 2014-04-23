@@ -28,21 +28,13 @@
                 </h:form>
             </p:dialog>
             <script type="text/javascript">
-               //window.alert("sometext");
                $(document).ready(function() {
                    if (typeof (Storage) != "undefined")
                    {
-                       // Store
-                       //localStorage.setItem("loggedIn", });
-                       // Retrieve
-                       //if (localStorage.getItem("loggedIn") == null ||
-                               //localStorage.getItem("loggedIn") == '' ||
-                               //localStorage.getItem("loggedIn") == 0) {
                        if(!#{ProgramUser.userLogin.checkSessionActive()}){
                            PF('loginbox').show();
                        } else {
                            PF('loginbox').hide();
-                           //window.alert("logged in");
                        }
                     }
                     else

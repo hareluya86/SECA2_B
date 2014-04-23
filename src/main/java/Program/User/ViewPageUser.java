@@ -25,6 +25,7 @@ public class ViewPageUser implements ViewPage{
         root = "/programs/user/layout.xhtml";
         name = "User";
         components = new ArrayList<String>();
+        components.add("search");
     }
 
     @Override

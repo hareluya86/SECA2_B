@@ -50,8 +50,16 @@ body {
 }
 
 img.ajax-large {
-    width: 50px; //fits the container
+    width: 50px; 
     height: auto;
 }
 
-
+.ui-panelgrid td {
+    border: 0;
+}
+.ui-panelgrid td.panel {
+    border: 0;
+}
+tr.ui-widget-content {
+    border: 0;
+}

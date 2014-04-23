@@ -7,9 +7,10 @@ and open the template in the editor.
     Created on : Mar 10, 2014, 11:55:40 PM
     Author     : KH
 */
-.search-panel {
+tr td.search-panel {
     vertical-align: top;
     padding: 2px;
+    border-width: 0;
 }
 
 #search-criteria {
@@ -18,9 +19,10 @@ and open the template in the editor.
     background: blue;
 }
 
-td input.search-input {
+#search-form td input.search-input {
     width: 100px;
-}
+    box-shadow: none;
+}/**/
 
 span.search-input input{
     width: 100px;
@@ -50,3 +52,10 @@ div #search-results-list {
 #search-ajax {
     
 }
+
+//Override primefaces.css
+//.ui-inputfield .ui-state-focus .ui-widget-content .ui-inputfield.ui-state-focus 
+//.ui-widget-header .ui-inputfield .ui-state-focus .search-input {
+//    box-shadow: none;
+//    width: 100px;
+//}
