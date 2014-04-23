@@ -6,10 +6,17 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <!--<img src="#{request.contextPath.concat(bootstrap.elements['template'].TEMPLATE_PARAMS['logo'])}" />-->
-        <h:panelGroup layout="block" styleClass="menu" >
-            <p:commandLink styleClass="menu-item selected" value="file"  />
-            <p:commandLink styleClass="menu-item rest" value="user" action="/program/user/"/>
-            <p:commandLink styleClass="menu-item rest" value="preference" action="/program/preference/"/>
-        </h:panelGroup>
+        <!--<h:panelGroup layout="block" styleClass="menu" >
+            
+            <p:commandLink styleClass="menu-item selected" value="FILE"  />
+            <p:commandLink styleClass="menu-item rest" value="USER" action="/program/user/"/>
+            <p:commandLink styleClass="menu-item rest" value="PREFERENCES" action="/program/preference/"/>
+        </h:panelGroup>-->
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/menu/top_menu.css" />
+        <nav class="menu">
+            <a href="#{request.contextPath}/program/file/" class="menu-item">FILE</a>
+            <a href="#{request.contextPath}/program/user/" class="menu-item">USER</a>
+            <a href="#{request.contextPath}/program/preference/" class="menu-item">PREFERENCES</a>
+        </nav>
     </ui:composition>
 </html>

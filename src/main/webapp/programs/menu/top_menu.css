@@ -1,10 +1,37 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Apr 22, 2014, 11:29:41 PM
-    Author     : KH
-*/
+nav a.menu-item  {
+    text-decoration: none;
+    color: #FEFEFE;
+    margin: 7px 10px;
+    font-size: 16px;
+    //padding: auto 10px;
+    position: relative;
+    
+}
 
+nav.menu {
+    margin: 0;
+    padding: 0;
+    height: 2em;
+}
+
+.menu-item {
+   
+}
+
+
+nav a.menu-item:after {
+    background-image: url('icon-file.png');
+    background-color: #55606E;
+    background-position: 0px 0px;
+    background-size: 100% 100%;
+    text-indent: -99999px;
+    
+}
+#header a.menu-item .selected {
+    background: #343A41;
+    //color: #FFFFFF;
+    
+}
+#header a.menu-item .rest{
+    border-left: 1px solid;
+}
