@@ -15,23 +15,26 @@
                             <f:facet name="header">Search Criteria</f:facet>
 
                             <p:outputLabel value="Filename: " />
-                            <p:inputText id="filename" styleClass="search-input">
+                            <p:inputText id="filename" styleClass="search-input"
+                                         value="#{ProgramFile.fileSearch.searchName}">
                                 <p:ajax update="search-results-list" listener="#{ProgramFile.fileSearch.search}"
                                         />
                             </p:inputText>
 
                             <p:outputLabel value="Uploaded since: " />
-                            <p:calendar pattern="dd.MM.yyyy" styleClass="search-input" />
+                            <p:calendar pattern="dd.MM.yyyy" styleClass="search-input"
+                                        value="#{ProgramFile.fileSearch.searchStartDate}"/>
 
                             <p:outputLabel value="Uploaded before: " />
-                            <p:calendar pattern="dd.MM.yyyy" styleClass="search-input"  />
+                            <p:calendar pattern="dd.MM.yyyy" styleClass="search-input" 
+                                        value="#{ProgramFile.fileSearch.searchEndDate}"/>
 
                             <f:facet name="footer"> 
                                 <p:commandButton id="search-button" value="Search" update="search-results-list" 
                                                  action="#{ProgramFile.fileSearch.search}"
                                                  />
                                 <p:commandButton id="reset-button" value="Reset" update="search-results-list" 
-                                                 action="#{ProgramFile.fileSearch.search}" 
+                                                 action="#{ProgramFile.fileSearch.reset}" 
                                                  />
                             </f:facet> 
                         </p:panelGrid>
@@ -39,7 +42,7 @@
                     
                     <h:panelGroup layout="block" id="search-results" style="">
                         <p:blockUI block="search-results" trigger="search-button,reset-button">
-                            <img src="#{request.contextPath}/programs/file/ajax_loader.gif" class="ajax-large" />
+                            <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
                         </p:blockUI>
                         <p:panelGrid id="search-results-table" columns="1" style="width: 305px;">
                             <f:facet name="header">Search Result</f:facet>
@@ -49,9 +52,24 @@
                                               style="width: 100%;overflow: scroll; height: 400px;"
                                                >
                                 <p:tab title="#{file.FILENAME} - Uploaded by #{file.CREATED_BY} on the #{file.DATE_CREATED}">
-
-                                    <p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
-                                        styleClass="ui-priority-primary"
+                                    <nav>
+                                        <a id="manage-link" href="#" 
+                                           class="file-menu-item">
+                                            manage
+                                            <span class="tooltip">Manage File and Sequences</span>
+                                        </a>
+                                        <a id="generate-link" href="#" 
+                                           class="file-menu-item" title="Generate Sequences">
+                                            generate
+                                        </a>
+                                        <a id="reset-link" href="#" 
+                                           class="file-menu-item" title="Reset File">
+                                            generate
+                                        </a>
+                                    </nav>
+                                </p:tab>
+                                <!--<p:commandButton value="Manage File/Sequences" update=":subprogram" id="manage"  
+                                        
                                         action="#{ProgramFile.manageFileAndSequences()}">
                                         <f:setPropertyActionListener target="#{ProgramFile.subprogram}" 
                                                                      value="manage" />
@@ -65,8 +83,7 @@
                                         
                                     </p:commandButton>
                                     <p:commandButton value="Reset File" />
-                                    <p:blockUI block=":subprogram" trigger="manage" />
-                                </p:tab>
+                                    <p:blockUI block=":subprogram" trigger="manage" />-->
                             </p:accordionPanel>
                         </p:panelGrid>
                     </h:panelGroup>

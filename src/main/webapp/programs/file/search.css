@@ -7,24 +7,22 @@ and open the template in the editor.
     Created on : Mar 10, 2014, 11:55:40 PM
     Author     : KH
 */
+
+
 tr td.search-panel {
     vertical-align: top;
     padding: 2px;
     border-width: 0;
 }
 
-#search-criteria {
-    //width: 500px;
-    //margin-right: 5px;
-    background: blue;
-}
 
 #search-form td input.search-input {
     width: 100px;
     box-shadow: none;
-}/**/
+}
 
-span.search-input input{
+#search-form span.search-input input.ui-inputfield{
+    box-shadow: none;
     width: 100px;
 }
 
@@ -33,29 +31,53 @@ td.criteria-columns{
     margin:0;   
 }       
 
-#search-results {
-    //width: 500px;
+.ui-widget-content .ui-accordion .ui-accordion-content{
+    padding: 0;
 }
 
-div #search-results-list {
-    
-}
-#search-form #search-results-table table {
-    //width: 305px; doesn't work!
-}
-
-#ajaxStatusPanel {
-    //min-width:375px;
-    //overflow: auto;
+.file-menu-item {
+    float: left;
+    display:block;
+    width: 48px;
+    height: 48px;
+    text-indent:-9999px;
+    -webkit-transition: background-image 200ms ease-in; /*Chrome*/
+    -moz-transition: background-image 200ms ease-in; /* FF3.7+ */
 }
 
-#search-ajax {
-    
+.tooltip{
+    top:-10px;
+    background-color: black;
+    color:white;
+    position: absolute;
+    opacity:0;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+}
+.file-menu-item .tooltip {
+    text-indent: 0px;
+}
+.file-menu-item:hover .tooltip {
+    opacity: 1;
 }
 
-//Override primefaces.css
-//.ui-inputfield .ui-state-focus .ui-widget-content .ui-inputfield.ui-state-focus 
-//.ui-widget-header .ui-inputfield .ui-state-focus .search-input {
-//    box-shadow: none;
-//    width: 100px;
-//}
+#manage-link{
+    background-image: url('manage.png');
+}
+#manage-link:hover {
+    background-image: url('manage-selected.png');
+}
+
+#generate-link{
+    background-image: url('generate.png');
+}
+#generate-link:hover {
+    background-image: url('generate-selected.png');
+}
+
+#reset-link{
+    background-image: url('reset.png');
+}
+#reset-link:hover {
+    background-image: url('reset-selected.png');
+}

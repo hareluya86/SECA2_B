@@ -25,23 +25,28 @@ import org.hibernate.criterion.Restrictions;
 @Stateless
 public class EntitySearchDemo<T> implements Serializable{
     
-    private List<Object> results;
+    private T type;
+    private List<Object> results; //no attributes in Stateless beans
+    private Criteria criteria;
     @Inject private HibernateUtil hibernateUtil;
+    private Session session;
     /**
     * Components should not have to deal with database connections. Reason:
     * - Each frontend program uses many components and it is not necessary for a
     * single user to open up multiple database connections at the same time. 
     * 
-    @Inject
-    private HibernateUtil hibernateUtil;
+    * UPDATE 20140425 - Depends on the usage of database of the application, if 
+    * it's a "sparse" app, only EJBs should be injected with the DAO. 
+    * 
     */
     
     @PostConstruct
     public void init(){
-        
+        session = hibernateUtil.getSession();
+        criteria = session.createCriteria(type.getClass());
     }
     
-    public Criterion getCriterion(String operand, String value, SearchOp operator){
+    public void addCriterion(String operand, String value, SearchOp operator){
         Criterion newCriterion = null;
         switch(operator){
             case EQUALS     :   newCriterion = Restrictions.eq(operand, value);
@@ -50,26 +55,14 @@ public class EntitySearchDemo<T> implements Serializable{
                                 break;
             
         }
-        
-        return newCriterion;
+        if(criteria != null){
+            
+        }
     }
     
-    public List<Object> search(Session session, Criteria criteria){
-        
-        throw new UnsupportedOperationException("EntitySearch.search() not supported yet!");
-        
-    }
     
     public void reset(){
         
-    }
-
-    public List<Object> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Object> results) {
-        this.results = results;
     }
     
 }
