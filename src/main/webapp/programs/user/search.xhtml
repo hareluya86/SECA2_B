@@ -6,9 +6,83 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/search.css" />
-        <h:panelGroup layout="block" id="search-form">
-            erwgrwg
-        </h:panelGroup>
+        
+        <!--<div id="search-form">
+            <form class="search-form-form">
+                <div class="search-criteria-table">
+                    <div class="search-criteria">
+                        <p:outputLabel styleClass="search-field-label">
+                            SEARCH USERNAME
+                        </p:outputLabel>
+                        <h:inputText styleClass="search-field-input" />
+                    </div>
+                    <div class="search-criteria">
+                        <p:outputLabel styleClass="search-field-label">
+                            USER TYPE
+                        </p:outputLabel>
+                        <h:selectOneMenu  styleClass="search-field-input">
+                            <f:selectItem itemLabel="Any type" />
+                            <f:selectItem itemLabel="Human" />
+                            <f:selectItem itemLabel="Site" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="search-results">
+                    fefe
+                </div>
+            </form>
+        </div>-->
+        <table class="search-form" cellspacing="0" cellpadding="0">
+            <tbody>    
+                <tr>
+                    <td>
+                        <table class="search-criteria-table" cellspacing="0" cellpadding="0">
+                            <tbody >    
+                                <tr class="search-criteria">
+                                    <td class="search-field-label" >
+                                        <div>SEARCH USERNAME</div>
+                                    </td>
+                                    <td class="search-field-input">
+                                        <div><h:inputText  /></div>
+                                    </td>
+                                </tr>
+                                <tr class="spacer"></tr>
+                                <tr class="search-criteria">
+                                    <td class="search-field-label" >
+                                        <div>USER TYPE</div>
+                                    </td>
+                                    <td class="search-field-input">
+                                        <div>
+                                            <h:selectOneMenu >
+                                                <f:selectItem itemLabel="Any type" />
+                                                <f:selectItem itemLabel="Human" />
+                                                <f:selectItem itemLabel="Site" />
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="search-results" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <th>Search Results</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         
     </ui:composition>
 </html>
