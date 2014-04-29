@@ -9,6 +9,12 @@ table.search-form {
     overflow: hidden;
 }
 
+.search-form th{
+    background-color: #7E8C8D;
+    color: #E7FCF3;
+    font-size: 1.5em;
+}
+
 .search-form tr{
     vertical-align: top;
 }
@@ -45,12 +51,11 @@ table.search-form {
     font-weight: bold;
     padding: 0;
     height: 48px;
-    
-    
 }
+
 .search-criteria td.search-field-input {
     padding: 0;
-    width: 150px;
+    width: 202px;
     background-color: #FFFFFF;
 }
 
@@ -62,8 +67,15 @@ table.search-form {
 .search-criteria td.search-field-label div{
     width: 48px;
     text-indent: -9999px;
-    background-image: url('search-icon.png');
     background-repeat: no-repeat;
+}
+
+.search-criteria td.search-field-label div.username {
+    background-image: url('search-icon.png');
+}
+
+.search-criteria td.search-field-label div.usertype {
+    background-image: url('user-icon.png');
 }
 
 .search-criteria td.search-field-input div{
@@ -92,7 +104,19 @@ table.search-results {
 }
 
 .search-results th{
-    background-color: #5C6D7D;
-    color: #E7FCF3;
+    background-color: #FFF;
+    color: #5C6D7D;
     height: 20px;
 }
+
+input.prompt {
+    color: #ccc;
+}
+
+input:focus {
+    
+    transition: color .2s linear;
+    -webkit-transition:color .2s linear 0;
+    -moz-transition:color .2s linear;
+}
+

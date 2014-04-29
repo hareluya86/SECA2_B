@@ -6,50 +6,53 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/search.css" />
-        
-        <!--<div id="search-form">
-            <form class="search-form-form">
-                <div class="search-criteria-table">
-                    <div class="search-criteria">
-                        <p:outputLabel styleClass="search-field-label">
-                            SEARCH USERNAME
-                        </p:outputLabel>
-                        <h:inputText styleClass="search-field-input" />
-                    </div>
-                    <div class="search-criteria">
-                        <p:outputLabel styleClass="search-field-label">
-                            USER TYPE
-                        </p:outputLabel>
-                        <h:selectOneMenu  styleClass="search-field-input">
-                            <f:selectItem itemLabel="Any type" />
-                            <f:selectItem itemLabel="Human" />
-                            <f:selectItem itemLabel="Site" />
-                        </h:selectOneMenu>
-                    </div>
-                </div>
-                <div class="search-results">
-                    fefe
-                </div>
-            </form>
-        </div>-->
+        <script type="text/javascript">
+            $(function(){
+                var input = $('.input-with-prompt'), defaulttext = input.attr('alt');
+                input.addClass('prompt')
+                input.val(input.attr('alt'));
+                input.on('focus', function(){
+                    input.removeClass('prompt');
+                    if(input.val() == defaulttext){
+                        input.val('');
+                    }
+                }).on('keydown', function(){        
+                    input.removeClass('prompt');
+                    input.addClass()
+                    if(defaulttext == input.val()) input.val('');
+                }).on('blur', function(){
+                    if (input.val() == '') {
+                        input.val(defaulttext);
+                        input.addClass('prompt');
+                    }
+                    
+                });
+            });             
+        </script>
         <table class="search-form" cellspacing="0" cellpadding="0">
             <tbody>    
+                <tr>
+                    <th>Search Criteria</th>
+                </tr>
                 <tr>
                     <td>
                         <table class="search-criteria-table" cellspacing="0" cellpadding="0">
                             <tbody >    
+                                
                                 <tr class="search-criteria">
                                     <td class="search-field-label" >
-                                        <div>USERNAME</div>
+                                        <div class="username">USERNAME</div>
                                     </td>
                                     <td class="search-field-input">
-                                        <div><h:inputText  /></div>
+                                        <div>
+                                            <h:inputText styleClass="input-with-prompt" alt="Username" />
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr class="spacer"></tr>
                                 <tr class="search-criteria">
                                     <td class="search-field-label" >
-                                        <div>USER TYPE</div>
+                                        <div class="usertype">USER TYPE</div>
                                     </td>
                                     <td class="search-field-input">
                                         <div>
