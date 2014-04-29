@@ -14,7 +14,7 @@ table.search-form {
 }
 
 .search-criteria-table {
-    padding: 20px;
+    padding: 50px;
     width: 100%;
 }
 .search-criteria-table tr.spacer {
@@ -34,7 +34,7 @@ table.search-form {
 }
 
 .search-criteria td{
-    height: auto;
+    
     vertical-align: middle;
     text-align: center;
 }
@@ -44,8 +44,9 @@ table.search-form {
     color: #E7FCF3;
     font-weight: bold;
     padding: 0;
-    width: 48px;
     height: 48px;
+    
+    
 }
 .search-criteria td.search-field-input {
     padding: 0;
@@ -59,8 +60,14 @@ table.search-form {
 }
 
 .search-criteria td.search-field-label div{
+    width: 48px;
     text-indent: -9999px;
     background-image: url('search-icon.png');
+    background-repeat: no-repeat;
+}
+
+.search-criteria td.search-field-input div{
+    
 }
 
 .search-criteria td.search-field-input input{
