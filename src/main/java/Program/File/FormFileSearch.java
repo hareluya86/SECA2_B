@@ -7,7 +7,6 @@
 package Program.File;
 
 import Component.Data.HibernateUtil;
-import Component.EntitySearch.EntitySearchDemo;
 import Entity.File.FileEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 /**

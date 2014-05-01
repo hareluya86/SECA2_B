@@ -22,7 +22,8 @@ import javax.inject.Named;
 public class ProgramUser extends Program implements Serializable {
 
     @Inject private FormUserLogin userLogin;
-    
+    @Inject private FormUserSearch userSearch;
+    @Inject private FormUserCreate userCreate;
     
     @PostConstruct
     @Override
@@ -37,4 +38,22 @@ public class ProgramUser extends Program implements Serializable {
     public void setUserLogin(FormUserLogin userLogin) {
         this.userLogin = userLogin;
     }
+
+    public FormUserSearch getUserSearch() {
+        return userSearch;
+    }
+
+    public void setUserSearch(FormUserSearch userSearch) {
+        this.userSearch = userSearch;
+    }
+
+    public FormUserCreate getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(FormUserCreate userCreate) {
+        this.userCreate = userCreate;
+    }
+    
+    
 }

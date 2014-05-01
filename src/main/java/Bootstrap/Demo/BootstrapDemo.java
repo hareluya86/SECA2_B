@@ -56,14 +56,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         System.out.println("Bootstrap is called from @PostConstruct! "+module);
     }
     
-    @URLActions(actions={
-        @URLAction(mappingId="home", onPostback=true),
-        @URLAction(mappingId="program", onPostback=true)
-    })
-    public void loadUser(){
-        //this.programUserLogin.checkSessionActive();
-        
-    }
+    
     /**
      * Decides which module to load
      * <p>

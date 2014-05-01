@@ -3,89 +3,137 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/search.css" />
         <script type="text/javascript">
             $(function(){
-                var input = $('.input-with-prompt'), defaulttext = input.attr('alt');
-                input.addClass('prompt')
-                input.val(input.attr('alt'));
+                var input = $('.input-with-prompt'), defaultText = input.attr('alt');
+                
+                var defaultValue = input.prop('defaultValue');
+                if(defaultValue == '' || defaultValue == null) {
+                    input.val(defaultText); //only set to default text if empty
+                    input.addClass('prompt')
+                }else{
+                    input.val(defaultValue);
+                }
+                
                 input.on('focus', function(){
                     input.removeClass('prompt');
-                    if(input.val() == defaulttext){
+                    if(input.val() == defaultText){
                         input.val('');
                     }
                 }).on('keydown', function(){        
                     input.removeClass('prompt');
                     input.addClass()
-                    if(defaulttext == input.val()) input.val('');
+                    if(defaultText == input.val()) input.val('');
                 }).on('blur', function(){
                     if (input.val() == '') {
-                        input.val(defaulttext);
+                        input.val(defaultText);
                         input.addClass('prompt');
                     }
-                    
                 });
             });             
         </script>
-        <table class="search-form" cellspacing="0" cellpadding="0">
-            <tbody>    
-                <tr>
-                    <th>Search Criteria</th>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="search-criteria-table" cellspacing="0" cellpadding="0">
-                            <tbody >    
-                                
-                                <tr class="search-criteria">
-                                    <td class="search-field-label" >
-                                        <div class="username">USERNAME</div>
-                                    </td>
-                                    <td class="search-field-input">
-                                        <div>
-                                            <h:inputText styleClass="input-with-prompt" alt="Username" />
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="spacer"></tr>
-                                <tr class="search-criteria">
-                                    <td class="search-field-label" >
-                                        <div class="usertype">USER TYPE</div>
-                                    </td>
-                                    <td class="search-field-input">
-                                        <div>
-                                            <h:selectOneMenu >
-                                                <f:selectItem itemLabel="Any type" />
-                                                <f:selectItem itemLabel="Human" />
-                                                <f:selectItem itemLabel="Site" />
-                                            </h:selectOneMenu>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="search-results" cellspacing="0" cellpadding="0">
-                            <tbody>
-                                <tr>
-                                    <th>Search Results</th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
+        <h:form>
+            <table class="search-form" cellspacing="0" cellpadding="0">
+                <tbody>    
+                    <tr>
+                        <th>SEARCH CRITERIA</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="search-criteria-table" cellspacing="0" cellpadding="0">
+                                <tbody >    
+
+                                    <tr class="search-criteria">
+                                        <td class="search-field-label" >
+                                            <div class="username">USERNAME</div>
+                                        </td>
+                                        <td class="search-field-input">
+                                            <div>
+                                                <h:inputText styleClass="input-with-prompt" alt="Username"
+                                                             value="#{ProgramUser.userSearch.searchUsername}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="spacer"></tr>
+                                    <tr class="search-criteria">
+                                        <td class="search-field-label" >
+                                            <div class="usertype">USER TYPE</div>
+                                        </td>
+                                        <td class="search-field-input">
+                                            <div>
+                                                <h:selectOneMenu >
+                                                    <f:selectItem itemLabel="Any type" />
+                                                    <f:selectItem itemLabel="Human" />
+                                                    <f:selectItem itemLabel="Site" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="spacer"></tr>
+                                    <tr class="search-buttons">
+                                        <td colspan="2">
+                                            <div >
+                                                <input type="button" value="CREATE NEW USER" onclick="PF('newUserDialog').show()" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="search-results" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <th>Search Results</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <c:forEach items="#{ProgramUser.userSearch.testResults}" var="user">
+                                                <div class="search-result-item">
+                                                    <span>This is user #{user.USERNAME}</span>
+                                                </div>
+                                            </c:forEach>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </h:form>
+        <p:dialog id="modalDialog"   widgetVar="newUserDialog" modal="true" height="auto"
+                  width="auto" resizable="false" >  
+            <p:tabView>
+                <p:tab title="Create New User">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <div>Username: </div>
+                            <h:inputText value="#{ProgramUser.userCreate.username}" />
+
+                            <div>Password: </div>
+                            <h:inputSecret value="#{ProgramUser.userCreate.password}" />
+
+                            <div>User Type: </div>
+                            <h:selectOneMenu  >
+                                <!--<f:selectItems value="ProgramUser.userCreate.getUserTypes(0, 9999)}"
+                                               var="userType" itemLabel="#userType.USERTYPE}" />-->
+                            </h:selectOneMenu>
+                        </p:panelGrid>
+                    </h:form>
+                </p:tab>
+                <p:tab title="Maintain User Types">
+                    
+                </p:tab>
+                
+            </p:tabView>
+            
+        </p:dialog>  
     </ui:composition>
 </html>

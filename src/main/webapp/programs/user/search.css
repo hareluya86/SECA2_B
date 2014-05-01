@@ -3,16 +3,18 @@
 table.search-form {
     border: none;
     background-color: #2DCC70;
-    height: 500px; 
+    height: 600px; 
     width: 350px;
     padding: 0px;
     overflow: hidden;
 }
 
 .search-form th{
-    background-color: #7E8C8D;
+    background-color: #16A086;
     color: #E7FCF3;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    padding: 15px;
+    
 }
 
 .search-form tr{
@@ -20,7 +22,7 @@ table.search-form {
 }
 
 .search-criteria-table {
-    padding: 50px;
+    padding: 20px 50px;
     width: 100%;
 }
 .search-criteria-table tr.spacer {
@@ -88,6 +90,7 @@ table.search-form {
     height: 48px;
     margin: 0;
     font-size: 28px;
+    padding: 0 4px;
 }
 .search-criteria td.search-field-input select{
     border-style: none;
@@ -95,11 +98,12 @@ table.search-form {
     width:120%;
     margin: 0;
     font-size: 28px;
+    padding: 0 4px;
 }
 
 table.search-results {
     background-color: #FFFFFF;
-    height: 300px;
+    height: 400px;
     width: 100%;
 }
 
@@ -111,6 +115,7 @@ table.search-results {
 
 input.prompt {
     color: #ccc;
+    font-style:  italic;
 }
 
 input:focus {
@@ -120,3 +125,15 @@ input:focus {
     -moz-transition:color .2s linear;
 }
 
+.search-buttons td input{
+    border: none;
+    font-size: 1.2em;
+    width: 100%;
+    display: block;
+    background-color: #16A086;
+    color: #E7FCF3;
+    font-weight: bold;
+    font-stretch: condensed;
+    padding: 10px;
+    margin-top: 15px;
+}
