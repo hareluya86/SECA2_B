@@ -7,16 +7,17 @@
 package Program.User;
 
 import Component.Data.HibernateUtil;
-import Entity.File.FileEntity;
-import Entity.User.UserEntity;
+import Component.User.UserRegistrationException;
+import Component.User.UserService;
 import Entity.User.UserType;
+import Program.Util.FacesMessenger;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import org.hibernate.exception.JDBCConnectionException;
 
 /**
  *
@@ -27,22 +28,40 @@ public class FormUserCreate implements Serializable {
     private String username;
     private String password;
     
-    @Inject private HibernateUtil hibernateUtil;
+    private String formName = "createUser";
+    
+    @EJB private UserService userService;
     
     @PostConstruct
     public void init(){
         
     }
     
+    /**
+     * Shell method.
+     * 
+     * @param firstResult
+     * @param maxResult
+     * @return 
+     */
     public List<UserType> getUserTypes(int firstResult, int maxResult){
-        Session session = hibernateUtil.getSession();
-        Criteria selectAll = session.createCriteria(UserEntity.class).setFirstResult(firstResult)
-                .setMaxResults(maxResult);
-        List<UserType> result = selectAll.list();
-        
-        return result;
+        return userService.getUserTypes(firstResult, maxResult);
     }
 
+    public void registerNewUser(String username, String password){
+        try{
+            userService.registerNewUser(username, password);
+            FacesMessenger.setFacesMessage(formName,
+                    FacesMessage.SEVERITY_INFO, "User "+username+" created successfully!", null);
+        }catch(UserRegistrationException urex){
+            FacesMessenger.setFacesMessage(formName,
+                    FacesMessage.SEVERITY_ERROR, urex.getMessage(), null);
+        }catch(JDBCConnectionException jdbcex){
+            FacesMessenger.setFacesMessage(formName,
+                    FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
+        }
+        
+    }
     
     public String getUsername() {
         return username;

@@ -10,9 +10,10 @@ package Component.User;
  *
  * @author KH
  */
-public class UserAccountLockedException extends Exception{
+public class UserTypeException extends Exception{
 
-    public UserAccountLockedException(String username) {
-        super("I'm sorry but user account "+username+" is locked. Please contact administrator to unlock it.");
+    UserTypeException(String message) {
+        super(message);
     }
+    
 }

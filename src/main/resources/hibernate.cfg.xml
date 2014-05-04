@@ -7,5 +7,7 @@
         <mapping package="SECA2.File" />
         <mapping class="Entity.File.FileEntity" />
         <mapping class="Entity.File.FileSequence" />
+        <mapping class="Entity.User.UserEntity" />
+        <mapping class="Entity.User.UserType" />
     </session-factory>
 </hibernate-configuration>

@@ -24,6 +24,8 @@ public class ProgramUser extends Program implements Serializable {
     @Inject private FormUserLogin userLogin;
     @Inject private FormUserSearch userSearch;
     @Inject private FormUserCreate userCreate;
+    @Inject private FormUserTypeMaintain userTypeMaintain;
+    @Inject private FormUserTypeCreate userTypeCreate;
     
     @PostConstruct
     @Override
@@ -54,6 +56,23 @@ public class ProgramUser extends Program implements Serializable {
     public void setUserCreate(FormUserCreate userCreate) {
         this.userCreate = userCreate;
     }
+
+    public FormUserTypeMaintain getUserTypeMaintain() {
+        return userTypeMaintain;
+    }
+
+    public void setUserTypeMaintain(FormUserTypeMaintain userTypeMaintain) {
+        this.userTypeMaintain = userTypeMaintain;
+    }
+
+    public FormUserTypeCreate getUserTypeCreate() {
+        return userTypeCreate;
+    }
+
+    public void setUserTypeCreate(FormUserTypeCreate userTypeCreate) {
+        this.userTypeCreate = userTypeCreate;
+    }
+
     
     
 }

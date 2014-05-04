@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+
+        <p:tabView dynamic="true" cache="false" id="createUserTabView">
+            <p:tab title="Create User">
+                <h:form id="createUser">
+                    <p:messages id="create-user-messages" showDetail="true" autoUpdate="true" closable="true" 
+                                for="createUser"/>
+                    <p:panelGrid columns="2">
+                        <div>Username: </div>
+                        <h:inputText value="#{ProgramUser.userCreate.username}" />
+
+                        <div>Password: </div>
+                        <h:inputSecret value="#{ProgramUser.userCreate.password}" />
+
+                        <div>User Type: </div>
+                        <h:selectOneMenu  >
+                        </h:selectOneMenu>
+                    </p:panelGrid>
+                </h:form>
+            </p:tab>
+            <p:tab title="Create User Types">
+                <h:form id="createUserTypes">
+                    <h:panelGroup layout="block" id="createUserTypesTab">
+                        <p:blockUI trigger="createUserTypeButton" block="createUserTypesTab">
+                            <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
+                        </p:blockUI>
+                        <p:messages id="create-userType-messages" showDetail="false" autoUpdate="true" closable="true" 
+                                    for="createUserTypes"/>
+                        <p:panelGrid columns="2">
+                            <div>User Type Name: </div>
+                            <h:inputText value="#{ProgramUser.userTypeCreate.userType}" />
+
+                            <div>Description: </div>
+                            <h:inputTextarea value="#{ProgramUser.userTypeCreate.description}" 
+                                             rows="3"/>
+                            <f:facet name="footer">
+                                <p:commandButton id="createUserTypeButton" value="Create" 
+                                                 action="#{ProgramUser.userTypeCreate.create()}"
+                                                 update="@form">
+                                </p:commandButton>
+                            </f:facet>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                </h:form>
+            </p:tab>
+            <p:tab title="Maintain User Types" >
+                <h:form id="maintainUserTypes">
+                    <p:messages id="maintain-messages" showDetail="false" autoUpdate="true" closable="true" 
+                                for="maintainUserType"/>
+                    <p:dataTable value="#{MaintainUserType.userTypes}" var="usertype" rows="10"
+                                 paginator="true" editable="true"
+                                 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 lazy="true">
+                        <p:column headerText="User Type">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{usertype.USERTYPE}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText label="Usertype" value="#{usertype.USERTYPE}" />
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Description">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{usertype.DESCRIPTION}" />
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputTextarea value="#{usertype.DESCRIPTION}" />
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column>
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+
+        </p:tabView>
+
+    </ui:composition>
+</html>

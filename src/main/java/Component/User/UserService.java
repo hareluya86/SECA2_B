@@ -8,19 +8,25 @@ package Component.User;
 
 import Entity.User.UserEntity;
 import Component.Data.HibernateUtil;
+import Entity.User.UserType;
+import Program.Util.FacesMessenger;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 
 /**
- * A Stateless service for User operations
+ * A Stateless service for User operations.
+ * 20140502 - this is probably the only necessary case where an EJB should be used
+ * because the user database could be somewhere else.
  * 
  * @author KH
  */
@@ -75,7 +81,26 @@ public class UserService {
         return result;
     }
     
-    public UserEntity createUser(String username, String password){
+    public UserEntity registerNewUser(String username, String password) throws UserRegistrationException{
+        /**
+         * Validate existence of both username and passwords as you will also 
+         * need to validate at the frontend forms.
+         */
+        if(username == null || username.isEmpty()){
+            throw new UserRegistrationException("Username cannot be empty.");
+        }
+        if(password == null || password.isEmpty()){
+            throw new UserRegistrationException("Password cannot be empty.");
+        }
+        
+        /**
+         * This is where container-managed transactions are useful! A method of 
+         * a class calling another method of the same class with the same injected
+         * instance of DAO.
+         */
+        if(this.checkIfUserExist(username)){ 
+            throw new UserRegistrationException("Username already exist. Please choose a different name.");
+        }
         
         UserEntity newUser = new UserEntity();
         newUser.setUSERNAME(username);
@@ -124,8 +149,8 @@ public class UserService {
      * @param username
      * @return 
      */
-    private boolean checkIfUserExist(String username, Session session){
-
+    public boolean checkIfUserExist(String username){
+        Session session = hibernateUtil.getSession();
         List results = session.createCriteria(UserEntity.class)
                 .add(Restrictions.eq("USERNAME", username))
                 .list();
@@ -134,5 +159,39 @@ public class UserService {
         return true;
     }
     
+    public boolean checkIfUserTypeExist(String usertype){
+        Session session = hibernateUtil.getSession();
+        List results = session.createCriteria(UserType.class)
+                .add(Restrictions.eq("USERTYPE", usertype))
+                .list();
+        if(results.size() < 1 ) return false;//no such user type
+        
+        return true;
+    }
     
+    public List<UserType> getUserTypes(int firstResult, int maxResult){
+        Session session = hibernateUtil.getSession();
+        Criteria selectAll = session.createCriteria(UserType.class).setFirstResult(firstResult)
+                .setMaxResults(maxResult);
+        List<UserType> result = selectAll.list();
+        
+        return result;
+    }
+    
+    public void createUserType(String usertype, String description) throws UserTypeException{
+        if(usertype == null || usertype.isEmpty()){
+            throw new UserTypeException("Usertype cannot be empty.");
+        }
+        if(this.checkIfUserTypeExist(usertype)){
+            throw new UserTypeException("Usertype already exists.");
+        }
+        UserType newType = new UserType();
+        newType.setUSERTYPE(usertype);
+        newType.setDESCRIPTION(description);
+        
+        Session session = hibernateUtil.getSession();
+        session.getTransaction().begin();
+        session.save(newType);
+        session.getTransaction().commit();
+    }
 }

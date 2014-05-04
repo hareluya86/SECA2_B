@@ -109,31 +109,10 @@
             </table>
         </h:form>
         <p:dialog id="modalDialog"   widgetVar="newUserDialog" modal="true" height="auto"
-                  width="auto" resizable="false" >  
-            <p:tabView>
-                <p:tab title="Create New User">
-                    <h:form>
-                        <p:panelGrid columns="2">
-                            <div>Username: </div>
-                            <h:inputText value="#{ProgramUser.userCreate.username}" />
-
-                            <div>Password: </div>
-                            <h:inputSecret value="#{ProgramUser.userCreate.password}" />
-
-                            <div>User Type: </div>
-                            <h:selectOneMenu  >
-                                <!--<f:selectItems value="ProgramUser.userCreate.getUserTypes(0, 9999)}"
-                                               var="userType" itemLabel="#userType.USERTYPE}" />-->
-                            </h:selectOneMenu>
-                        </p:panelGrid>
-                    </h:form>
-                </p:tab>
-                <p:tab title="Maintain User Types">
-                    
-                </p:tab>
-                
-            </p:tabView>
-            
+                  width="auto" resizable="false" dynamic="true"  > 
+            <h:panelGroup id="create-user-dialog" layout="block">
+                <ui:include src="create_user.xhtml" />
+            </h:panelGroup>
         </p:dialog>  
     </ui:composition>
 </html>

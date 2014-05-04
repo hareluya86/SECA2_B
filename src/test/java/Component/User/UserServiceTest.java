@@ -77,7 +77,7 @@ public class UserServiceTest {
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         UserService instance = (UserService)container.getContext().lookup("java:global/classes/UserService");
         UserEntity expResult = null;
-        UserEntity result = instance.createUser(username, password);
+        UserEntity result = instance.registerNewUser(username, password);
         assertEquals(expResult, result);
         container.close();
         // TODO review the generated test code and remove the default call to fail.
