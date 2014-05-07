@@ -12,17 +12,22 @@ import Component.User.UserService;
 import Entity.User.UserType;
 import Program.Util.FacesMessenger;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
+import javax.inject.Named;
 import org.hibernate.exception.JDBCConnectionException;
 
 /**
  *
  * @author KH
  */
+@Named("CreateUser")
+@RequestScoped
 public class FormUserCreate implements Serializable {
     
     private String username;
@@ -45,7 +50,14 @@ public class FormUserCreate implements Serializable {
      * @return 
      */
     public List<UserType> getUserTypes(int firstResult, int maxResult){
-        return userService.getUserTypes(firstResult, maxResult);
+        List<UserType> results = new ArrayList<UserType>();
+        try{
+            results = userService.getUserTypes(firstResult, maxResult);
+        }catch(JDBCConnectionException jdbcex){
+            FacesMessenger.setFacesMessage(formName,
+                    FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
+        }
+        return results;
     }
 
     public void registerNewUser(String username, String password){

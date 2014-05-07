@@ -18,10 +18,10 @@
                                         for="createUser"/>
                             <p:panelGrid columns="2">
                                 <div>Username: </div>
-                                <h:inputText value="#{ProgramUser.userCreate.username}" />
+                                <h:inputText value="#{CreateUser.username}" />
 
                                 <div>Password: </div>
-                                <h:inputSecret value="#{ProgramUser.userCreate.password}" />
+                                <h:inputSecret value="#{CreateUser.password}" />
 
                                 <div>User Type: </div>
                                 <h:selectOneMenu  >
@@ -47,14 +47,14 @@
                                             for="createUserTypes"/>
                                 <p:panelGrid columns="2">
                                     <div>User Type Name: </div>
-                                    <h:inputText value="#{ProgramUser.userTypeCreate.userType}" />
+                                    <h:inputText value="#{CreateUserType.userType}" />
 
                                     <div>Description: </div>
-                                    <h:inputTextarea value="#{ProgramUser.userTypeCreate.description}" 
+                                    <h:inputTextarea value="#{CreateUserType.description}" 
                                                      rows="3"/>
                                     <f:facet name="footer">
                                         <p:commandButton id="createUserTypeButton" value="Create" 
-                                                         action="#{ProgramUser.userTypeCreate.create()}"
+                                                         action="#{CreateUserType.create()}"
                                                          update="@form">
                                         </p:commandButton>
                                     </f:facet>
@@ -65,18 +65,19 @@
                 </p:ajaxStatus>
             </p:tab>
             <p:tab title="Maintain User Types" >
-                <p:ajaxStatus >
-                    <f:facet name="start">
-                        <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
-                    </f:facet>
-                    <f:facet name="complete" >
-                        <h:form id="maintainUserTypes">
-                            <p:messages id="maintain-messages" showDetail="false" autoUpdate="true" closable="true" 
-                                        for="maintainUserType"/>
+                <h:form id="maintainUserTypes">
+                    <!--<p:messages id="maintain-messages" showDetail="false" autoUpdate="true" closable="true" 
+                                for="maintainUserType"/>-->
+                    <p:ajaxStatus >
+                        <f:facet name="start">
+                            <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
+                        </f:facet>
+                        <f:facet name="complete" >
+
                             <p:dataTable value="#{MaintainUserType.userTypes}" var="usertype" rows="10"
                                          paginator="true" editable="true"
                                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                         lazy="true">
+                                         lazy="false">
                                 <p:column headerText="User Type">
                                     <p:cellEditor>
                                         <f:facet name="output">
@@ -121,10 +122,10 @@
                                     <p:rowEditor />
                                 </p:column>
                             </p:dataTable>
-                        </h:form>
-                    </f:facet>
-                </p:ajaxStatus>
+                        </f:facet>
+                    </p:ajaxStatus>
 
+                </h:form>
             </p:tab>
 
         </p:tabView>

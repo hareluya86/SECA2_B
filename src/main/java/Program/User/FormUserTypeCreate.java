@@ -12,12 +12,17 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.inject.Named;
+import org.hibernate.exception.JDBCConnectionException;
 
 /**
  *
  * @author KH
  */
+@Named("CreateUserType")
+@RequestScoped
 public class FormUserTypeCreate implements Serializable {
 
     private String userType;
@@ -40,6 +45,9 @@ public class FormUserTypeCreate implements Serializable {
             this.description = "";
         } catch (UserTypeException ex) {
             FacesMessenger.setFacesMessage(formName, FacesMessage.SEVERITY_ERROR, ex.getMessage(), null);
+        } catch(JDBCConnectionException jdbcex){
+            FacesMessenger.setFacesMessage(formName,
+                    FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
         }
     }
 
