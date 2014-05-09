@@ -5,11 +5,11 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/create_user.css" />
         <p:tabView dynamic="true" cache="false" id="createUserTabView" >
             <p:tab title="Create User">
-                <p:ajaxStatus >
-                    <f:facet name="start">
+                <p:ajaxStatus styleClass="ajax-load">
+                    <f:facet name="start" >
                         <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
                     </f:facet>
                     <f:facet name="complete" >

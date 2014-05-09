@@ -1,0 +1,9 @@
+div.ajax-load {
+    
+}
+
+#createUserTabView .ajax-large{
+    position: relative;
+    left: 50%;
+    margin-left: -24px;
+}

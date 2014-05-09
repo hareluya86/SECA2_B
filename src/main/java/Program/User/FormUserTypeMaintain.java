@@ -19,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.hibernate.exception.JDBCConnectionException;
+import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.LazyDataModel;
 
 /**
@@ -45,6 +46,23 @@ public class FormUserTypeMaintain implements Serializable {
             userTypes = new ArrayList<UserType>();
         }
         //lazyUserTypes = new LazyUserTypeDataModel(userService);
+    }
+    
+    public void onEdit(RowEditEvent event) {
+        Object edited = event.getObject();
+        if(edited != null && edited.getClass() == UserType.class){
+            UserType editedUserType = (UserType)edited;
+            try{
+                userService.modifyUserType(editedUserType);
+            } catch(JDBCConnectionException jdbcex){
+                FacesMessenger.setFacesMessage(formName,
+                        FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
+            } catch(RuntimeException rtex){
+                FacesMessenger.setFacesMessage(formName,
+                        FacesMessage.SEVERITY_ERROR,rtex.getMessage(),null);
+            }
+        }
+                
     }
 
     public List<UserType> getUserTypes() {

@@ -194,4 +194,11 @@ public class UserService {
         session.save(newType);
         session.getTransaction().commit();
     }
+    
+    public void modifyUserType(UserType userType){
+        Session session = hibernateUtil.getSession();
+        session.getTransaction().begin();
+        session.update(userType);
+        session.getTransaction().commit();
+    }
 }
