@@ -14,12 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.hibernate.exception.JDBCConnectionException;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.TabCloseEvent;
 import org.primefaces.model.LazyDataModel;
 
 /**
@@ -27,7 +30,7 @@ import org.primefaces.model.LazyDataModel;
  * @author KH
  */
 @Named("MaintainUserType")
-@RequestScoped
+@ConversationScoped
 public class FormUserTypeMaintain implements Serializable {
     
     private List<UserType> userTypes;
@@ -35,9 +38,11 @@ public class FormUserTypeMaintain implements Serializable {
     private String formName = "maintainUserTypes";
     
     @EJB private UserService userService;
+    @Inject private Conversation conversation;
     
     @PostConstruct
     public void init(){
+        conversation.begin();
         try{
             userTypes = userService.getUserTypes(0, 99);
         }catch(JDBCConnectionException jdbcex){
@@ -64,6 +69,8 @@ public class FormUserTypeMaintain implements Serializable {
         }
                 
     }
+    
+    
 
     public List<UserType> getUserTypes() {
         return userTypes;

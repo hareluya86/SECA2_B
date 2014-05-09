@@ -7,7 +7,8 @@
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/create_user.css" />
         <p:tabView dynamic="true" cache="false" id="createUserTabView" >
-            <p:tab title="Create User">
+            <p:ajax event="tabClose" listener="#{FormCombined.onTabClose}" />
+            <p:tab title="Create User" closable="true">
                 <p:ajaxStatus styleClass="ajax-load">
                     <f:facet name="start" >
                         <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
@@ -18,10 +19,10 @@
                                         for="createUser"/>
                             <p:panelGrid columns="2">
                                 <div>Username: </div>
-                                <h:inputText value="#{CreateUser.username}" />
+                                <h:inputText value="#{FormCombined.userCreate.username}" />
 
                                 <div>Password: </div>
-                                <h:inputSecret value="#{CreateUser.password}" />
+                                <h:inputSecret value="#{FormCombined.userCreate.password}" />
 
                                 <div>User Type: </div>
                                 <h:selectOneMenu  >
@@ -33,6 +34,7 @@
 
             </p:tab>
             <p:tab title="Create User Types">
+                
                 <p:ajaxStatus >
                     <f:facet name="start">
                         <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
@@ -47,14 +49,14 @@
                                             for="createUserTypes"/>
                                 <p:panelGrid columns="2">
                                     <div>User Type Name: </div>
-                                    <h:inputText value="#{CreateUserType.userType}" />
+                                    <h:inputText value="#{FormCombined.userTypeCreate.userType}" />
 
                                     <div>Description: </div>
-                                    <h:inputTextarea value="#{CreateUserType.description}" 
+                                    <h:inputTextarea value="#{FormCombined.userTypeCreate.description}" 
                                                      rows="3"/>
                                     <f:facet name="footer">
                                         <p:commandButton id="createUserTypeButton" value="Create" 
-                                                         action="#{CreateUserType.create()}"
+                                                         action="#{FormCombined.userTypeCreate.create()}"
                                                          update="@form">
                                         </p:commandButton>
                                     </f:facet>
@@ -65,16 +67,18 @@
                 </p:ajaxStatus>
             </p:tab>
             <p:tab title="Maintain User Types" >
+                
                 <h:form id="maintainUserTypes">
-                    <!--<p:messages id="maintain-messages" showDetail="false" autoUpdate="true" closable="true" 
-                                for="maintainUserType"/>-->
+                    
+                    <p:messages id="maintain-messages" showDetail="false" autoUpdate="true" closable="true" 
+                                for="maintainUserType"/>
                     <p:ajaxStatus >
                         <f:facet name="start">
                             <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
                         </f:facet>
                         <f:facet name="complete" >
 
-                            <p:dataTable value="#{MaintainUserType.userTypes}" var="usertype" rows="10"
+                            <p:dataTable value="#{FormCombined.userTypeMaintain.userTypes}" var="usertype" rows="10"
                                          paginator="true" editable="true"
                                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                          lazy="false">
