@@ -35,7 +35,7 @@ public class LazyUserTypeDataModel extends LazyDataModel<UserType> {
     @Override
     public UserType getRowData(String userTypeName) {
         for(UserType type : datasource){
-            if(type.getUSERTYPE().equals(userTypeName))
+            if(type.getUSERTYPENAME().equals(userTypeName))
                 return type;
         }
         return null;

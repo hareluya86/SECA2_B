@@ -14,6 +14,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -40,6 +41,8 @@ public class UserEntity implements Serializable {
     private String CREATED_BY;
     private java.sql.Date DATE_CHANGED;
     private String CHANGED_BY;
+    
+    private UserType USERTYPE;
 
     @Id @GeneratedValue(generator="USERENTITY_SEQ",strategy=GenerationType.TABLE)
     public long getUSERID() {
@@ -121,6 +124,15 @@ public class UserEntity implements Serializable {
 
     public void setCHANGED_BY(String CHANGED_BY) {
         this.CHANGED_BY = CHANGED_BY;
+    }
+
+    @ManyToOne
+    public UserType getUSERTYPE() {
+        return USERTYPE;
+    }
+
+    public void setUSERTYPE(UserType USERTYPE) {
+        this.USERTYPE = USERTYPE;
     }
     
     

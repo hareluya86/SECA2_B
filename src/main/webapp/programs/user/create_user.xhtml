@@ -6,27 +6,37 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/create_user.css" />
+        <h:inputHidden id="cid_col" value="#{FormCombined.cid}"/>
         <p:tabView dynamic="true" cache="false" id="createUserTabView" >
-            <p:ajax event="tabClose" listener="#{FormCombined.onTabClose}" />
-            <p:tab title="Create User" closable="true">
+            <p:tab title="Create User">
+
                 <p:ajaxStatus styleClass="ajax-load">
                     <f:facet name="start" >
+
                         <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
                     </f:facet>
                     <f:facet name="complete" >
                         <h:form id="createUser">
-                            <p:messages id="create-user-messages" showDetail="true" autoUpdate="true" closable="true" 
+                            <p:messages id="create-user-messages" showDetail="false" autoUpdate="true" closable="true" 
                                         for="createUser"/>
                             <p:panelGrid columns="2">
                                 <div>Username: </div>
-                                <h:inputText value="#{FormCombined.userCreate.username}" />
+                                <h:inputText value="#{userCreate.username}" />
 
                                 <div>Password: </div>
-                                <h:inputSecret value="#{FormCombined.userCreate.password}" />
+                                <h:inputSecret value="#{userCreate.password}" />
 
                                 <div>User Type: </div>
-                                <h:selectOneMenu  >
+                                <h:selectOneMenu value="#{userCreate.selectedUsertype}">
+                                    <f:selectItems value="#{userCreate.getUserTypes(0, 99)}" var="usertype"
+                                                   itemLabel="#{usertype.USERTYPE}" itemValue="#{usertype.USERTYPE}" />
                                 </h:selectOneMenu>
+
+                                <f:facet name="footer" >
+                                    <p:commandButton action="#{userCreate.registerNewUser()}"
+                                                     value="Create new user"
+                                                     update="@form" />
+                                </f:facet>
                             </p:panelGrid>
                         </h:form>
                     </f:facet>
@@ -34,9 +44,11 @@
 
             </p:tab>
             <p:tab title="Create User Types">
-                
+
                 <p:ajaxStatus >
+
                     <f:facet name="start">
+
                         <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
                     </f:facet>
                     <f:facet name="complete" >
@@ -49,14 +61,14 @@
                                             for="createUserTypes"/>
                                 <p:panelGrid columns="2">
                                     <div>User Type Name: </div>
-                                    <h:inputText value="#{FormCombined.userTypeCreate.userType}" />
+                                    <h:inputText value="#{userTypeCreate.userType}" />
 
                                     <div>Description: </div>
-                                    <h:inputTextarea value="#{FormCombined.userTypeCreate.description}" 
+                                    <h:inputTextarea value="#{userTypeCreate.description}" 
                                                      rows="3"/>
                                     <f:facet name="footer">
                                         <p:commandButton id="createUserTypeButton" value="Create" 
-                                                         action="#{FormCombined.userTypeCreate.create()}"
+                                                         action="#{userTypeCreate.create()}"
                                                          update="@form">
                                         </p:commandButton>
                                     </f:facet>
@@ -67,18 +79,18 @@
                 </p:ajaxStatus>
             </p:tab>
             <p:tab title="Maintain User Types" >
-                
-                <h:form id="maintainUserTypes">
-                    
-                    <p:messages id="maintain-messages" showDetail="false" autoUpdate="true" closable="true" 
-                                for="maintainUserType"/>
-                    <p:ajaxStatus >
-                        <f:facet name="start">
-                            <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
-                        </f:facet>
-                        <f:facet name="complete" >
 
-                            <p:dataTable value="#{FormCombined.userTypeMaintain.userTypes}" var="usertype" rows="10"
+
+                <p:messages id="maintain-messages" showDetail="false" autoUpdate="true" closable="true" 
+                            for="maintainUserType"/>
+                <p:ajaxStatus >
+                    <f:facet name="start">
+
+                        <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
+                    </f:facet>
+                    <f:facet name="complete" >
+                        <h:form id="maintainUserTypes">
+                            <p:dataTable value="#{userTypeMaintain.userTypes}" var="usertype" rows="10"
                                          paginator="true" editable="true"
                                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                          lazy="false">
@@ -126,10 +138,11 @@
                                     <p:rowEditor />
                                 </p:column>
                             </p:dataTable>
-                        </f:facet>
-                    </p:ajaxStatus>
+                        </h:form>
+                    </f:facet>
+                </p:ajaxStatus>
 
-                </h:form>
+
             </p:tab>
 
         </p:tabView>

@@ -27,9 +27,12 @@ import javax.persistence.TableGenerator;
 public class UserType implements Serializable {
     
     private long USERTYPEID;
-    private String USERTYPE;
+    private String USERTYPENAME;
     private String DESCRIPTION;
     
+    /**
+     * Not in use yet
+     */
     private boolean PORTAL_ACCESS;
     private boolean WS_ACCESS;
 
@@ -42,12 +45,12 @@ public class UserType implements Serializable {
         this.USERTYPEID = USERTYPEID;
     }
 
-    public String getUSERTYPE() {
-        return USERTYPE;
+    public String getUSERTYPENAME() {
+        return USERTYPENAME;
     }
 
-    public void setUSERTYPE(String USERTYPE) {
-        this.USERTYPE = USERTYPE;
+    public void setUSERTYPENAME(String USERTYPENAME) {
+        this.USERTYPENAME = USERTYPENAME;
     }
 
     public String getDESCRIPTION() {

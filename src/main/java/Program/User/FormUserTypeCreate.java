@@ -9,8 +9,6 @@ import Component.User.UserService;
 import Component.User.UserTypeException;
 import Program.Util.FacesMessenger;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -21,7 +19,7 @@ import org.hibernate.exception.JDBCConnectionException;
  *
  * @author KH
  */
-@Named("CreateUserType")
+@Named("userTypeCreate")
 @RequestScoped
 public class FormUserTypeCreate implements Serializable {
 
@@ -30,13 +28,12 @@ public class FormUserTypeCreate implements Serializable {
     private boolean portalAccess;
     private boolean wsAccess;
 
-    private String formName = "createUserTypes";
+    private final String formName = "createUserTypes";
 
     @EJB
     private UserService userService;
 
     public void create() {
-
         try {
             userService.createUserType(userType, description);
             FacesMessenger.setFacesMessage(formName, FacesMessage.SEVERITY_INFO, "Usertype created.", null);

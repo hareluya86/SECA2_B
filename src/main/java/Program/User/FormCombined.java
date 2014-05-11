@@ -12,7 +12,7 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.event.TabCloseEvent;
+import org.primefaces.event.CloseEvent;
 
 /**
  *
@@ -28,13 +28,25 @@ public class FormCombined implements Serializable{
     
     @Inject private Conversation conversation;
     
+    private String cid;
+    
     @PostConstruct
     public void init(){
-        
+        if(cid==null) cid="";
+        if(conversation.isTransient()){
+            String newCID = conversation.getId(); //debug
+            if(conversation.getId() == null){
+                conversation.begin();
+                cid = conversation.getId();
+            }
+        }
+        System.out.println("FormCombined init called: "+conversation.toString());       
     }
     
-    public void onTabClose(TabCloseEvent event){
-        conversation.end();
+    public void onDialogClose(CloseEvent event){
+        if(conversation != null && !conversation.isTransient())
+            conversation.end();
+        System.out.println("FormCombined close called: "+conversation.toString());
     }
     
     public FormUserCreate getUserCreate() {
@@ -60,4 +72,22 @@ public class FormCombined implements Serializable{
     public void setUserTypeCreate(FormUserTypeCreate userTypeCreate) {
         this.userTypeCreate = userTypeCreate;
     }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+    
+    
 }

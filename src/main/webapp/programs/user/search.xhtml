@@ -8,35 +8,36 @@
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/search.css" />
         <script type="text/javascript">
-            $(function(){
+            $(function() {
                 var input = $('.input-with-prompt'), defaultText = input.attr('alt');
-                
+
                 var defaultValue = input.prop('defaultValue');
-                if(defaultValue == '' || defaultValue == null) {
+                if (defaultValue == '' || defaultValue == null) {
                     input.val(defaultText); //only set to default text if empty
                     input.addClass('prompt')
-                }else{
+                } else {
                     input.val(defaultValue);
                 }
-                
-                input.on('focus', function(){
+
+                input.on('focus', function() {
                     input.removeClass('prompt');
-                    if(input.val() == defaultText){
+                    if (input.val() == defaultText) {
                         input.val('');
                     }
-                }).on('keydown', function(){        
+                }).on('keydown', function() {
                     input.removeClass('prompt');
                     input.addClass()
-                    if(defaultText == input.val()) input.val('');
-                }).on('blur', function(){
+                    if (defaultText == input.val())
+                        input.val('');
+                }).on('blur', function() {
                     if (input.val() == '') {
                         input.val(defaultText);
                         input.addClass('prompt');
                     }
                 });
-            });             
+            });
         </script>
-        <h:form>
+        <h:form id="search-user-form">
             <table class="search-form" cellspacing="0" cellpadding="0">
                 <tbody>    
                     <tr>
@@ -53,8 +54,10 @@
                                         </td>
                                         <td class="search-field-input">
                                             <div>
-                                                <h:inputText styleClass="input-with-prompt" alt="Username"
-                                                             value="#{ProgramUser.userSearch.searchUsername}"/>
+                                                <p:inputText styleClass="input-with-prompt" alt="Username"
+                                                             value="#{ProgramUser.userSearch.searchUsername}">
+                                                    <p:ajax event="valueChange" listener="#{ProgramUser.userSearch}" />
+                                                </p:inputText>
                                             </div>
                                         </td>
                                     </tr>
@@ -65,10 +68,11 @@
                                         </td>
                                         <td class="search-field-input">
                                             <div>
-                                                <h:selectOneMenu >
-                                                    <f:selectItem itemLabel="Any type" />
-                                                    <f:selectItem itemLabel="Human" />
-                                                    <f:selectItem itemLabel="Site" />
+                                                <h:selectOneMenu value="#{ProgramUser.userSearch.searchUsertypeID}">
+                                                    <f:selectItem itemLabel="Any type" itemValue="-1" />
+                                                    <f:selectItems value="#{ProgramUser.userSearch.userTypes}"
+                                                                   var="usertype" itemLabel="#{usertype.USERTYPE}"
+                                                                   itemValue="#{usertype.USERTYPEID}"/>
                                                 </h:selectOneMenu>
                                             </div>
                                         </td>
@@ -94,11 +98,24 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <c:forEach items="#{ProgramUser.userSearch.testResults}" var="user">
+                                            <!--<c:forEach items="#{ProgramUser.userSearch.testResults}" var="user">
                                                 <div class="search-result-item">
-                                                    <span>This is user #{user.USERNAME}</span>
+                                                    
                                                 </div>
-                                            </c:forEach>
+                                            </c:forEach>-->
+                                            <p:ajaxStatus>
+                                                <f:facet name="start">
+                                                    <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
+                                                </f:facet>
+                                                <f:facet name="complete">
+                                                    <p:growl id="search-results-message" showDetail="false" 
+                                                             sticky="true" for="search-user-form" />
+                                                    <div class="work-in-progress">
+                                                        This section is still under construction.
+                                                    </div>
+                                                </f:facet>
+                                            </p:ajaxStatus>
+
                                         </td>
                                     </tr>
                                 </tbody>
@@ -109,7 +126,8 @@
             </table>
         </h:form>
         <p:dialog id="modalDialog"   widgetVar="newUserDialog" modal="true" height="auto"
-                  width="auto" resizable="false" dynamic="true"  > 
+                  width="auto" resizable="false" dynamic="true" > 
+            <p:ajax event="close"  />
             <h:panelGroup id="create-user-dialog" layout="block">
                 <ui:include src="create_user.xhtml" />
             </h:panelGroup>

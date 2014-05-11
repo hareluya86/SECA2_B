@@ -6,7 +6,6 @@
 
 package Program.User;
 
-import Component.Data.HibernateUtil;
 import Component.User.UserRegistrationException;
 import Component.User.UserService;
 import Entity.User.UserType;
@@ -18,7 +17,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.inject.Inject;
 import javax.inject.Named;
 import org.hibernate.exception.JDBCConnectionException;
 
@@ -26,14 +24,15 @@ import org.hibernate.exception.JDBCConnectionException;
  *
  * @author KH
  */
-@Named("CreateUser")
+@Named("userCreate")
 @RequestScoped
 public class FormUserCreate implements Serializable {
     
     private String username;
     private String password;
+    private String selectedUsertype;
     
-    private String formName = "createUser";
+    private final String formName = "createUser";
     
     @EJB private UserService userService;
     
@@ -60,11 +59,13 @@ public class FormUserCreate implements Serializable {
         return results;
     }
 
-    public void registerNewUser(String username, String password){
+    public void registerNewUser(){
         try{
-            userService.registerNewUser(username, password);
+            userService.registerNewUser(username, password, selectedUsertype);
             FacesMessenger.setFacesMessage(formName,
                     FacesMessage.SEVERITY_INFO, "User "+username+" created successfully!", null);
+            this.username = "";
+            this.password = "";
         }catch(UserRegistrationException urex){
             FacesMessenger.setFacesMessage(formName,
                     FacesMessage.SEVERITY_ERROR, urex.getMessage(), null);
@@ -89,6 +90,14 @@ public class FormUserCreate implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSelectedUsertype() {
+        return selectedUsertype;
+    }
+
+    public void setSelectedUsertype(String selectedUsertype) {
+        this.selectedUsertype = selectedUsertype;
     }
     
     

@@ -15,41 +15,37 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.hibernate.exception.JDBCConnectionException;
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.TabCloseEvent;
 import org.primefaces.model.LazyDataModel;
 
 /**
  *
  * @author KH
  */
-@Named("MaintainUserType")
-@ConversationScoped
+@Named("userTypeMaintain")
+@RequestScoped
 public class FormUserTypeMaintain implements Serializable {
     
     private List<UserType> userTypes;
     private LazyDataModel lazyUserTypes;
-    private String formName = "maintainUserTypes";
+    private final String formName = "maintainUserTypes";
     
     @EJB private UserService userService;
-    @Inject private Conversation conversation;
     
     @PostConstruct
     public void init(){
-        conversation.begin();
-        try{
+        /*try{
             userTypes = userService.getUserTypes(0, 99);
         }catch(JDBCConnectionException jdbcex){
             //FacesMessenger.setFacesMessage(formName,
             //        FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
             userTypes = new ArrayList<UserType>();
-        }
+        }*/
         //lazyUserTypes = new LazyUserTypeDataModel(userService);
     }
     
@@ -73,6 +69,14 @@ public class FormUserTypeMaintain implements Serializable {
     
 
     public List<UserType> getUserTypes() {
+        try{
+            userTypes = userService.getUserTypes(0, 99);
+        }catch(JDBCConnectionException jdbcex){
+            //FacesMessenger.setFacesMessage(formName,
+            //        FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
+            userTypes = new ArrayList<UserType>();
+        }
+        
         return userTypes;
     }
 

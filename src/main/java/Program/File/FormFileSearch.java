@@ -43,7 +43,7 @@ public class FormFileSearch implements Serializable {
     public void search(){
         Session session = hibernateUtil.getSession();
         results = session.createCriteria(FileEntity.class)
-                .add(Restrictions.like("FILENAME", "%"+searchName+"%"))
+                .add(Restrictions.ilike("FILENAME", "%"+searchName+"%"))
                 //.add(Restrictions.ge("DATE_CREATED", searchStartDate))
                 //.add(Restrictions.le("DATE_CREATED", searchEndDate))
                 .list();
