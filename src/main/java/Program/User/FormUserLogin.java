@@ -57,7 +57,7 @@ public class FormUserLogin implements Serializable {
     @PostConstruct
     public void init(){
         username = "";
-        //loginBlockXHTML = "/programs/user/login_block.xhtml";
+        loginBlockXHTML = "/programs/user/login_block.xhtml";
     }
     
     public void login(){

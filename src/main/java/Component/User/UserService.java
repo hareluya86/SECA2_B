@@ -65,7 +65,7 @@ public class UserService {
             if(!result.isUSER_LOCKED()){
                 //reset unlock flag and counters
                 result.setUNSUCCESSFUL_ATTEMPTS(0);
-                result = (UserEntity) session.save(result);
+                session.update(result);
                 
             }else{
                 throw new UserAccountLockedException(username);
@@ -252,7 +252,7 @@ public class UserService {
      * to the caller of your web service. But a "SELECT userid, username
      * FROM user..." statement can do the job equally well.
      */
-    public Map<String,Map<String,Object>> searchUserByName(String usernamePattern, String usertype){
+    public List<UserEntity> searchUserByName(String usernamePattern, String usertype){
         if(session == null || !session.isOpen()) 
             session = hibernateUtil.getSession();
         Criteria selectUserAndType = session.createCriteria(UserEntity.class)
@@ -260,6 +260,6 @@ public class UserService {
                 .add(Restrictions.eq("USERTYPE.USERTYPENAME",usertype));
         List<UserEntity> result = selectUserAndType.list();
         
-        
+        return result;
     }
 }

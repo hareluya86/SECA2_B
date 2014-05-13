@@ -105,6 +105,14 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         //sess.setAttribute("template", t.getTEMPLATE_XHTML());
     }
     
+    @URLActions(actions={
+        @URLAction(mappingId="home", onPostback=true),
+        @URLAction(mappingId="program", onPostback=true)
+    })
+    public void checkLogin(){
+        elements.put("renderLogin", !programUserLogin.checkSessionActive());
+    }
+    
     public void login(){
         
     }

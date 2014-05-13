@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <h:panelGroup id="loginbox-container" layout="block">
-            <p:dialog id="modalDialog" widgetVar="loginbox" header="#{ProgramUser.userLogin.loginboxTitle}" modal="true" 
+            <p:dialog id="modalDialog" widgetVar="loginbox" header="#{bootstrap.programUserLogin.loginboxTitle}" modal="true" 
                       height="200" width="500"
                       style="" closable="false">  
                 <h:form id="login-form">
@@ -16,14 +16,14 @@
                                         for="login-form"/>
                         </f:facet>
                         <p:outputLabel value="Username: " />
-                        <p:inputText value="#{ProgramUser.userLogin.username}" />
+                        <p:inputText value="#{bootstrap.programUserLogin.username}" />
                         
                         <p:outputLabel value="Password: " />
-                        <p:password value="#{ProgramUser.userLogin.password}" />
+                        <p:password value="#{bootstrap.programUserLogin.password}" />
                     </p:panelGrid>
                     
                     
-                    <p:commandButton value="Log in" actionListener="#{ProgramUser.userLogin.login()}" 
+                    <p:commandButton value="Log in" actionListener="#{bootstrap.programUserLogin.login()}" 
                                      update=":loginbox-container" />
                 </h:form>
             </p:dialog>
@@ -31,7 +31,8 @@
                $(document).ready(function() {
                    if (typeof (Storage) != "undefined")
                    {
-                       if(!#{ProgramUser.userLogin.checkSessionActive()}){
+                       var session = '#{session.getAttribute("user")}';
+                       if(session == null || !session){
                            PF('loginbox').show();
                        } else {
                            PF('loginbox').hide();
