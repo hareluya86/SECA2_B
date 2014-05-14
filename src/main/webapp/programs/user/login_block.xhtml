@@ -31,11 +31,13 @@
                $(document).ready(function() {
                    if (typeof (Storage) != "undefined")
                    {
-                       var session = '#{session.getAttribute("user")}';
+                       var session = #{session.getAttribute("user")};
                        if(session == null || !session){
                            PF('loginbox').show();
-                       } else {
+                       } else if(session) {
                            PF('loginbox').hide();
+                       } else {
+                           PF('loginbox').show(); //not sure authenticated or not, authenticate anyway
                        }
                     }
                     else

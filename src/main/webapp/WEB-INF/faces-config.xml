@@ -10,5 +10,9 @@
             <renderer-class>Program.File.OverrideFileUploadRenderer</renderer-class>
         </renderer>
     </render-kit>
-
+    <factory>
+        <exception-handler-factory>
+            org.omnifaces.exceptionhandler.FullAjaxExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
 </faces-config>

@@ -22,8 +22,12 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Just a dispatcher
@@ -43,6 +47,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     private String module;
     private String template;
     private String program;
+    private String sessionId;
     
     private Map<String,Object> elements;
     
@@ -54,6 +59,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         elements.put("header", "this is the header from the map object");
         
         System.out.println("Bootstrap is called from @PostConstruct! "+module);
+        sessionId = "";
     }
     
     
@@ -110,7 +116,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         @URLAction(mappingId="program", onPostback=true)
     })
     public void checkLogin(){
-        elements.put("renderLogin", !programUserLogin.checkSessionActive());
+        this.programUserLogin.checkSessionActive();
     }
     
     public void login(){

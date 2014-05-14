@@ -19,7 +19,7 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            1
+            3
         </session-timeout>
     </session-config>
     <welcome-file-list>
@@ -29,6 +29,10 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>excite-bike</param-value>
     </context-param>
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/index.xhtml</location>
+    </error-page>
     <!--<filter>
         <filter-name>Rewrite Filter</filter-name>
         <filter-class>org.ocpsoft.rewrite.servlet.RewriteFilter</filter-class>

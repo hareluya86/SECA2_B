@@ -102,7 +102,7 @@ public class FormUserLogin implements Serializable {
         HttpServletResponse resp = (HttpServletResponse) ec.getResponse();
         
         HttpSession session = req.getSession(true);
-        session.setAttribute("user", true);
+        session.setAttribute("user", 1);
         sSessionId = session.getId();
         sessionStarttime = new DateTime();
         System.out.println("Session "+sSessionId+" started at "+sessionStarttime);
@@ -110,24 +110,24 @@ public class FormUserLogin implements Serializable {
         username = "";
     }
     
-    public boolean checkSessionActive(){
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+    public void checkSessionActive(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = fc.getExternalContext();
         HttpServletRequest req = (HttpServletRequest) ec.getRequest();
         
         HttpSession session = req.getSession(false);
-        if(session == null || session.getId() == null){
-            sSessionId = "";
-            sessionStarttime = null;
-            return false;
+        if(session == null){
+            
         }else{
-            if(session.getId().equals(sSessionId)){ //session still active
-                session.setAttribute("user", true);
-                return true;
-            }else{ //session no longer active
-                sSessionId = "";
-                sessionStarttime = null;
-                return false;
+            if(sSessionId != null && sSessionId.equals(session.getId())){
+                //hide login block
+                session.setAttribute("user", 1);
+            }else{
+                //pop up login block
+                session.setAttribute("user", 0);
+                
             }
+            fc.getPartialViewContext().getRenderIds().add("loginbox-container");
         }
     }
 
