@@ -42,7 +42,7 @@ public class LazyUserTypeDataModel extends LazyDataModel<UserType> {
     }
 
 
-    @Override
+    /*@Override
     public List<UserType> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
         List<UserType> results = new ArrayList<UserType>();
         
@@ -50,7 +50,7 @@ public class LazyUserTypeDataModel extends LazyDataModel<UserType> {
         //results = datasource.subList(first, Math.min(first+pageSize-1,datasource.size()));
         results = userService.getUserTypes(first, first+pageSize-1);
         return results;
-    }
+    }*/
     
     public List<UserType> getDatasource() {
         return datasource;
