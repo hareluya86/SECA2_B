@@ -53,7 +53,6 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     @PostConstruct
     public void init(){
         elements = new HashMap<String,Object>();
-        elements.put("header", "this is the header from the map object");
         
         System.out.println("Bootstrap is called from @PostConstruct! "+module);
     }

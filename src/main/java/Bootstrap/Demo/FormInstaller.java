@@ -21,7 +21,6 @@ public class FormInstaller {
     
     @Inject private FormUserCreate userCreate;
     
-    
     public void install(){
         //Create the first user
         this.userCreate.registerNewUser();

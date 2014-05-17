@@ -9,5 +9,12 @@
     <factory>
         <exception-handler-factory>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerFactory</exception-handler-factory>
     </factory>
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.FileUploadRenderer</renderer-type>
+            <renderer-class>Program.File.OverrideFileUploadRenderer</renderer-class>
+        </renderer>
+    </render-kit>
     
 </faces-config>

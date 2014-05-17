@@ -34,6 +34,8 @@ public class FormUserLogin implements Serializable {
     private String username;
     private String password;
     
+    private String previousURI;
+    
     private String sSessionId; //secure server side sessionid, do not allow access by client
     //private String cSessionId; //passed to client
     
@@ -41,7 +43,7 @@ public class FormUserLogin implements Serializable {
     private String loginBlockXHTML;
     
     private DateTime sessionStarttime; //time that the login session starts
-    private String messageBoxId = "login-form";
+    private final String messageBoxId = "login-form";
     
     @EJB private UserService userService;
     
@@ -51,7 +53,7 @@ public class FormUserLogin implements Serializable {
         loginBlockXHTML = "/programs/user/login_block.xhtml";
     }
     
-    public void login(){
+    public void login() throws IOException{
         //Check if username and password are present
         if(username == null || username.isEmpty()){
             FacesMessenger.setFacesMessage(messageBoxId, FacesMessage.SEVERITY_ERROR,
@@ -99,6 +101,14 @@ public class FormUserLogin implements Serializable {
         System.out.println("Session "+sSessionId+" started at "+sessionStarttime);
         password = "";
         username = "";
+        
+        //do a redirect to refresh the view
+        if(this.previousURI != null && !this.previousURI.isEmpty()){
+            ec.redirect(this.previousURI);
+        }else{
+            ec.redirect(ec.getRequestContextPath());//go to home
+        }
+            
     }
     
     public void checkSessionActive(){
@@ -116,7 +126,11 @@ public class FormUserLogin implements Serializable {
             }else{
                 //pop up login block
                 session.setAttribute("user", 0);
-                
+                //store this current requestURI for redirection after login
+                String originalURI = (String) req.getAttribute("javax.servlet.forward.request_uri");
+                if(originalURI != null || !originalURI.isEmpty()){
+                    this.previousURI = originalURI;
+                }
             }
             fc.getPartialViewContext().getRenderIds().add("login-form:loginbox-container");
         }

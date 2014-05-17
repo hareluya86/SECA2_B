@@ -29,7 +29,7 @@
                                 <div>User Type: </div>
                                 <h:selectOneMenu value="#{userCreate.selectedUsertype}">
                                     <f:selectItems value="#{userCreate.getUserTypes(0, 99)}" var="usertype"
-                                                   itemLabel="#{usertype.USERTYPE}" itemValue="#{usertype.USERTYPE}" />
+                                                   itemLabel="#{usertype.USERTYPENAME}" itemValue="#{usertype.USERTYPENAME}" />
                                 </h:selectOneMenu>
 
                                 <f:facet name="footer" >
@@ -97,10 +97,10 @@
                                 <p:column headerText="User Type">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{usertype.USERTYPE}" />
+                                            <h:outputText value="#{usertype.USERTYPENAME}" />
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText label="Usertype" value="#{usertype.USERTYPE}" />
+                                            <p:inputText label="Usertype" value="#{usertype.USERTYPENAME}" />
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
