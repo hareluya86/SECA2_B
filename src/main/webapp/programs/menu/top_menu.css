@@ -35,3 +35,7 @@ nav a.menu-item:after {
 #header a.menu-item .rest{
     border-left: 1px solid;
 }
+
+nav.menu .logout-button{
+    float: right;
+}

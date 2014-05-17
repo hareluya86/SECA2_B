@@ -9,24 +9,15 @@ package Program.User;
 import Component.User.UserAccountLockedException;
 import Component.User.UserService;
 import Entity.User.UserEntity;
-import Program.Util.FacesMessenger;
-import com.ocpsoft.pretty.faces.annotation.URLAction;
-import com.ocpsoft.pretty.faces.annotation.URLBeanName;
-import com.ocpsoft.pretty.faces.annotation.URLMapping;
-import com.ocpsoft.pretty.faces.annotation.URLMappings;
+import Program.Messenger.FacesMessenger;
+import java.io.IOException;
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -127,8 +118,20 @@ public class FormUserLogin implements Serializable {
                 session.setAttribute("user", 0);
                 
             }
-            fc.getPartialViewContext().getRenderIds().add("loginbox-container");
+            fc.getPartialViewContext().getRenderIds().add("login-form:loginbox-container");
         }
+    }
+    
+    public void logout() throws IOException{
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = fc.getExternalContext();
+        HttpServletRequest req = (HttpServletRequest) ec.getRequest();
+        
+        ec.invalidateSession();
+        
+        ec.redirect(ec.getRequestContextPath());//go to home
+        FacesMessenger.setFacesMessage(messageBoxId, FacesMessage.SEVERITY_INFO,
+                    "You have logged out successfully.",null);
     }
 
     public String getUsername() {

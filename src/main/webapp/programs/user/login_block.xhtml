@@ -5,50 +5,58 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
-        <h:panelGroup id="loginbox-container" layout="block">
-            <p:dialog id="modalDialog" widgetVar="loginbox" header="#{bootstrap.programUserLogin.loginboxTitle}" modal="true" 
-                      height="200" width="500"
-                      style="" closable="false">  
-                <h:form id="login-form">
-                    <p:panelGrid id="login-form-table" columns="2">
-                        <f:facet name="header">
-                            <p:messages id="login-form-messages" showDetail="false" autoUpdate="true"
-                                        for="login-form"/>
-                        </f:facet>
-                        <p:outputLabel value="Username: " />
-                        <p:inputText value="#{bootstrap.programUserLogin.username}" />
-                        
-                        <p:outputLabel value="Password: " />
-                        <p:password value="#{bootstrap.programUserLogin.password}" />
-                    </p:panelGrid>
-                    
-                    
-                    <p:commandButton value="Log in" actionListener="#{bootstrap.programUserLogin.login()}" 
-                                     update=":loginbox-container" />
-                </h:form>
-            </p:dialog>
-            <script type="text/javascript">
-               $(document).ready(function() {
-                   if (typeof (Storage) != "undefined")
-                   {
-                       var session = #{session.getAttribute("user")};
-                       if(session == null || !session){
-                           PF('loginbox').show();
-                       } else if(session) {
-                           PF('loginbox').hide();
-                       } else {
-                           PF('loginbox').show(); //not sure authenticated or not, authenticate anyway
-                       }
-                    }
-                    else
-                    {
-                        document.getElementById("header").innerHTML = "<br/>Sorry, your browser does not support Web Storage...";
-                    }
-                });
-            </script>
-            <p:ajaxExceptionHandler type="javax.faces.application.ViewExpiredException"
-                                        update="modalDialog"
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/login_block.css" />
+        <h:form id="login-form">
+            <h:panelGroup id="loginbox-container" layout="block">
+                <p:blockUI block="login-form-ajax" trigger="login-button">
+                    <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
+                </p:blockUI>
+                <p:dialog id="loginDialog" widgetVar="loginbox" header="#{bootstrap.programUserLogin.loginboxTitle}" modal="true" 
+                          
+                          style="" closable="false">  
+                    <h:panelGroup id="login-form-ajax" layout="block">
+
+
+                        <p:panelGrid id="login-form-table" columns="2">
+                            <f:facet name="header">
+                                <p:messages id="login-form-messages" showDetail="false" autoUpdate="true"
+                                            for="login-form"/>
+                            </f:facet>
+                            <p:outputLabel value="Username: " />
+                            <p:inputText value="#{bootstrap.programUserLogin.username}" />
+
+                            <p:outputLabel value="Password: " />
+                            <p:password value="#{bootstrap.programUserLogin.password}" />
+                        </p:panelGrid>
+                        <p:commandButton value="Log in" action="#{bootstrap.programUserLogin.login()}" 
+                                         update="loginbox-container" id="login-button"/>
+                    </h:panelGroup>
+                </p:dialog>
+
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        if (typeof (Storage) != "undefined")
+                        {
+                            var session = #{session.getAttribute("user")};
+                            if (session == null || !session) {
+                                PF('loginbox').show();
+                            } else if (session) {
+                                PF('loginbox').hide();
+                            } else {
+                                PF('loginbox').show(); //not sure authenticated or not, authenticate anyway
+                            }
+                        }
+                        else
+                        {
+                            document.getElementById("header").innerHTML = "<br/>Sorry, your browser does not support Web Storage...";
+                        }
+                    });
+                </script>
+                <p:ajaxExceptionHandler type="javax.faces.application.ViewExpiredException"
+                                        update="loginDialog"
                                         onexception="PF('loginbox').show();" />
-        </h:panelGroup>
+
+            </h:panelGroup>
+        </h:form>
     </ui:composition>
 </html>

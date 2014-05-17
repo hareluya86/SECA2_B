@@ -7,7 +7,7 @@ package Program.User;
 
 import Component.User.UserService;
 import Component.User.UserTypeException;
-import Program.Util.FacesMessenger;
+import Program.Messenger.FacesMessenger;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;

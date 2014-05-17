@@ -17,7 +17,8 @@
                             <p:outputLabel value="Filename: " />
                             <p:inputText id="filename" styleClass="search-input"
                                          value="#{ProgramFile.fileSearch.searchName}">
-                                <p:ajax update="search-results-list" listener="#{ProgramFile.fileSearch.search}"
+                                <p:ajax event="valueChange" update="search-results-list" 
+                                        listener="#{ProgramFile.fileSearch.search}"
                                         />
                             </p:inputText>
 

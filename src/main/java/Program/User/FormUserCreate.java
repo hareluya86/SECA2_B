@@ -9,7 +9,7 @@ package Program.User;
 import Component.User.UserRegistrationException;
 import Component.User.UserService;
 import Entity.User.UserType;
-import Program.Util.FacesMessenger;
+import Program.Messenger.FacesMessenger;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -7,6 +7,7 @@
 package Bootstrap.Demo;
 
 import Bootstrap.Bootstrap;
+import Entity.User.UserEntity;
 import Program.User.FormUserLogin;
 import Template.Template;
 import Template.TemplateFactory;
@@ -22,12 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * Just a dispatcher
@@ -47,7 +44,7 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
     private String module;
     private String template;
     private String program;
-    private String sessionId;
+    private UserEntity user;
     
     private Map<String,Object> elements;
     
@@ -59,7 +56,6 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
         elements.put("header", "this is the header from the map object");
         
         System.out.println("Bootstrap is called from @PostConstruct! "+module);
-        sessionId = "";
     }
     
     
@@ -82,13 +78,12 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
             vp = vpf.getViewPage(program);
         }
         elements.put("viewpage", vp);
-        
-        //ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        
-        //HttpSession sess = (HttpSession)ec.getSession(true);
-        //sess.setAttribute("viewpage", vp.getRoot());
     }
     
+    /**
+     * Decides which template to load
+     * <p>
+     */
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=false),
         @URLAction(mappingId="program", onPostback=false)
@@ -104,23 +99,20 @@ public class BootstrapDemo extends Bootstrap implements Serializable {
             t = tf.getTemplate(template);
         }
         elements.put("template", t);
-        
-        //ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        
-        //HttpSession sess = (HttpSession)ec.getSession(true);
-        //sess.setAttribute("template", t.getTEMPLATE_XHTML());
     }
     
+    /**
+     * A bootstrap class shouldn't have a dependency on a form class. Bootstrap
+     * exists even before any forms are called, but what the hack...before I 
+     * figure out how to split this entire bootstrap class into Servlet Filters,
+     * let's just put it here first...
+     */
     @URLActions(actions={
         @URLAction(mappingId="home", onPostback=true),
         @URLAction(mappingId="program", onPostback=true)
     })
     public void checkLogin(){
         this.programUserLogin.checkSessionActive();
-    }
-    
-    public void login(){
-        
     }
     
     public String getTemplate(){

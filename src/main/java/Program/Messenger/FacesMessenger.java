@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Program.Util;
+package Program.Messenger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

@@ -17,6 +17,8 @@
             <a href="#{request.contextPath}/program/file/" class="menu-item">FILE</a>
             <a href="#{request.contextPath}/program/user/" class="menu-item">USER</a>
             <a href="#{request.contextPath}/program/preference/" class="menu-item">PREFERENCES</a>
+            <p:commandButton styleClass="logout-button" actionListener="#{bootstrap.programUserLogin.logout()}"
+                             value="Log Out" />
         </nav>
     </ui:composition>
 </html>
