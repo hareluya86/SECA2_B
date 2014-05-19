@@ -7,6 +7,7 @@
 package Bootstrap.Demo;
 
 import Program.File.ViewPageFile;
+import Program.Install.ViewPageInstall;
 import Program.User.ViewPageCreateAccount;
 import Program.User.ViewPageUser;
 import View.ViewPage;
@@ -34,6 +35,8 @@ public class ViewPageFactoryDemo extends ViewPageFactory {
             vp = new ViewPageCreateAccount();
         }else if("User".equalsIgnoreCase(name)){
             vp = new ViewPageUser();
+        }else if("Install".equalsIgnoreCase(name)){
+            vp = new ViewPageInstall();
         }
         else{
             //return null; vp = null;

@@ -14,48 +14,14 @@ import java.util.List;
  *
  * @author KH
  */
-public class ViewPageUser implements ViewPage{
+public class ViewPageUser extends ViewPage{
 
-    private String root;
-    private String name;
-    private List<String> components;
-    
     @Override
     public void init() {
+        super.init();
         root = "/programs/user/layout.xhtml";
         name = "User";
-        components = new ArrayList<String>();
         components.add("search");
     }
 
-    @Override
-    public String getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(String root) {
-        this.root = root;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public List<String> getComponents() {
-        return this.getComponents();
-    }
-
-    @Override
-    public void setComponents(List<String> components) {
-        this.setComponents(components);
-    }
-    
 }

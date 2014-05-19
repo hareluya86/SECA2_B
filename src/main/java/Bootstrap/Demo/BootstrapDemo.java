@@ -34,7 +34,8 @@ import javax.inject.Named;
 
 @URLMappings(mappings={
     @URLMapping(id="home", pattern="/",viewId="/program/index.xhtml"),
-    @URLMapping(id="program", pattern="/program/#{bootstrap.program}/",viewId="/program/index.xhtml")
+    @URLMapping(id="program", pattern="/program/#{bootstrap.program}/",viewId="/program/index.xhtml"),
+    @URLMapping(id="install", pattern="/install/",viewId="/program/programs/install/install.xhtml")
 })
 @URLBeanName("bootstrap")
 @Named("bootstrap")

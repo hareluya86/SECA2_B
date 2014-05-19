@@ -14,48 +14,14 @@ import java.util.List;
  *
  * @author KH
  */
-public class ViewPageCreateAccount implements ViewPage{
+public class ViewPageCreateAccount extends ViewPage{
 
-    private String root;
-    private String name;
-    private List<String> components;
-    
     @Override
     public void init() {
+        super.init();
         root = "/programs/user/create_account.xhtml";
         name = "CreateAccount";
         components = new ArrayList<String>();
         
     }
-
-    @Override
-    public String getRoot() {
-        return root;
-    }
-
-    @Override
-    public void setRoot(String root) {
-        this.root = root;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public List<String> getComponents() {
-        return this.components;
-    }
-
-    @Override
-    public void setComponents(List<String> components) {
-        this.components = components;
-    }
-    
 }

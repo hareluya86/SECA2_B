@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 
-package Program.File;
+package Program.Install;
 
 import View.ViewPage;
-import View.ViewPageType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +14,14 @@ import java.util.List;
  *
  * @author KH
  */
-@ViewPageType("ViewPageFile")
-public class ViewPageFile extends ViewPage {
+public class ViewPageInstall extends ViewPage {
 
     @Override
-    public void init(){
+    public void init() {
         super.init();
-        root = "/programs/file/layout.xhtml";
-        name = "file";
-        components.add("search");
-        components.add("subprogram");
+        root = "/programs/install/install.xhtml";
+        name = "Install";
+        components = new ArrayList<String>();
     }
+    
 }

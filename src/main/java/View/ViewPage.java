@@ -7,28 +7,52 @@
 package View;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author KH
  */
-public interface ViewPage extends Serializable{
+public abstract class ViewPage implements Serializable{
     
-    public void init();
+    protected String root;
+    protected String name;
+    protected List<String> components;
+    
+    public void init(){
+        root = "";
+        name = "";
+        components = new ArrayList<String>();
+    }
+
     /**
-     * 
-     * @return 
+     *
+     * Getters and Setters
      */
-    public String getRoot();
+    public String getRoot() {
+        return root;
+    }
+
+    public void setRoot(String root) {
+        this.root = root;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getComponents() {
+        return components;
+    }
+
+    public void setComponents(List<String> components) {
+        this.components = components;
+    }
+
     
-    public void setRoot(String root);
-    
-    public String getName();
-    
-    public void setName(String name);
-    
-    public List<String> getComponents();
-    
-    public void setComponents(List<String> components);
 }
