@@ -13,8 +13,53 @@
 
         <body>
             <div class="container">
-                <div class="hero-unit">
+                <div class="jumbotron">
                     <h1>SECA2 setup</h1>
+                </div>
+                <div class="row">
+
+                    <h:form>
+                        <div id="install-form" class="col-lg-6">
+
+                            <h2>Enter an admin username and password</h2>
+                            <p>This will be used for your first login and allow you to manage all functionalities of SECA2</p>
+                            <div>
+                                <div class="col-lg-6">
+
+                                    <div class="input-group input-group-lg">
+                                        <h:inputText id="username" class="form-control" 
+                                                     value="#{Installer.userCreate.username}"
+                                                     required="true" 
+                                                     requiredMessage="Username is mandatory."/>
+                                        <p:watermark for="username" value="Username" />
+
+
+                                        <h:inputSecret id="password" class="form-control" 
+                                                       value="#{Installer.userCreate.username}"
+                                                       required="true"
+                                                       requiredMessage="Password is mandatory."/>
+                                        <p:watermark for="password" value="Password" />
+
+                                    </div>
+
+                                    <div class="input-group input-group-lg">
+                                        <br />
+                                        <p:commandButton styleClass="btn btn-primary" value="Install SECA2"
+                                                         id="install-button" update="@form"
+                                                         action="#{Installer.install}"/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p:message for="username" styleClass="alert alert-danger" />
+                                    <p:message for="password" escape="false" />
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+
+                    <div class="col-lg-6">
+                        This is the 2nd column
+                    </div>
                 </div>
             </div>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>

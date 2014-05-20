@@ -9,13 +9,19 @@ package Bootstrap.Demo;
 import Component.Data.DBConnection;
 import Entity.User.UserEntity;
 import Program.User.FormUserCreate;
+import java.io.Serializable;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author vincent.a.lee
  */
-public class FormInstaller {
+@Named("Installer")
+@SessionScoped
+public class FormInstaller implements Serializable {
     private DBConnection connSettings;
     private final String formName = "installer-form";
     
@@ -24,6 +30,7 @@ public class FormInstaller {
     public void install(){
         //Create the first user
         this.userCreate.registerNewUser();
+        System.out.println("install was called");//debug
     }
 
     public DBConnection getConnSettings() {
