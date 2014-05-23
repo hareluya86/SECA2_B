@@ -7,11 +7,12 @@
 package Bootstrap.Demo;
 
 import Component.Data.DBConnection;
-import Entity.User.UserEntity;
 import Program.User.FormUserCreate;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,12 +21,18 @@ import javax.inject.Named;
  * @author vincent.a.lee
  */
 @Named("Installer")
-@SessionScoped
+@RequestScoped
 public class FormInstaller implements Serializable {
     private DBConnection connSettings;
     private final String formName = "installer-form";
     
     @Inject private FormUserCreate userCreate;
+    @Inject private CheckInstaller checkInstaller;
+    
+    @PostConstruct
+    public void init(){
+        System.out.println("installer is instantiated");
+    }
     
     public void install(){
         //Create the first user
@@ -47,6 +54,14 @@ public class FormInstaller implements Serializable {
 
     public void setUserCreate(FormUserCreate userCreate) {
         this.userCreate = userCreate;
+    }
+
+    public CheckInstaller getCheckInstaller() {
+        return checkInstaller;
+    }
+
+    public void setCheckInstaller(CheckInstaller checkInstaller) {
+        this.checkInstaller = checkInstaller;
     }
     
     

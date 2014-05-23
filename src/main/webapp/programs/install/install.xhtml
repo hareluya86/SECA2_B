@@ -3,7 +3,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition>
         <h:head>
             <title>With Bootstrap</title>
@@ -16,51 +17,63 @@
                 <div class="jumbotron">
                     <h1>SECA2 setup</h1>
                 </div>
+
                 <div class="row">
+                    <p:ajaxStatus styleClass="ajax-load">
+                        <f:facet name="start">
+                            <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
+                        </f:facet>
+                        <f:facet name="complete">
+                            <h:form id="createUser">
+                                <div id="install-form-container" class="col-lg-6">
 
-                    <h:form>
-                        <div id="install-form" class="col-lg-6">
+                                    <h2>Enter an admin username and password</h2>
+                                    <p>This will be used for your first login and allow you to manage all functionalities of SECA2</p>
+                                    <!--<p:message for="createUser" styleClass="alert alert-danger" 
+                                                 /><br/>-->
+                                    <div>
+                                        <div class="col-lg-6">
 
-                            <h2>Enter an admin username and password</h2>
-                            <p>This will be used for your first login and allow you to manage all functionalities of SECA2</p>
-                            <div>
-                                <div class="col-lg-6">
-
-                                    <div class="input-group input-group-lg">
-                                        <h:inputText id="username" class="form-control" 
-                                                     value="#{Installer.userCreate.username}"
-                                                     required="true" 
-                                                     requiredMessage="Username is mandatory."/>
-                                        <p:watermark for="username" value="Username" />
+                                            <div class="input-group input-group-lg">
+                                                <h:inputText id="username" class="form-control" 
+                                                             value="#{Installer.userCreate.username}"
+                                                             required="true" 
+                                                             requiredMessage="Username is mandatory."/>
+                                                <p:watermark for="username" value="Username" />
 
 
-                                        <h:inputSecret id="password" class="form-control" 
-                                                       value="#{Installer.userCreate.username}"
-                                                       required="true"
-                                                       requiredMessage="Password is mandatory."/>
-                                        <p:watermark for="password" value="Password" />
+                                                <h:inputSecret id="password" class="form-control" 
+                                                               value="#{Installer.userCreate.password}"
+                                                               required="true"
+                                                               requiredMessage="Password is mandatory."/>
+                                                <p:watermark for="password" value="Password" />
 
-                                    </div>
+                                            </div>
 
-                                    <div class="input-group input-group-lg">
-                                        <br />
-                                        <p:commandButton styleClass="btn btn-primary" value="Install SECA2"
-                                                         id="install-button" update="@form"
-                                                         action="#{Installer.install}"/>
+                                            <div class="input-group input-group-lg">
+                                                <br />
+                                                <p:commandButton styleClass="btn btn-primary" value="Install SECA2"
+                                                                 id="install-button" update="@form"
+                                                                 actionListener="#{Installer.install()}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <p:message for="username" styleClass="alert alert-danger" />
+                                            <p:message for="password" styleClass="alert alert-danger" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <p:message for="username" styleClass="alert alert-danger" />
-                                    <p:message for="password" escape="false" />
-                                </div>
-                            </div>
-                        </div>
-                    </h:form>
+                            </h:form>
+                        </f:facet>
+                    </p:ajaxStatus>
+
+
 
                     <div class="col-lg-6">
                         This is the 2nd column
                     </div>
                 </div>
+
             </div>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
             <script src="js/bootstrap.min.js"></script>

@@ -99,6 +99,10 @@ public class FormUserCreate implements Serializable {
     public void setSelectedUsertype(String selectedUsertype) {
         this.selectedUsertype = selectedUsertype;
     }
+
+    public String getFormName() {
+        return formName;
+    }
     
     
 }

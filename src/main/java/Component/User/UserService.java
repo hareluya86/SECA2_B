@@ -252,12 +252,11 @@ public class UserService {
      * to the caller of your web service. But a "SELECT userid, username
      * FROM user..." statement can do the job equally well.
      */
-    public List<UserEntity> searchUserByName(String usernamePattern, String usertype){
+    public List<UserEntity> searchUserByName(String usernamePattern){
         if(session == null || !session.isOpen()) 
             session = hibernateUtil.getSession();
         Criteria selectUserAndType = session.createCriteria(UserEntity.class)
-                .add(Restrictions.ilike("USERNAME", "%"+usernamePattern+"%"))
-                .add(Restrictions.eq("USERTYPE.USERTYPENAME",usertype));
+                .add(Restrictions.ilike("USERNAME", "%"+usernamePattern+"%"));
         List<UserEntity> result = selectUserAndType.list();
         
         return result;
