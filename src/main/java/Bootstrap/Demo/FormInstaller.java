@@ -48,7 +48,17 @@ public class FormInstaller implements Serializable {
     }
 
     public void install() {
-
+        //Check again at the point of installation whether a user account has 
+        //been mysteriously created. If yes, don't proceed with the installation.
+        this.checkInstaller.setStatus();
+        if(this.checkInstaller.getStatus() == CheckInstaller.INSTALL_STATUS.INSTALLED){
+            //this.checkInstaller.setStatus(CheckInstaller.INSTALL_STATUS.INSTALLED);
+            FacesMessenger.setFacesMessage(formName,
+                    FacesMessage.SEVERITY_INFO,
+                    "Your application has been installed while you were away, but "
+                            + "the good news is you can use it now!", null);
+            return;
+        }
         try {
             //Create first usertype if doesn't exist
             UserType userType = userService.getUserTypeByName(selectedUsertype);
@@ -72,7 +82,7 @@ public class FormInstaller implements Serializable {
             String message = ejbex.getCause().getMessage();
             if (ejbex.getCause() instanceof JDBCConnectionException) {
                 FacesMessenger.setFacesMessage(formName, FacesMessage.SEVERITY_ERROR,
-                        "DB Connection error", ejbex.getMessage());
+                        "DB Connection error", "Please contact your system administrator.");
             } else {
                 FacesMessenger.setFacesMessage(formName, FacesMessage.SEVERITY_ERROR, message, null);
             }
@@ -84,10 +94,9 @@ public class FormInstaller implements Serializable {
     }
     
     public boolean renderInstallForm(){
-        if(checkInstaller.getStatus() != CheckInstaller.INSTALL_STATUS.INSTALLED){
-            return true;
-        }
-        return false;
+        //For now, just check it everytime installer is run.
+        checkInstaller.setStatus();
+        return checkInstaller.getStatus() != CheckInstaller.INSTALL_STATUS.INSTALLED;
     }
     
     public boolean renderWelcome(){

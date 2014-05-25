@@ -6,19 +6,30 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/create_user.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/css/bootstrap.min.css" />
         <p:tabView dynamic="true" cache="false" id="createUserTabView" >
             <p:tab title="Create User">
                 <h:form id="createUser">
+                    
                     <p:ajaxStatus styleClass="ajax-load">
                         <f:facet name="start" >
-
                             <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
                         </f:facet>
                         <f:facet name="complete" >
+                            <h:panelGroup layout="block" styleClass="row">
+                                <p:messages id="create-user-messages" showDetail="false" autoUpdate="true" 
+                                                for="createUser"/>
+                                <h:panelGroup layout="block" styleClass="col-lg-6">
+                                    <h:inputText id="username" class="form-control" 
+                                                     value="#{Installer.username}"
+                                                     required="true" 
+                                                     requiredMessage="Username is mandatory."/>
+                                        <p:watermark id="watermark-username" for="username" value="Username" />
+                                </h:panelGroup>
+                            </h:panelGroup>
                             <p:panelGrid columns="2">
                                 <f:facet name="header">
-                                    <p:messages id="create-user-messages" showDetail="false" autoUpdate="true" 
-                                                for="createUser"/>
+                                    
                                 </f:facet>
                                 <div>Username: </div>
                                 <h:inputText value="#{userCreate.username}" />
@@ -146,6 +157,6 @@
             </p:tab>
 
         </p:tabView>
-
+        <script src="#{request.contextPath}/js/bootstrap.min.js"></script>
     </ui:composition>
 </html>

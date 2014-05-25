@@ -9,28 +9,30 @@
         <h:head>
             <title>Setup SECA2</title>
             <link rel="stylesheet" type="text/css" 
-                  href="#{request.contextPath}/programs/install/bootstrap.min.css" />
+                  href="#{request.contextPath}/css/bootstrap.min.css" />
         </h:head>
 
         <body>
             <div class="container">
                 <div class="jumbotron">
                     <h1>SECA2 setup</h1>
+
                 </div>
 
 
                 <h:panelGroup layout="block" styleClass="row">
-                    <!--<p:ajaxStatus styleClass="ajax-load">
+                    
+                    <p:messages for="installer"  autoUpdate="true"
+                                /><br/>
+                    <h:panelGroup layout="block" id="install-form-container" styleClass="col-lg-6" 
+                                  rendered="#{Installer.renderInstallForm()}">
+                        <h:form id="installer">
+                            <!--<p:ajaxStatus styleClass="ajax-load">
 
                         <f:facet name="start">
                             <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
                         </f:facet>
                         <f:facet name="complete">-->
-                    <p:messages for="installer"  autoUpdate="true" showDetail="false"
-                                    /><br/>
-                    <h:panelGroup layout="block" id="install-form-container" styleClass="col-lg-6" 
-                                  rendered="#{Installer.renderInstallForm()}">
-                        <h:form id="installer">
                             <h2>Enter an admin username and password</h2>
                             <p>This will be used for your first login and allow you to manage all functionalities of SECA2</p>
 
@@ -58,8 +60,10 @@
                                         <p:commandButton value="Install SECA2" update="@form"
                                                          id="install-button"
                                                          actionListener="#{Installer.install()}"
-                                                         onclick="PrimeFaces.cleanWatermarks();" 
+                                                         onclick="PrimeFaces.cleanWatermarks();
+                                                         " 
                                                          oncomplete="PrimeFaces.showWatermarks();"/>
+                                        
                                     </h:panelGroup>
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="col-lg-6" layout="block">
@@ -67,6 +71,8 @@
                                     <p:message for="password" styleClass="alert alert-danger" />
                                 </h:panelGroup>
                             </h:panelGroup>
+                            <!--</f:facet>
+                </p:ajaxStatus>-->
                         </h:form>
                     </h:panelGroup>
                     <h:panelGroup id="installed-welcome" rendered="#{Installer.renderWelcome()}" 
@@ -75,8 +81,7 @@
                         <p>Please proceed to the <a href="#{request.contextPath}">main page to login</a>.</p>
                     </h:panelGroup>
 
-                    <!--</f:facet>
-                </p:ajaxStatus>-->
+                    
 
 
 
@@ -87,7 +92,7 @@
 
             </div>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
+            <script src="#{request.contextPath}/js/bootstrap.min.js"></script>
         </body>
     </ui:composition>
 </html>

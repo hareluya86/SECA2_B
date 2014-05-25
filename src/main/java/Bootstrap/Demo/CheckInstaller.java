@@ -48,10 +48,10 @@ public class CheckInstaller implements Serializable {
 
     public INSTALL_STATUS getStatus() {
         //if status was not completely set (INSTALLED or UNINSTALLED), try again
-        if (status != INSTALL_STATUS.INSTALLED
-                && status != INSTALL_STATUS.UNINSTALLED) {
+        /*if (status != INSTALL_STATUS.INSTALLED
+                && status != INSTALL_STATUS.UNINSTALLED) {//try if there's any issue here
             setStatus();
-        }
+        }*/
 
         return status;
     }
@@ -60,7 +60,7 @@ public class CheckInstaller implements Serializable {
         this.status = status;
     }
 
-    private void setStatus() {
+    public void setStatus() {
         List<UserEntity> results = new ArrayList<UserEntity>();
         try {
             results = userService.searchUserByName("");

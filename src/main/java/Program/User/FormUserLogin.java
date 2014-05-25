@@ -60,6 +60,7 @@ public class FormUserLogin implements Serializable {
 
     public void login() throws IOException {
         //Check if application was installed by calling CheeckInstaller everytime someone logs in.
+        this.checkInstaller.setStatus();
         if (this.checkInstaller.getStatus() != CheckInstaller.INSTALL_STATUS.INSTALLED) {
             return;
         }
@@ -168,6 +169,7 @@ public class FormUserLogin implements Serializable {
      * Helper class
      */
     private boolean checkInstalled() {
+        checkInstaller.setStatus();
         if (checkInstaller.getStatus() != CheckInstaller.INSTALL_STATUS.INSTALLED) {
             FacesMessenger.setFacesMessage(messageBoxId, FacesMessage.SEVERITY_INFO,
                     "Application is not installed yet, "
