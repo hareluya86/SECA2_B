@@ -6,6 +6,7 @@
 
 package Program.User;
 
+import Bootstrap.Demo.CheckInstaller;
 import Component.User.UserRegistrationException;
 import Component.User.UserService;
 import Entity.User.UserType;
@@ -15,8 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.hibernate.exception.JDBCConnectionException;
 
@@ -38,7 +42,7 @@ public class FormUserCreate implements Serializable {
     
     @PostConstruct
     public void init(){
-        
+        selectedUsertype = "human";
     }
     
     /**
@@ -69,11 +73,17 @@ public class FormUserCreate implements Serializable {
         }catch(UserRegistrationException urex){
             FacesMessenger.setFacesMessage(formName,
                     FacesMessage.SEVERITY_ERROR, urex.getMessage(), null);
-        }catch(JDBCConnectionException jdbcex){
-            FacesMessenger.setFacesMessage(formName,
-                    FacesMessage.SEVERITY_ERROR,"Database connection error!",jdbcex.getMessage());
+            return;
+        }catch (EJBException ejbex) {
+            String message = ejbex.getCause().getMessage();
+            if (ejbex.getCause() instanceof JDBCConnectionException) {
+                FacesMessenger.setFacesMessage(formName,
+                    FacesMessage.SEVERITY_ERROR,"Database connection error!",message);
+            } else {
+                FacesMessenger.setFacesMessage(formName, FacesMessage.SEVERITY_ERROR, message, null);
+            }
+            return;
         }
-        
     }
     
     public String getUsername() {

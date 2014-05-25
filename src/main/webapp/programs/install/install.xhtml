@@ -7,7 +7,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition>
         <h:head>
-            <title>With Bootstrap</title>
+            <title>Setup SECA2</title>
             <link rel="stylesheet" type="text/css" 
                   href="#{request.contextPath}/programs/install/bootstrap.min.css" />
         </h:head>
@@ -18,61 +18,72 @@
                     <h1>SECA2 setup</h1>
                 </div>
 
-                <div class="row">
-                    <p:ajaxStatus styleClass="ajax-load">
+
+                <h:panelGroup layout="block" styleClass="row">
+                    <!--<p:ajaxStatus styleClass="ajax-load">
+
                         <f:facet name="start">
                             <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
                         </f:facet>
-                        <f:facet name="complete">
-                            <h:form id="createUser">
-                                <div id="install-form-container" class="col-lg-6">
+                        <f:facet name="complete">-->
+                    <p:messages for="installer"  autoUpdate="true" showDetail="false"
+                                    /><br/>
+                    <h:panelGroup layout="block" id="install-form-container" styleClass="col-lg-6" 
+                                  rendered="#{Installer.renderInstallForm()}">
+                        <h:form id="installer">
+                            <h2>Enter an admin username and password</h2>
+                            <p>This will be used for your first login and allow you to manage all functionalities of SECA2</p>
 
-                                    <h2>Enter an admin username and password</h2>
-                                    <p>This will be used for your first login and allow you to manage all functionalities of SECA2</p>
-                                    <!--<p:message for="createUser" styleClass="alert alert-danger" 
-                                                 /><br/>-->
-                                    <div>
-                                        <div class="col-lg-6">
+                            <h:panelGroup layout="block">
+                                <h:panelGroup styleClass="col-lg-6" layout="block">
 
-                                            <div class="input-group input-group-lg">
-                                                <h:inputText id="username" class="form-control" 
-                                                             value="#{Installer.userCreate.username}"
-                                                             required="true" 
-                                                             requiredMessage="Username is mandatory."/>
-                                                <p:watermark for="username" value="Username" />
+                                    <h:panelGroup styleClass="input-group input-group-lg" layout="block">
+                                        <h:inputText id="username" class="form-control" 
+                                                     value="#{Installer.username}"
+                                                     required="true" 
+                                                     requiredMessage="Username is mandatory."/>
+                                        <p:watermark id="watermark-username" for="username" value="Username" />
 
 
-                                                <h:inputSecret id="password" class="form-control" 
-                                                               value="#{Installer.userCreate.password}"
-                                                               required="true"
-                                                               requiredMessage="Password is mandatory."/>
-                                                <p:watermark for="password" value="Password" />
+                                        <h:inputSecret id="password" class="form-control" 
+                                                       value="#{Installer.password}"
+                                                       required="true"
+                                                       requiredMessage="Password is mandatory."/>
+                                        <p:watermark id="watermark-password" for="password" value="Password" />
 
-                                            </div>
+                                    </h:panelGroup>
 
-                                            <div class="input-group input-group-lg">
-                                                <br />
-                                                <p:commandButton styleClass="btn btn-primary" value="Install SECA2"
-                                                                 id="install-button" update="@form"
-                                                                 actionListener="#{Installer.install()}"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p:message for="username" styleClass="alert alert-danger" />
-                                            <p:message for="password" styleClass="alert alert-danger" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </h:form>
-                        </f:facet>
-                    </p:ajaxStatus>
+                                    <h:panelGroup styleClass="input-group input-group-lg" layout="block">
+                                        <br />
+                                        <p:commandButton value="Install SECA2" update="@form"
+                                                         id="install-button"
+                                                         actionListener="#{Installer.install()}"
+                                                         onclick="PrimeFaces.cleanWatermarks();" 
+                                                         oncomplete="PrimeFaces.showWatermarks();"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                                <h:panelGroup styleClass="col-lg-6" layout="block">
+                                    <p:message for="username" styleClass="alert alert-danger" />
+                                    <p:message for="password" styleClass="alert alert-danger" />
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </h:form>
+                    </h:panelGroup>
+                    <h:panelGroup id="installed-welcome" rendered="#{Installer.renderWelcome()}" 
+                                  styleClass="col-lg-6">
+                        <h2>Your SECA2 app is already installed!</h2>
+                        <p>Please proceed to the <a href="#{request.contextPath}">main page to login</a>.</p>
+                    </h:panelGroup>
+
+                    <!--</f:facet>
+                </p:ajaxStatus>-->
 
 
 
                     <div class="col-lg-6">
                         This is the 2nd column
                     </div>
-                </div>
+                </h:panelGroup>
 
             </div>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>

@@ -6,20 +6,20 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <link type="text/css" rel="stylesheet" href="#{request.contextPath}/programs/user/create_user.css" />
-        <h:inputHidden id="cid_col" value="#{FormCombined.cid}"/>
         <p:tabView dynamic="true" cache="false" id="createUserTabView" >
             <p:tab title="Create User">
+                <h:form id="createUser">
+                    <p:ajaxStatus styleClass="ajax-load">
+                        <f:facet name="start" >
 
-                <p:ajaxStatus styleClass="ajax-load">
-                    <f:facet name="start" >
-
-                        <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
-                    </f:facet>
-                    <f:facet name="complete" >
-                        <h:form id="createUser">
-                            <p:messages id="create-user-messages" showDetail="false" autoUpdate="true" closable="true" 
-                                        for="createUser"/>
+                            <img src="#{request.contextPath}/programs/file/ajax-loader1.gif" class="ajax-large" />
+                        </f:facet>
+                        <f:facet name="complete" >
                             <p:panelGrid columns="2">
+                                <f:facet name="header">
+                                    <p:messages id="create-user-messages" showDetail="false" autoUpdate="true" 
+                                                for="createUser"/>
+                                </f:facet>
                                 <div>Username: </div>
                                 <h:inputText value="#{userCreate.username}" />
 
@@ -33,15 +33,15 @@
                                 </h:selectOneMenu>
 
                                 <f:facet name="footer" >
-                                    <p:commandButton action="#{userCreate.registerNewUser()}"
-                                                     value="Create new user"
+                                    <p:commandButton actionListener="#{userCreate.registerNewUser()}"
+                                                     value="Create new user" 
                                                      update="@form" />
                                 </f:facet>
                             </p:panelGrid>
-                        </h:form>
-                    </f:facet>
-                </p:ajaxStatus>
 
+                        </f:facet>
+                    </p:ajaxStatus>
+                </h:form>
             </p:tab>
             <p:tab title="Create User Types">
 

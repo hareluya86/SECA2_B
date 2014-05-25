@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Error with SECA2</title>
+        <link rel="stylesheet" type="text/css" 
+              href="#{request.contextPath}/programs/install/bootstrap.min.css" />
+    </h:head>
+    <body>
+        <div class="container">
+            <h:outputText value="The follow error occured:" />
+            <h:panelGroup layout="block" styleClass="bs-callout bs-callout-danger">
+                <h4>#{ErrorReporter.errorTitle}</h4>
+                <p>#{ErrorReporter.stackTrace}</p>
+            </h:panelGroup>
+        </div>
+    </body>
+</html>
+

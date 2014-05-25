@@ -107,7 +107,8 @@ public class UserService {
             throw new UserRegistrationException("Username already exist. Please choose a different name.");
         }
         
-        if(!this.checkIfUserTypeExist(usertype)){
+        UserType userType = this.getUserTypeByName(usertype); //if multiple results match, the first one will be returned
+        if(userType == null){
             throw new UserRegistrationException("Usertype "+usertype+" does not exist. "
                     + "Please create a usertype first.");
         }
@@ -115,8 +116,6 @@ public class UserService {
         UserEntity newUser = new UserEntity();
         newUser.setUSERNAME(username);
         newUser.setPASSWORD(this.getPasswordHash(username, password, HASH_KEY));
-        
-        UserType userType = this.getUserTypeByName(usertype); //if multiple results match, the first one will be returned
         newUser.setUSERTYPE(userType);
         
         if(session == null || !session.isOpen()) 
